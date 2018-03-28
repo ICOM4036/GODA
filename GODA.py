@@ -1,0 +1,4 @@
+"""
+    MAIN EXECUTION OF GODA
+    TO BE DEVELOPED
+"""
