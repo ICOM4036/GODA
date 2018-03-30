@@ -4,9 +4,13 @@ class Collection(object):
     """
         CLASS COLLECTION
         A COLLECTION IS AN ADT THAT CONTAINS:
-        - TYPE OF OBJECT
-        - LIST OF OBJECTS
-        - DIRECTORY OF A DATA FILE *(TO BE ADDED IN THE FUTURE)*
+        - STRING    COLLECTION NAME
+        - STRING    OBJECT TYPE
+        - LIST      OBJECT ATTRIBUTES
+        - LIST      OBJECT DATA TYPES
+        - LIST      OBJECT COLLECTION
+        - DICT.     OBJECT VALUES MAP
+        * DIRECTORY OF A DATA FILE (TO BE ADDED IN THE FUTURE)*
     """
 
     def __init__(self, name, obj_def):
@@ -176,7 +180,7 @@ class Collection(object):
         """
         INNER CLASS OBJECT
         AN OBJECT CONTAINS:
-        - VALUES BASED ON THE OBJECTTYPE DEFINED FOR A COLLECTION
+        - LIST  VALUES
         """
 
         def __init__(self, values):

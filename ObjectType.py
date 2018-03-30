@@ -4,8 +4,9 @@ class ObjectType(object):
     """
         CLASS OBJECT TYPE
         AN OBJECT TYPE IS AN ADT THAT CONTAINS THE DEFINITION OF AN OBJECT TYPE:
-        - TYPE OF OBJECT
-        - LIST OF ATTRIBUTES (I.E. VARIABLES)
+        - STRING    OBJECT TYPE
+        - DICT.     OBJECT DATA TYPES
+        - LIST      OBJECT ATTRIBUTES
     """
 
     def __init__(self, obj_type, attribute_dict):
