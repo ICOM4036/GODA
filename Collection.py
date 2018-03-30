@@ -13,6 +13,7 @@ class Collection:
     __obj_attributes = []
     __obj_collection = []
     __obj_val_map = {}
+    __obj_data_type = []
 
     def __init__(self, name, obj_def):
         """
@@ -25,6 +26,8 @@ class Collection:
         self.__obj_attributes = obj_def.get_obj_attributes()
         for i in range(0, len(self.__obj_attributes)):
             self.__obj_val_map.__setitem__(self.__obj_attributes[i], i)
+        for j in obj_def.get_obj_data_types():
+            self.__obj_data_type.append(obj_def.get_obj_data_types().get(j))
 
     def get_obj_def(self):
         """
@@ -37,13 +40,35 @@ class Collection:
         s = s + "}"
         return s
 
+    def __obj_check_data_type(self, values):
+        """
+        CHECK NEW OBJECT COMPATIBILITY WITH COLLECTION
+        :param values: LIST - VALUES FOR A NEW OBJECT
+        :return: BOOLEAN
+        """
+        for i in range(0, len(self.__obj_attributes)):
+            s = "{}".format(type(values[i]))
+            if not s.__contains__(self.__obj_data_type[i]):
+                return False
+        return True
+
+    def __obj_check_one_data_type(self, attribute, value):
+        s = "{}".format(type(value))
+        return s.__contains__(self.__obj_data_type[self.__obj_attributes.index(attribute)])
+
     def add_obj(self, attribute_values):
         """
         ADD NEW OBJECT TO COLLECTION
         :param attribute_values: LIST - VALUES FOR AN OBJECT'S ATTRIBUTES
         :return: VOID
         """
-        self.__obj_collection.append(self.Object(attribute_values))
+        if len(attribute_values) != len(self.__obj_attributes):
+            print("Object fields do not match with Collection type")
+            return
+        if not self.__obj_check_data_type(attribute_values):
+            print("Object not compatible with collection")
+            return
+        self.__obj_collection.append(self.__Object(attribute_values))
 
     def remove_obj(self, index):
         """
@@ -51,6 +76,9 @@ class Collection:
         :param index: INTEGER - INDEX OF OBJECT TO BE REMOVED
         :return: VOID
         """
+        if index < 0 or index > len(self.__obj_collection)-1:
+            print("Index is out of bounds")
+            return
         self.__obj_collection.remove(self.__obj_collection[index])
 
     def set_obj_val(self, index, attribute, value):
@@ -61,6 +89,15 @@ class Collection:
         :param value: NEW VALUE
         :return: VOID
         """
+        if index < 0 or index > len(self.__obj_collection)-1:
+            print("Index is out of bounds")
+            return
+        if not self.__obj_attributes.__contains__(attribute):
+            print('Object does not have attribute "{}"'.format(attribute))
+            return
+        if not self.__obj_check_one_data_type(attribute, value):
+            print('Value "{}" is not compatible with Object'.format(value))
+            return
         self.__obj_collection[index].set_value(self.__obj_val_map.get(attribute), value)
 
     def get_obj_val(self, index, attribute):
@@ -70,6 +107,12 @@ class Collection:
         :param attribute: STRING - VALUE TO BE RETURNED
         :return: VALUE
         """
+        if index < 0 or index > len(self.__obj_collection)-1:
+            print("Index is out of bounds")
+            return
+        if not self.__obj_attributes.__contains__(attribute):
+            print('Object does not have attribute "{}"'.format(attribute))
+            return
         return self.__obj_collection[index].get_value(self.__obj_val_map.get(attribute))
 
     def get_all_obj_val(self, attribute):
@@ -78,10 +121,31 @@ class Collection:
         :param attribute: STRING - VALUE TO BE LISTED
         :return: LIST - VALUES
         """
+        if not self.__obj_attributes.__contains__(attribute):
+            print('Object does not have attribute "{}"'.format(attribute))
+            return
         temp = []
         for o in self.__obj_collection:
             temp.append(o.get_value(self.__obj_val_map.get(attribute)))
         return temp
+
+    def get_object(self, index):
+        """
+        GET OBJECT
+        :param index: INTEGER - INDEX OF OBJECT
+        :return: OBJECT
+        """
+        if index < 0 or index > len(self.__obj_collection) - 1:
+            print("Index is out of bounds")
+            return
+        return self.__obj_collection[index]
+
+    def get_obj_list(self):
+        """
+        GET LIST OF OBJECTS
+        :return: LIST - OBJECT
+        """
+        return self.__obj_collection
 
     def display_col(self):
         """
@@ -94,7 +158,7 @@ class Collection:
             s = s + " {} | ".format(i)
         print(s)
         for i in range(0, len(self.__obj_collection)):
-            s1 = " {} | ".format(i) + self.__obj_collection[i].to_string()
+            s1 = " {} ".format(i) + self.__obj_collection[i].to_string()
             print(s1)
 
     def col_size(self):
@@ -111,7 +175,7 @@ class Collection:
         """
         return len(self.__obj_collection) == 0
 
-    class Object:
+    class __Object:
         """
         INNER CLASS OBJECT
         AN OBJECT CONTAINS:
@@ -155,7 +219,7 @@ class Collection:
             GENERATE A STRING OF AN OBJECT'S VALUES
             :return: STRING - OBJECT VALUES
             """
-            s = ''
+            s = '|'
             for i in self.__values:
                 s = s + " {} |".format(i)
             return s
