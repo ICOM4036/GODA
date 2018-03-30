@@ -1,6 +1,6 @@
 
 
-class Collection:
+class Collection(object):
     """
         CLASS COLLECTION
         A COLLECTION IS AN ADT THAT CONTAINS:
@@ -8,12 +8,6 @@ class Collection:
         - LIST OF OBJECTS
         - DIRECTORY OF A DATA FILE *(TO BE ADDED IN THE FUTURE)*
     """
-    __col_name = ''
-    __obj_type = ''
-    __obj_attributes = []
-    __obj_collection = []
-    __obj_val_map = {}
-    __obj_data_type = []
 
     def __init__(self, name, obj_def):
         """
@@ -24,6 +18,9 @@ class Collection:
         self.__col_name = name
         self.__obj_type = obj_def.get_obj_type()
         self.__obj_attributes = obj_def.get_obj_attributes()
+        self.__obj_val_map = {}
+        self.__obj_data_type = []
+        self.__obj_collection = []
         for i in range(0, len(self.__obj_attributes)):
             self.__obj_val_map.__setitem__(self.__obj_attributes[i], i)
         for j in obj_def.get_obj_data_types():
@@ -175,13 +172,13 @@ class Collection:
         """
         return len(self.__obj_collection) == 0
 
-    class __Object:
+    class __Object(object):
         """
         INNER CLASS OBJECT
         AN OBJECT CONTAINS:
         - VALUES BASED ON THE OBJECTTYPE DEFINED FOR A COLLECTION
         """
-        __values = []
+        # __values = []
 
         def __init__(self, values):
             """

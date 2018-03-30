@@ -1,6 +1,41 @@
 from ObjectType import ObjectType
 from Collection import Collection
 
+
+print("===================\n\nTESTING INSTANCES\n\n===================")
+
+ot1 = "Car"
+at1 = {"model":"str", "year":"int", "color":"str"}
+o1 = ObjectType(ot1, at1)
+
+ot2 = "Person"
+at2 = {"name":"str", "age":"int"}
+o2 = ObjectType(ot2, at2)
+
+cn1 = "Garage"
+c1 = Collection(cn1, o1)
+
+cn2 = "People"
+c2 = Collection(cn2, o2)
+
+
+c1.add_obj(["Tacoma", 2010, "gray"])
+c1.add_obj(["Sienna", 2015, "black"])
+c1.add_obj(["Yaris", 2020, "red"])
+c1.add_obj(["Smart Car", 2018, "blue"])
+
+c2.add_obj(["Willy Wonka", 55])
+c2.add_obj(["Pedro", 62])
+c2.add_obj(["Bienve", 47])
+
+print(c1.get_obj_def())
+c1.display_col()
+print("\n")
+print(c2.get_obj_def())
+c2.display_col()
+print("\n")
+
+
 print("===================\n\nTESTING COLLECTIONS\n\n===================")
 
 # Define Object type
@@ -85,7 +120,3 @@ print("\n\n"+test_collection.get_object(len(test_collection.get_obj_list())-1).t
 print(test_collection.get_object(len(test_collection.get_obj_list())))
 # Out of bounds
 print(test_collection.get_object(len(test_collection.get_obj_list())+1))
-
-
-
-

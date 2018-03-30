@@ -1,24 +1,25 @@
 
 
-class ObjectType:
+class ObjectType(object):
     """
         CLASS OBJECT TYPE
         AN OBJECT TYPE IS AN ADT THAT CONTAINS THE DEFINITION OF AN OBJECT TYPE:
         - TYPE OF OBJECT
         - LIST OF ATTRIBUTES (I.E. VARIABLES)
     """
-    __obj_type = ''
-    __attributes_dict = {}
-    __attributes_list = []
+    # __obj_type = ''
+    # __attributes_dict = {}
+    # __attributes_list = []
 
     def __init__(self, obj_type, attribute_dict):
         """
         OBJECT TYPE CONSTRUCTOR
         :param obj_type: STRING - OBJECT TYPE
-        :param attribute_dict: DICTIONARY - ATTRIBUTES' NAMES AND RESPECTIVE DATA TYPES
+        :param attribute_dict: DICTIONARY - {ATTRIBUTE : DATA TYPE}
         """
         self.__obj_type = obj_type
         self.__attributes_dict = attribute_dict
+        self.__attributes_list = []
         for a in self.__attributes_dict:
             self.__attributes_list.append(a)
 
@@ -42,3 +43,5 @@ class ObjectType:
         :return: STRING - OBJECT TYPE
         """
         return self.__obj_type
+
+
