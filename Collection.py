@@ -33,7 +33,7 @@ class Collection(object):
         """
         s = self.__obj_type + "{|"
         for i in range(0, len(self.__obj_attributes)):
-            s = s + " {} |".format(self.__obj_attributes[i])
+            s = s + " {}: {} |".format(self.__obj_attributes[i], self.__obj_data_type[i])
         s = s + "}"
         return s
 
@@ -150,9 +150,9 @@ class Collection(object):
         :return: VOID
         """
         print("Collection:", self.__col_name, "\nType:", self.__obj_type)
-        s = "INDEX | "
+        s = "INDEX |"
         for i in self.__obj_attributes:
-            s = s + " {} | ".format(i)
+            s = s + " {} |".format(i)
         print(s)
         for i in range(0, len(self.__obj_collection)):
             s1 = " {} ".format(i) + self.__obj_collection[i].to_string()
@@ -178,7 +178,6 @@ class Collection(object):
         AN OBJECT CONTAINS:
         - VALUES BASED ON THE OBJECTTYPE DEFINED FOR A COLLECTION
         """
-        # __values = []
 
         def __init__(self, values):
             """

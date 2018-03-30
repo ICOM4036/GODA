@@ -5,34 +5,43 @@ from Collection import Collection
 print("===================\n\nTESTING INSTANCES\n\n===================")
 
 ot1 = "Car"
-at1 = {"model":"str", "year":"int", "color":"str"}
+at1 = {"model": "str", "year": "int", "color": "str"}
 o1 = ObjectType(ot1, at1)
-
-ot2 = "Person"
-at2 = {"name":"str", "age":"int"}
-o2 = ObjectType(ot2, at2)
-
 cn1 = "Garage"
 c1 = Collection(cn1, o1)
-
-cn2 = "People"
-c2 = Collection(cn2, o2)
-
-
 c1.add_obj(["Tacoma", 2010, "gray"])
 c1.add_obj(["Sienna", 2015, "black"])
 c1.add_obj(["Yaris", 2020, "red"])
 c1.add_obj(["Smart Car", 2018, "blue"])
 
+ot2 = "Person"
+at2 = {"name": "str", "age": "int"}
+o2 = ObjectType(ot2, at2)
+cn2 = "People"
+c2 = Collection(cn2, o2)
 c2.add_obj(["Willy Wonka", 55])
 c2.add_obj(["Pedro", 62])
 c2.add_obj(["Bienve", 47])
 
+ot3 = "Something with a list"
+at3 = {"name": "str", "stuff": "list"}
+o3 = ObjectType(ot3, at3)
+cn3 = "Stuff with list"
+c3 = Collection(cn3, o3)
+c3.add_obj(["Willy Wonka", ["candy", 45, "chocolate", "oompa-loompa"]])
+c3.add_obj(["Pedro", ["Data", 4035, "Structures"]])
+c3.add_obj(["Bienve", [4015, "Advanced", "Programming", "Computista", "Director"]])
+c3.add_obj(["MATE", ["mate"]])
+
+print("\n")
 print(c1.get_obj_def())
 c1.display_col()
 print("\n")
 print(c2.get_obj_def())
 c2.display_col()
+print("\n")
+print(c3.get_obj_def())
+c3.display_col()
 print("\n")
 
 
@@ -115,8 +124,34 @@ test_collection.get_all_obj_val("Age")
 
 
 # Prints last Object when Collection is not empty
+print("\n----------------------------------\nGetting last Object when collection is not empty and testing bounds\n")
 print("\n\n"+test_collection.get_object(len(test_collection.get_obj_list())-1).to_string())
 # Out of bounds
 print(test_collection.get_object(len(test_collection.get_obj_list())))
 # Out of bounds
 print(test_collection.get_object(len(test_collection.get_obj_list())+1))
+
+
+# Testing empty collections
+print("\n----------------------------------\nTesting empty collections\n")
+ot4 = "Nothing"
+at4 = {"Nothing": "str", "Nothing": "int"}
+o4 = ObjectType(ot4, at4)
+cn4 = "Empty Collection"
+c4 = Collection(cn4, o4)
+print(c4.get_obj_def())
+c4.display_col()
+
+print("\n")
+ot5 = "Nothing2"
+at5 = {}
+o5 = ObjectType(ot5, at5)
+cn5 = "Empty Collection2"
+c5 = Collection(cn5, o5)
+c5.add_obj([])
+c5.add_obj([])
+c5.add_obj([])
+c5.add_obj([])
+
+print(c5.get_obj_def())
+c5.display_col()

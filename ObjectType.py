@@ -7,9 +7,6 @@ class ObjectType(object):
         - TYPE OF OBJECT
         - LIST OF ATTRIBUTES (I.E. VARIABLES)
     """
-    # __obj_type = ''
-    # __attributes_dict = {}
-    # __attributes_list = []
 
     def __init__(self, obj_type, attribute_dict):
         """
