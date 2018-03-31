@@ -20,6 +20,7 @@ class Collection(object):
         :param obj_def: OBJECTTYPE - DEFINITION OF OBJECTS WITHIN COLLECTION
         """
         self.__col_name = name
+        self.__obj_def = obj_def
         self.__obj_type = obj_def.get_obj_type()
         self.__obj_attributes = obj_def.get_obj_attributes()
         self.__obj_val_map = {}
@@ -30,7 +31,7 @@ class Collection(object):
         for j in obj_def.get_obj_data_types():
             self.__obj_data_type.append(obj_def.get_obj_data_types().get(j))
 
-    def get_obj_def(self):
+    def get_obj_def_str(self):
         """
         GETTER FOR OBJECT DEFINITION
         :return: STRING - OBJECT DEFINITION IN A STRING
@@ -41,10 +42,17 @@ class Collection(object):
         s = s + "}"
         return s
 
+    def get_obj_def(self):
+        """
+        GET OBJECT DEFINITION
+        :return: OBJECTTYPE - OBJECT DEFINITION
+        """
+        return self.__obj_def
+
     def __obj_check_data_type(self, values):
         """
-        CHECK NEW OBJECT COMPATIBILITY WITH COLLECTION
-        :param values: LIST - VALUES FOR A NEW OBJECT
+        OBJECT COMPATIBILITY WITH COLLECTION
+        :param values: LIST - OBJECT VALUES
         :return: BOOLEAN
         """
         for i in range(0, len(self.__obj_attributes)):
@@ -54,6 +62,12 @@ class Collection(object):
         return True
 
     def __obj_check_one_data_type(self, attribute, value):
+        """
+        CHECK ATTRIBUTE COMPATIBILITY WITH OBJECT
+        :param attribute: STRING - ATTRIBUTE
+        :param value: VALUE - NEW VALUE
+        :return: BOOLEAN
+        """
         s = "{}".format(type(value))
         return s.__contains__(self.__obj_data_type[self.__obj_attributes.index(attribute)])
 
@@ -130,7 +144,7 @@ class Collection(object):
             temp.append(o.get_value(self.__obj_val_map.get(attribute)))
         return temp
 
-    def get_object(self, index):
+    def get_obj(self, index):
         """
         GET OBJECT
         :param index: INTEGER - INDEX OF OBJECT
@@ -153,7 +167,7 @@ class Collection(object):
         DISPLAY COLLECTION TO CONSOLE
         :return: VOID
         """
-        print("Collection:", self.__col_name, "\nType:", self.__obj_type)
+        print("Collection:", self.__col_name, "\nSize:", self.col_size(), "\nType:", self.__obj_type)
         s = "INDEX |"
         for i in self.__obj_attributes:
             s = s + " {} |".format(i)
@@ -175,6 +189,30 @@ class Collection(object):
         :return: BOOLEAN
         """
         return len(self.__obj_collection) == 0
+
+    def get_name(self):
+        """
+        GET COLLECTION NAME
+        :return: STRING - COLLECTION NAME
+        """
+        return self.__col_name
+
+    def destroy_col(self):
+        """
+        CLEAR A COLLECTION
+        :return: VOID
+        """
+        self.__col_name = None
+        self.__obj_type = None
+        self.__obj_attributes.clear
+        self.__obj_val_map.clear()
+        self.__obj_data_type.clear()
+        self.__obj_val_map.clear()
+        self.__obj_data_type.clear()
+        self.__obj_def = None
+        for o in self.__obj_collection:
+            o.destroy_obj()
+        self.__obj_collection.clear()
 
     class __Object(object):
         """
@@ -224,3 +262,9 @@ class Collection(object):
                 s = s + " {} |".format(i)
             return s
 
+        def destroy_obj(self):
+            """
+            CLEAR OBJECT VALUES
+            :return: VOID
+            """
+            self.__values.clear()

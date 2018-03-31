@@ -34,13 +34,13 @@ c3.add_obj(["Bienve", [4015, "Advanced", "Programming", "Computista", "Director"
 c3.add_obj(["MATE", ["mate"]])
 
 print("\n")
-print(c1.get_obj_def())
+print(c1.get_obj_def_str())
 c1.display_col()
 print("\n")
-print(c2.get_obj_def())
+print(c2.get_obj_def_str())
 c2.display_col()
 print("\n")
-print(c3.get_obj_def())
+print(c3.get_obj_def_str())
 c3.display_col()
 print("\n")
 
@@ -58,7 +58,7 @@ test_collection = Collection(test_col_name, test_obj_def)
 
 # Getting Object definition for Collection
 print("\n----------------------------------\nGetting Object definition for collection\n")
-print (test_collection.get_obj_def())
+print (test_collection.get_obj_def_str())
 
 # Add Objects to Collection
 print("\n----------------------------------\nAdding objects\n")
@@ -125,11 +125,11 @@ test_collection.get_all_obj_val("Age")
 
 # Prints last Object when Collection is not empty
 print("\n----------------------------------\nGetting last Object when collection is not empty and testing bounds\n")
-print("\n\n"+test_collection.get_object(len(test_collection.get_obj_list())-1).to_string())
+print("\n\n" + test_collection.get_obj(len(test_collection.get_obj_list()) - 1).to_string())
 # Out of bounds
-print(test_collection.get_object(len(test_collection.get_obj_list())))
+print(test_collection.get_obj(len(test_collection.get_obj_list())))
 # Out of bounds
-print(test_collection.get_object(len(test_collection.get_obj_list())+1))
+print(test_collection.get_obj(len(test_collection.get_obj_list()) + 1))
 
 
 # Testing empty collections
@@ -139,7 +139,7 @@ at4 = {"Nothing": "str", "Nothing": "int"}
 o4 = ObjectType(ot4, at4)
 cn4 = "Empty Collection"
 c4 = Collection(cn4, o4)
-print(c4.get_obj_def())
+print(c4.get_obj_def_str())
 c4.display_col()
 
 print("\n")
@@ -153,5 +153,5 @@ c5.add_obj([])
 c5.add_obj([])
 c5.add_obj([])
 
-print(c5.get_obj_def())
+print(c5.get_obj_def_str())
 c5.display_col()
