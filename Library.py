@@ -43,7 +43,7 @@ class Library(object):
         objdef_exist = False
         for o in self.__obj_list:
             if o.get_obj_type() == obj_def.get_obj_type() \
-                    and o.get_obj_data_types() == obj_def.get_obj_data_types():
+                    and o.get_obj_att_def() == obj_def.get_obj_att_def():
                 objdef_exist = True
         if not objdef_exist:
             self.__obj_list.append(obj_def)
@@ -64,7 +64,7 @@ class Library(object):
         objdef_exist = False
         for o in self.__obj_list:
             if o.get_obj_type() == obj_def.get_obj_type() \
-                    and o.get_obj_data_types() == obj_def.get_obj_data_types():
+                    and o.get_obj_att_def() == obj_def.get_obj_att_def():
                 objdef_exist = True
         if not objdef_exist:
             self.__obj_list.append(obj_def)
@@ -82,7 +82,7 @@ class Library(object):
                 obj_def = c.get_obj_def()
                 for c2 in self.__col_list:
                     if c2.get_obj_def().get_obj_type() == obj_def.get_obj_type() \
-                            and c2.get_obj_def().get_obj_data_types() == obj_def.get_obj_data_types():
+                            and c2.get_obj_def().get_obj_att_def() == obj_def.get_obj_att_def():
                         objdef_used = True
                 if not objdef_used:
                     self.__obj_list.remove(obj_def)

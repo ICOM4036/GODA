@@ -28,8 +28,8 @@ class Collection(object):
         self.__obj_collection = []
         for i in range(0, len(self.__obj_attributes)):
             self.__obj_val_map.__setitem__(self.__obj_attributes[i], i)
-        for j in obj_def.get_obj_data_types():
-            self.__obj_data_type.append(obj_def.get_obj_data_types().get(j))
+        for j in obj_def.get_obj_att_def():
+            self.__obj_data_type.append(obj_def.get_obj_att_def().get(j))
 
     def get_obj_def_str(self):
         """

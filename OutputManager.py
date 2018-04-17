@@ -1,0 +1,6 @@
+"""
+    OUTPUT MANAGER
+    - WRITE FILES
+    - EXPORT FILES
+    - MANAGE OUTPUT
+"""
