@@ -149,3 +149,24 @@ class Library(object):
         :return: BOOLEAN
         """
         return 0 == len(self.__col_list)
+
+    def get_name(self):
+        """
+        GET LIBRARY NAME
+        :return: STRING - LIBRARY NAME
+        """
+        return self.__lib_name
+
+    def get_collection_list(self):
+        """
+        GET COLLECTION LIST
+        :return: LIST - COLECTIONS
+        """
+        return self.__col_list
+
+    def get_collection_name_list(self):
+        """
+        GET LIST WITH NAMES OF ALL COLLECTIONS
+        :return: LIST - COLLECTIONS NAMES
+        """
+        return [c.get_name() for c in self.__col_list]

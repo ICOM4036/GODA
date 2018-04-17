@@ -1,0 +1,4 @@
+Libraries/Stuff/Collections/Faculty.csv
+Faculty
+Professor
+NAME:str,PROGRAM:str,COURSES:int
