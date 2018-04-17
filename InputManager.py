@@ -8,6 +8,7 @@ from Library import Library
 from Collection import Collection
 from ObjectType import ObjectType
 import csv
+import ntpath
 
 
 def imp_new_collection(filename):
@@ -77,7 +78,7 @@ def imp_new_library(filename):
             liblist.append(line.replace('\n', ''))
         lib = Library(liblist[0])
         for c in range(1, len(liblist)):
-            col = imp_new_collection(liblist[c].replace('\n', ''))
+            col = imp_new_collection(liblist[c])
             lib.add_collection(col)
         f.close()
         return lib
@@ -85,3 +86,51 @@ def imp_new_library(filename):
         print('Something went wrong while importing ', filename, '.',
               '\nPlease make sure that the file exists and that its format is correct.')
         return None
+
+
+def imp_raw_collection(filename):
+    """
+    IMPORT RAW COLLECTION:
+    READS A CSV FILE WHICH CONTAINS OBJECT TYPE, OBJECT DEFINITION, AND DATA
+    EXTRACTS COLLECTION NAME FROM FILE NAME
+    :param filename: STRING - FILE NAME
+    :return: COLLECTION - NEW COLLECTION
+    """
+    try:
+        f = open(filename, 'r+')
+        lines = []
+        for line in f:
+            lines.append(line.replace('\n', ''))
+        f.close()
+        head, tail = ntpath.split(filename)
+        name = tail or ntpath.basename(head)
+        objname = lines[0].split(',')[0]
+        rawdef = lines[1].split(',')
+        objdef = {}
+        for a in rawdef:
+            v = a.split(":")
+            objdef.__setitem__(v[0], v[1])
+        obj = ObjectType(objname, objdef)
+        col = Collection(name.replace('.csv', ''), obj)
+        lines.remove(lines[1])
+        lines.remove(lines[0])
+        odt = col.get_obj_def().get_obj_data_types()
+        for line in lines:
+            obj = []
+            line = line.split(',')
+            for i in range(0, len(line)):
+                if odt[i] == "int":
+                    obj.append(int(line[i]))
+                elif odt[i] == "float":
+                    obj.append(float(line[i]))
+                else:
+                    obj.append(line[i])
+            col.add_obj(obj)
+        return col
+
+    except FileNotFoundError:
+        print('Something went wrong while importing ', filename, '.',
+              '\nPlease make sure that the file exists and that its format is correct.')
+        return None
+
+
