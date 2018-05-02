@@ -1,6 +1,6 @@
-from Library import Library
-from ObjectType import ObjectType
-from Collection import Collection
+from DataTypes.Library import Library
+from DataTypes.ObjectType import ObjectType
+from DataTypes.Collection import Collection
 
 print("===================\n\nTESTING LIBRARY\n\n===================")
 
@@ -11,11 +11,11 @@ print('\n**********************************'
       '\nCreating Collection "Roll book 2" in "University"'
       '\nCreating Collection "Faculty" in "University"\n')
 lib0 = Library("University")
-# Creating Collention "Roll Book 1" inside Library
+# Creating Collection "Roll Book 1" inside Library
 lib0.create_collection("Roll Book 1", "Student", {"ID": "str", "GPA": "float", "NAME": "str", "PROGRAM": "str"})
-# Creating Collention "Roll Book 2" inside Library
+# Creating Collection "Roll Book 2" inside Library
 lib0.create_collection("Roll Book 2", "Student", {"ID": "str", "GPA": "float", "NAME": "str", "PROGRAM": "str"})
-# Creating Collention "Faculty" inside Library
+# Creating Collection "Faculty" inside Library
 lib0.create_collection("Faculty", "Professor", {"NAME": "str", "PROGRAM": "str", "COURSES": "int"})
 
 # Adding Students to Roll Book 1

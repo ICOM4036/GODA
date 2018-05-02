@@ -1,8 +1,8 @@
 import InputManager
 import OutputManager
-from Collection import Collection
-from Library import Library
-from ObjectType import ObjectType
+from DataTypes.Collection import Collection
+from DataTypes.Library import Library
+from DataTypes.ObjectType import ObjectType
 
 print("===================\n\nTESTING OUTPUT MANAGER\n\n===================")
 
