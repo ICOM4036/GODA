@@ -4,9 +4,9 @@
     - IMPORT FILES
     - MANAGE INPUT
 """
-from Library import Library
-from Collection import Collection
-from ObjectType import ObjectType
+from DataTypes import Library
+from DataTypes import Collection
+from DataTypes import ObjectType
 import csv
 import ntpath
 
