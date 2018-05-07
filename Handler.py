@@ -1,9 +1,11 @@
 import os, csv
-from DataTypes.ObjectType import ObjectType
-from DataTypes.Collection import Collection
-from DataTypes.Library import Library
-import InputManager, OutputManager
+from AbstractDataTypes.ObjectType import ObjectType
+from AbstractDataTypes.Collection import Collection
+from AbstractDataTypes.Library import Library
+import InputManager, OutputManager, OutputManager2
 from Comparators.NumberComparator import NumberComparator
+import SortingAlgorithms.Quicksort
+from math import fabs
 
 class Handler:
 
@@ -126,16 +128,20 @@ class Handler:
     #     self.createObject(object)
 
 
-    def removeObjectFromLibrary(self, library, object):
-        pass
 
-    def createCollection(self, coll_name):
-        pass
 
-    def addCollectionToLibrary(self, library, collection):
-        pass
+    def remove_library(self, library_name):
+        OutputManager2.delete_library(library_name)
 
-    def removeCollectionFromLibrary(self, library, collection):
+
+    def remove_collection_from_library(self, library_name, collection_name):
+        lib = self.libraries[library_name]
+        lib.remove_collection(collection_name)
+        OutputManager2.delete_collection(library_name, collection_name)
+
+
+    def remove_object_from_collection(self, library_name, collection_name, object):
+        # Cual se supone que sea el parametro de object??
         pass
 
 
@@ -144,7 +150,8 @@ class Handler:
 
     def sort(self, collection_name, attribute_name):
         coll = self.collections[collection_name]
-
+        obj = col1.get_obj_def
+        # index = obj.
 
         # coll = Collection(coll, obj)
         # # if attribute_name.type = int:
@@ -152,33 +159,16 @@ class Handler:
         # comp = Comparator()
         # quicksort(coll.get_obj_list())
 
+        coll = Quicksort.sort(coll, comp, index)
         OutputManager.export_collection(coll)
 
-
-    def quicksort(self, array, comp, index):
-        less = []
-        equal = []
-        greater = []
-
-        if len(array) > 1:
-            pivot = array[0]
-            for x in array:
-                if comp.compare(x[index], pivot[index]) < 0:
-                    less.append(x)
-                elif comp.compare(x[index], pivot[index]) > 0:
-                    greater.append(x)
-                else:
-                    equal.append(x)
-            return self.quicksort(less, comp, index) + equal + self.quicksort(greater, comp, index)
-        else:
-            return array
 
 
     def show_library(self, library_name):
         library = self.libraries[library_name]
-        collections = library.get_collection_list()
+        collections = library.get_collection_name_list()
         for col in collections:
-            show_collection(col)
+            print(col)
 
 
     def show_collection(self, collection_name):
@@ -186,8 +176,48 @@ class Handler:
         collection.display_col()
 
 
-    def merge(self, collection1, collection2):
-        pass
+    def merge(self, col1, col2, new_col_name):
+        # col1 = self.collections[collection1]
+        # col2 = self.collections[collection2]
+
+        # Get object types
+        obj1 = col1.get_obj_def()
+        obj2 = col2.get_obj_def()
+
+        # Check compatibility
+        if self.is_coll_compatible(obj1, obj2):
+            newCol = Collection(new_col_name, obj1)
+            list1 = col1.get_obj_list()
+            for obj in list1:
+                newCol.add_obj(obj.get_values())
+            list2 = col2.get_obj_list()
+            for obj in list2:
+                newCol.add_obj(obj.get_values())
+            # Fix this to output to default directory
+            OutputManager.export_collection(newCol)
+
+
+    # Not sure if this function is already in another class ??
+    def is_coll_compatible(self, obj1, obj2):
+        # Check that attribute names are the same
+        attr1 = obj1.get_obj_attributes()
+        attr2 = obj2.get_obj_attributes()
+        if fabs(len(attr1) - len(attr2)) > 0:
+            return False
+        for a in range(len(attr1)):
+            if attr1[a] is not attr2[a]:
+                return False
+
+        # Check that attribute types are the same
+        type1 = obj1.get_obj_data_types()
+        type2 = obj2.get_obj_data_types()
+        for t in range(len(type1)):
+            if type1[t] is not type2[t]:
+                return False
+
+        return True
+
+
 
     def edit_collection(self, collection_name):
         pass

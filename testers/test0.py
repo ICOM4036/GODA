@@ -1,5 +1,5 @@
-from DataTypes.ObjectType import ObjectType
-from DataTypes.Collection import Collection
+from AbstractDataTypes.ObjectType import ObjectType
+from AbstractDataTypes.Collection import Collection
 
 
 print("===================\n\nTESTING INSTANCES\n\n===================")
