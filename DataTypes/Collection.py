@@ -50,11 +50,6 @@ class Collection(object):
         return self.__obj_def
 
     def __obj_check_data_type(self, values):34
-        """
-        OBJECT COMPATIBILITY WITH COLLECTION
-        :param values: LIST - OBJECT VALUES
-        :return: BOOLEAN
-        """
         for i in range(0, len(self.__obj_attributes)):
             s = "{}".format(type(values[i]))
             if not s.__contains__(self.__obj_data_type[i]):
