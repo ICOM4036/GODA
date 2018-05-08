@@ -128,6 +128,20 @@ class Handler:
     #     self.createObject(object)
 
 
+    def create_library(self, library_name):
+        OutputManager.save_library(library_name)
+        self.openLibrary(library_name)
+
+
+    def create_collection(self, collection, library_name):
+        lib = self.libraries[library_name]
+        lib.add_collection(collection)
+
+
+    def create_object(self, obj_name, obj_attributes):
+        pass
+
+
 
 
     def remove_library(self, library_name):
@@ -148,9 +162,10 @@ class Handler:
 
 
 
-    def sort(self, collection_name, attribute_name):
-        coll = self.collections[collection_name]
-        obj = col1.get_obj_def
+    def sort(self, library_name, collection_name, attribute_name):
+        lib = self.libraries[library_name]
+        col = lib.get_collection(collection_name)
+        obj = col.get_obj_def
         # index = obj.
 
         # coll = Collection(coll, obj)
@@ -159,9 +174,24 @@ class Handler:
         # comp = Comparator()
         # quicksort(coll.get_obj_list())
 
-        coll = Quicksort.sort(coll, comp, index)
+        col = Quicksort.sort(coll, comp, index)
         OutputManager.export_collection(coll)
 
+
+
+    def search_in_collection(self, library_name, collection_name, attribute, data_to_search):
+        lib = self.libraries[library_name]
+        col = lib.get_collection(collection_name)
+        data = col.get_obj_list()
+        result = []
+        for row in data:
+            if row[attribute] == data_to_search:
+                result.append(row)
+        print(result)
+
+
+    def search_in_library(self):
+        # What does this do?
 
 
     def show_library(self, library_name):
@@ -171,14 +201,18 @@ class Handler:
             print(col)
 
 
-    def show_collection(self, collection_name):
-        collection = self.collections[collection_name]
+    def show_collection(self, library_name, collection_name):
+        lib = self.libraries[library_name]
+        collection = lib.get_collection(collection_name)
         collection.display_col()
 
 
-    def merge(self, col1, col2, new_col_name):
-        # col1 = self.collections[collection1]
-        # col2 = self.collections[collection2]
+    def merge(self, lib1, col_name1, lib2, col_name2, new_col_name):
+        lib1 = self.libraries[lib1]
+        lib2 = self.libraries[lib2]
+
+        col1 = lib1.get_collection(col_name1)
+        col2 = lib2.get_collection(col_name2)
 
         # Get object types
         obj1 = col1.get_obj_def()
