@@ -19,8 +19,6 @@ def p_statement_parseCommand(p):
     '''
     statement_parseCommand : COMMAND DS
                             | INFO
-                            | COMMAND
-                            | COMMAND COMMAND
     '''
     if len(p)== 2:
         p[0] = {"info":p[1]}

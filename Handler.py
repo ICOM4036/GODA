@@ -1,10 +1,10 @@
 import os, csv
-from AbstractDataTypes.ObjectType import ObjectType
-from AbstractDataTypes.Collection import Collection
-from AbstractDataTypes.Library import Library
+from DataTypes.ObjectType import ObjectType
+from DataTypes.Collection import Collection
+from DataTypes.Library import Library
 import InputManager, OutputManager, OutputManager2
 from Comparators.NumberComparator import NumberComparator
-import SortingAlgorithms.Quicksort
+from SortingAlgorithms import Quicksort
 from math import fabs
 
 class Handler:
@@ -12,7 +12,7 @@ class Handler:
     def __init__(self):
 
         # This is the default Directory where libraries are saved
-        self.dir_path = "C:/Users/irixa/PycharmProjects/GODA/Directory"
+        self.dir_path = "C:/Users/crysm/PycharmProjects/GODA/Directory"
         self.libraries = {}
         #self.collections = {}
         self.objects = {}
@@ -178,8 +178,8 @@ class Handler:
         # comp = Comparator()
         # quicksort(coll.get_obj_list())
 
-        col = Quicksort.sort(coll, comp, index)
-        OutputManager.export_collection(coll)
+        # col = Quicksort.sort(coll, comp, index)
+        # OutputManager.export_collection(col)
 
 
 
@@ -196,6 +196,7 @@ class Handler:
 
     def search_in_library(self):
         # What does this do?
+        pass
 
 
     def show_library(self, library_name):

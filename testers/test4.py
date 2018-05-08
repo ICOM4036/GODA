@@ -1,11 +1,12 @@
 from Handler import Handler
-from AbstractDataTypes.Library import Library
-from AbstractDataTypes.Collection import Collection
-from AbstractDataTypes.ObjectType import ObjectType
+from DataTypes.Library import Library
+from DataTypes.Collection import Collection
+from DataTypes.ObjectType import ObjectType
 from Comparators.NumberComparator import NumberComparator
+from SortingAlgorithms import Quicksort
 
 array = [5,8,3,5,8,9,2,0,9,6,545,2,3415,74,5624326,4563]
-sorted_array = Handler().quicksort(array, NumberComparator())
+sorted_array = Quicksort.sort(array, NumberComparator())
 print(array)
 print(sorted_array)
 

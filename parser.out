@@ -1,0 +1,84 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> statement
+Rule 1     statement -> statement_parseCommand
+Rule 2     statement_parseCommand -> COMMAND DS
+Rule 3     statement_parseCommand -> INFO
+Rule 4     statement_parseCommand -> COMMAND
+Rule 5     statement_parseCommand -> COMMAND COMMAND
+
+Terminals, with rules where they appear
+
+COMMAND              : 2 4 5 5
+DS                   : 2
+INFO                 : 3
+error                : 
+
+Nonterminals, with rules where they appear
+
+statement            : 0
+statement_parseCommand : 1
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . statement
+    (1) statement -> . statement_parseCommand
+    (2) statement_parseCommand -> . COMMAND DS
+    (3) statement_parseCommand -> . INFO
+    (4) statement_parseCommand -> . COMMAND
+    (5) statement_parseCommand -> . COMMAND COMMAND
+
+    COMMAND         shift and go to state 3
+    INFO            shift and go to state 4
+
+    statement                      shift and go to state 1
+    statement_parseCommand         shift and go to state 2
+
+state 1
+
+    (0) S' -> statement .
+
+
+
+state 2
+
+    (1) statement -> statement_parseCommand .
+
+    $end            reduce using rule 1 (statement -> statement_parseCommand .)
+
+
+state 3
+
+    (2) statement_parseCommand -> COMMAND . DS
+    (4) statement_parseCommand -> COMMAND .
+    (5) statement_parseCommand -> COMMAND . COMMAND
+
+    DS              shift and go to state 6
+    $end            reduce using rule 4 (statement_parseCommand -> COMMAND .)
+    COMMAND         shift and go to state 5
+
+
+state 4
+
+    (3) statement_parseCommand -> INFO .
+
+    $end            reduce using rule 3 (statement_parseCommand -> INFO .)
+
+
+state 5
+
+    (5) statement_parseCommand -> COMMAND COMMAND .
+
+    $end            reduce using rule 5 (statement_parseCommand -> COMMAND COMMAND .)
+
+
+state 6
+
+    (2) statement_parseCommand -> COMMAND DS .
+
+    $end            reduce using rule 2 (statement_parseCommand -> COMMAND DS .)
+
