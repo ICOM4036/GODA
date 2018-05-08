@@ -3,6 +3,9 @@ import Lexer
 from Lexer import tokens
 # P&L
 
+#Check this carefully with the newly added statements
+#Make sure that every thing is working correctly
+
 def p_statement(p):
     '''
     statement : statement_parseCommand
@@ -16,6 +19,8 @@ def p_statement_parseCommand(p):
     '''
     statement_parseCommand : COMMAND DS
                             | INFO
+                            | COMMAND
+                            | COMMAND COMMAND
     '''
     if len(p)== 2:
         p[0] = {"info":p[1]}

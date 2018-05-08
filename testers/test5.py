@@ -7,17 +7,17 @@ from DataTypes.ObjectType import ObjectType
 print("===================\n\nTESTING OUTPUT MANAGER\n\n===================")
 
 # Importing library from project files
-print('\n**********************************\nImporting library from project files\n')
-lib = InputManager.imp_new_library(r"Libraries\University\University.txt")
-lib.display_lib()
-
-# Saving Library in project files
-print('\n**********************************\nSaving Library in project files\n')
-OutputManager.save_library(lib)
-
-# Exporting Library to Desktop (replace my directory with your to test for yourself)
-print('\n**********************************\nExporting Library to Desktop (replace my directory with your own to test)\n')
-OutputManager.export_library(lib, r'C:/Users/cintr/Desktop/Libraries')
+# print('\n**********************************\nImporting library from project files\n')
+# lib = InputManager.imp_new_library(r"Libraries\University\University.txt")
+# lib.display_lib()
+#
+# # Saving Library in project files
+# print('\n**********************************\nSaving Library in project files\n')
+# OutputManager.save_library(lib)
+#
+# # Exporting Library to Desktop (replace my directory with your to test for yourself)
+# print('\n**********************************\nExporting Library to Desktop (replace my directory with your own to test)\n')
+# OutputManager.export_library(lib, r'C:/Users/cintr/Desktop/Libraries')
 
 # Creating a Library
 print('\n**********************************''\nCreating Library "Stuff" (same Library "University", renames "Stuff" from "test1.py")')
@@ -59,18 +59,20 @@ lib0.add_collection(c1)
 
 # Exporting Library to Desktop (replace my directory with your to test for yourself)
 print('\n**********************************\nExporting Library to Desktop (replace my directory with your own to test)\n')
-OutputManager.export_library(lib0, 'C:/Users/cintr/Desktop/Libraries')
+OutputManager.export_library(lib0, 'C:/Users/crysm/Desktop/Libraries')
 
-# Importing Library from Desktop (replace my directory with your to test for yourself)
-print('\n**********************************\nExporting Library from Desktop (replace my directory with your own to test)\n')
-lib1 = InputManager.imp_new_library(r'C:\Users\cintr\Desktop\Libraries\Stuff\Stuff.txt')
-lib1.display_lib()
-lib1.display_all_lib()
 
-# Saving Library "Stuff" in project files
-print('\n**********************************\nSaving Library "Stuff" in project files\n')
-OutputManager.save_library(lib1)
+# # Importing Library from Desktop (replace my directory with your to test for yourself)
+# print('\n**********************************\nExporting Library from Desktop (replace my directory with your own to test)\n')
+# lib1 = InputManager.imp_new_library(r'C:\Users\crysm\Desktop\Libraries\Stuff\Stuff.txt')
+# lib1.display_lib()
+# lib1.display_all_lib()
+#
+# # Saving Library "Stuff" in project files
+# print('\n**********************************\nSaving Library "Stuff" in project files\n')
+# OutputManager.save_library(lib1)
+
 
 # Exporting Collection to Desktop (replace my directory with your own to test)
 print('\n**********************************\nExporting Collection to Desktop (replace my directory with your own to test)\n')
-OutputManager.export_collection(c1, 'C:/Users/cintr/Desktop/Collection')
+OutputManager.export_collection(c1, 'C:/Users/crysm/Desktop/Collection')
