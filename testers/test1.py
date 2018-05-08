@@ -1,6 +1,6 @@
-from AbstractDataTypes.Library import Library
-from AbstractDataTypes.ObjectType import ObjectType
-from AbstractDataTypes.Collection import Collection
+from DataTypes.Library import Library
+from DataTypes.ObjectType import ObjectType
+from DataTypes.Collection import Collection
 
 print("===================\n\nTESTING LIBRARY\n\n===================")
 

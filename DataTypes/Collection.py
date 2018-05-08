@@ -51,9 +51,9 @@ class Collection(object):
 
     def __obj_check_data_type(self, values):
         """
-        OBJECT COMPATIBILITY WITH COLLECTION
-        :param values: LIST - OBJECT VALUES
-        :return: BOOLEAN
+           OBJECT COMPATIBILITY WITH COLLECTION
+          :param values: LIST - OBJECT VALUES
+          :return: BOOLEAN
         """
         for i in range(0, len(self.__obj_attributes)):
             s = "{}".format(type(values[i]))
