@@ -1,23 +1,27 @@
 import ply.lex as lex
 
+#Add definition of int,str,float,boolean
+
+
 tokens = ["INFO", "DS", "COMMAND"]
 
 reserved = {
     'create': 'COMMAND',
     'delete': 'COMMAND',
-    'help' : 'COMMAND',
-    'quit' : 'COMMAND',
-    'sort' : 'COMMAND',
-    'search' : 'COMMAND',
-    'show' : 'COMMAND' ,
-    'merge' : 'COMMAND' ,
-    'Library' : 'DS' ,
-    'Collection' : 'DS' ,
-    'Instance' : 'DS',
-    'Object' : 'DS',
-    'open' : 'COMMAND',
-    'edit' : 'COMMAND',
-    'all' : 'DS'
+    'help': 'COMMAND',
+    'quit': 'COMMAND',
+    'sort': 'COMMAND',
+    'search': 'COMMAND',
+    'show': 'COMMAND' ,
+    'merge': 'COMMAND' ,
+    'lib': 'DS' ,
+    'coll': 'DS' ,
+    'inst': 'DS',
+    'obj': 'DS',
+    'open': 'COMMAND',
+   # 'edit': 'COMMAND',
+    'all': 'DS',
+    'exit': 'COMMAND'
 }
 # Tokens
 
@@ -54,6 +58,12 @@ def t_SORT(t):
     return t
 
 
+def t_EXIT(t):
+    r'\b exit \b'
+    t.type = reserved.get(t.value)
+    return t
+
+
 def t_SEARCH(t):
     r'\b search \b'
     t.type = reserved.get(t.value)
@@ -73,25 +83,25 @@ def t_MERGE(t):
 
 
 def t_LIBRARY(t):
-    r'\b Library \b'
+    r'\b lib \b'
     t.type = reserved.get(t.value)
     return t
 
 
 def t_COLLECTION(t):
-    r'\b Collection \b'
+    r'\b coll \b'
     t.type = reserved.get(t.value)
     return t
 
 
 def t_INSTANCE(t):
-    r'\b Instance \b'
+    r'\b inst \b'
     t.type = reserved.get(t.value)
     return t
 
 
 def t_OBJECT(t):
-    r'\b Object \b'
+    r'\b obj \b'
     t.type = reserved.get(t.value)
     return t
 
@@ -107,11 +117,11 @@ def t_ALL(t):
     t.type = reserved.get(t.value)
     return t
 
-def t_EDIT(t):
-    r'\b edit \b'
-    t.type = reserved.get(t.value)
-    return t
 
+#def t_EDIT(t):
+ #   r'\b edit \b'
+  #   t.type = reserved.get(t.value)
+  #  return t
 
 def t_INFO(t):
     r'\b [a-zA-Z0-9._^%$\#!~@]* \b'

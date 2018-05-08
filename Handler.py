@@ -2,7 +2,7 @@ import os, csv
 from DataTypes.ObjectType import ObjectType
 from DataTypes.Collection import Collection
 from DataTypes.Library import Library
-'import InputManager, OutputManager, OutputManager2'
+import InputManager, OutputManager, OutputManager2
 from Comparators.NumberComparator import NumberComparator
 import SortingAlgorithms.Quicksort
 from math import fabs
