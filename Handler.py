@@ -133,9 +133,12 @@ class Handler:
         self.openLibrary(library_name)
 
 
-    def create_collection(self, collection, library_name):
+    def create_collection(self, library_name, collection_name, object_type):
         lib = self.libraries[library_name]
-        lib.add_collection(collection)
+        obj_type = self.object[object_type]
+        col = Collection(collection_name, obj_type)
+        lib.add_collection(col)
+
 
 
     def create_object(self, obj_name, obj_attributes):
@@ -229,6 +232,10 @@ class Handler:
                 newCol.add_obj(obj.get_values())
             # Fix this to output to default directory
             OutputManager.export_collection(newCol)
+
+        # Not compatible
+        else:
+            print("Collections %s and %s are not compatible." % (col_name1, col_name2))
 
 
     # Not sure if this function is already in another class ??

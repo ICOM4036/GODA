@@ -49,7 +49,7 @@ class Collection(object):
         """
         return self.__obj_def
 
-    def __obj_check_data_type(self, values):34
+    def __obj_check_data_type(self, values):
         """
         OBJECT COMPATIBILITY WITH COLLECTION
         :param values: LIST - OBJECT VALUES
