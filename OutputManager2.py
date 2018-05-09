@@ -13,21 +13,18 @@ def create_library(library_name):
         print("A library with that name already exists")
         return
 
-    # Create an ObjectList csv file
-    with open('{}/ObjectsList.csv'.format(library_path), 'wb') as csvfile:
-        filewriter = csv.writer(csvfile, delimiter=",", quotechar="|", quoting=csv.QUOTE_MINIMAL)
-
     # Create a CollectionsList csv file
-    with open('{}/CollectionsList.csv'.format(library_path), 'wb') as csvfile:
-        filewriter = csv.writer(csvfile, delimiter=",", quotechar="|", quoting=csv.QUOTE_MINIMAL)
-
-    # Create an ImportedCommandsList csv file
-    with open('{}/ImportedCommandsList.csv'.format(library_path), 'wb') as csvfile:
+    with open('{}/{}.txt'.format(library_path, library_name), 'wb') as csvfile:
         filewriter = csv.writer(csvfile, delimiter=",", quotechar="|", quoting=csv.QUOTE_MINIMAL)
 
     # Create a subdirectory to contain all collections
     coll_path = "{}/Collections".format(library_path)
     os.makedirs(coll_path)
+
+
+def create_collection(library_name, collection_name):
+    pass
+
 
 def delete_library(library_name):
     path = "C:/Users/irixa/PycharmProjects/GODA/Directory/{}".format(library_name)

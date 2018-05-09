@@ -27,8 +27,10 @@ print("\n\nTesting merge\n")
 handler.merge('PersonalidadesDeHelp', 'help1', 'PersonalidadesDeHelp', 'help2', 'help3')
 handler.show_collection('PersonalidadesDeHelp', 'help3')
 
-print("\n\nTesting sort\n")
+print("\n\nTesting sort by int\n")
 handler.sort('PersonalidadesDeHelp', 'help3', 'nivel')
+print("\nTesting sort by strings\n")
+handler.sort('PersonalidadesDeHelp', 'help3', 'name')
 
 handler.remove_collection_from_library('PersonalidadesDeHelp', 'help1')
 handler.remove_collection_from_library('PersonalidadesDeHelp', 'help2')

@@ -1,9 +1,13 @@
-"""
-
-"""
 class Quicksort:
 
     def sort(self, array, comp, index):
+        """
+        Sorts the elements in the array
+        :param array: ObjType[] - array to be sorted, where the elements are ObjectTypes
+        :param comp: Comparator - comparator to be used to compare elements
+        :param index: int - index, in the array of the object values, of the attribute used to sort
+        :return: ObjType[] - array of the ObjectTypes sorted
+        """
         less = []
         equal = []
         greater = []
