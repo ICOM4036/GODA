@@ -18,15 +18,25 @@ def p_statement(p):
 def p_statement_parseCommand(p):
     '''
     statement_parseCommand : COMMAND DS
-                            | INFO
+                            | COMMAND
+                            | COMMAND COMMAND
+                            | INFO COLON TYPE
     '''
     if len(p)== 2:
-        p[0] = {"info":p[1]}
+        p[0] = {"command":p[1]}
     elif len(p)== 3:
         p[0] = {"command": p[1], "ds": p[2]}
+    elif len(p) == 4:
+        p[0] = {"info": p[1], "type": p[3]}
     else:
-        print("Syntax error in input!!")
+        p[0] = {"command":p[1],"command2":p[2]}
 
+
+def p_statement_parseInfo(p):
+    '''
+    statement_parseCommand : INFO
+    '''
+    p[0] = {"info":p[1]}
 
 def p_error(p):
     if not p:

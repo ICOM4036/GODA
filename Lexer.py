@@ -1,9 +1,8 @@
 import ply.lex as lex
 
-#Add definition of int,str,float,boolean
+#check the int, and float definitions which haven't been defined just yet
 
-
-tokens = ["INFO", "DS", "COMMAND"]
+tokens = ["INFO", "DS", "COMMAND","TYPE","COLON"]
 
 reserved = {
     'create': 'COMMAND',
@@ -19,13 +18,17 @@ reserved = {
     'inst': 'DS',
     'obj': 'DS',
     'open': 'COMMAND',
-   # 'edit': 'COMMAND',
+    'import': 'COMMAND',
     'all': 'DS',
-    'exit': 'COMMAND'
+    'int': 'TYPE',
+    'float':'TYPE',
+    'str':'TYPE',
+    'bool': 'TYPE'
 }
 # Tokens
 
 t_ignore = '\t '
+t_COLON = r':'
 
 
 def t_CREATE(t):
@@ -96,6 +99,18 @@ def t_COLLECTION(t):
 
 def t_INSTANCE(t):
     r'\b inst \b'
+    t.type = reserved.get(t.value)
+    return t
+
+
+def t_BOOL(t):
+    r'\b bool \b'
+    t.type = reserved.get(t.value)
+    return t
+
+
+def t_STR(t):
+    r'\b str \b'
     t.type = reserved.get(t.value)
     return t
 
