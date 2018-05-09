@@ -52,11 +52,11 @@ class Handler:
 
         library = InputManager.imp_new_library(library_name)
         self.libraries[library_name] = library
-        collections = library.get_collection_list()
-        # LOL this is not efficient!!!!!
-        for col in collections:
-            self.collections[col.get_name] = col
 
+
+
+    def close_library(self, library_name):
+        del self.libraries[library_name]
 
     # def createLibraryDirectory(self, library_name):
     #
@@ -138,13 +138,12 @@ class Handler:
         obj_type = self.object[object_type]
         col = Collection(collection_name, obj_type)
         lib.add_collection(col)
-
+        OutputManager.export_collection(col)
 
 
     def create_object(self, obj_name, obj_attributes):
-        pass
-
-
+        obj = ObjectType(obj_name, obj_attributes)
+        self.objects[obj_name] = obj
 
 
     def remove_library(self, library_name):
@@ -169,14 +168,10 @@ class Handler:
     def sort(self, library_name, collection_name, attribute_name):
         lib = self.libraries[library_name]
         col = lib.get_collection(collection_name)
-        obj = col.get_obj_def
-        # index = obj.
-
-        # coll = Collection(coll, obj)
-        # # if attribute_name.type = int:
-        # #     comp = NumberComparator()
-        # comp = Comparator()
-        # quicksort(coll.get_obj_list())
+        obj = col.get_obj_def()
+        attr = obj.get_object_attributes()
+        for a in range(len(attr)):
+            pass
 
         # col = Quicksort.sort(coll, comp, index)
         # OutputManager.export_collection(col)
