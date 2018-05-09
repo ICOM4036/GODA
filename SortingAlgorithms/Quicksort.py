@@ -1,21 +1,22 @@
 """
 
 """
+class Quicksort:
 
-def sort(array, comp, index):
-    less = []
-    equal = []
-    greater = []
+    def sort(self, array, comp, index):
+        less = []
+        equal = []
+        greater = []
 
-    if len(array) > 1:
-        pivot = array[0]
-        for x in array:
-            if comp.compare(x[index], pivot[index]) < 0:
-                less.append(x)
-            elif comp.compare(x[index], pivot[index]) > 0:
-                greater.append(x)
-            else:
-                equal.append(x)
-        return self.quicksort(less, comp, index) + equal + self.quicksort(greater, comp, index)
-    else:
-        return array
+        if len(array) > 1:
+            pivot = array[0]
+            for x in array:
+                if comp.compare(x.get_value(index), pivot.get_value(index)) < 0:
+                    less.append(x)
+                elif comp.compare(x.get_value(index), pivot.get_value(index)) > 0:
+                    greater.append(x)
+                else:
+                    equal.append(x)
+            return self.sort(less, comp, index) + equal + self.sort(greater, comp, index)
+        else:
+            return array
