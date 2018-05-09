@@ -1,22 +1,22 @@
-import InputManager
+from InputManager import *
 
 print("===================\n\nTESTING INPUT MANAGER\n\n===================")
 
 # Importing a collection from "Libraries\University\RollBook1.txt"
 print('\n**********************************\nImporting a Collection from "',
       r"Libraries\University\RollBook1.txt", '\n')
-c = InputManager.imp_new_collection(r"Libraries\University\RollBook1.txt")
+c = imp_new_collection(r"Libraries\University\RollBook1.txt")
 c.display_col()
 
 # Importing a collection from a file that does not exist "Libraries\University\llBook1.txt"
 print('\n**********************************\nImporting a Collection from a file that does not exist"',
       r"Libraries\University\llBook1.txt", '\n')
-e = InputManager.imp_new_collection(r"Libraries\University\llBook1.txt")
+e = imp_new_collection(r"Libraries\University\llBook1.txt")
 
 # Importing and entire library from "Libraries\University\University.txt"
 print('\n**********************************\nImporting an entire Library from"',
       r"Libraries\University\University.txt", '\n')
-lib = InputManager.imp_new_library(r"Libraries\University\University.txt")
+lib = imp_new_library(r"Libraries\University\University.txt")
 lib.display_lib()
 lib.display_all_lib()
 
@@ -48,5 +48,5 @@ DATA01, DATA11, . . DATAn1
 DATA0m, DATA1m, . . ,DATAnm
 '''
 
-c = InputManager.imp_raw_collection(r"rawtesting\rawcol.csv")
+c = imp_raw_collection(r"rawtesting\rawcol.csv")
 c.display_col()
