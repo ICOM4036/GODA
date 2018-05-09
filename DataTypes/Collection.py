@@ -21,55 +21,12 @@ class Collection(object):
         """
         self.__col_name = name
         self.__obj_def = obj_def
+        self.__obj_att_dict = obj_def.get_obj_att_dict()
         self.__obj_type = obj_def.get_obj_type()
         self.__obj_attributes = obj_def.get_obj_attributes()
-        self.__obj_val_map = {}
-        self.__obj_data_type = []
+        self.__obj_val_map = {self.__obj_attributes[i]: i for i in range(0, len(self.__obj_attributes))}
+        self.__obj_data_type = obj_def.get_obj_data_types()
         self.__obj_collection = []
-        for i in range(0, len(self.__obj_attributes)):
-            self.__obj_val_map.__setitem__(self.__obj_attributes[i], i)
-        for j in obj_def.get_obj_att_def():
-            self.__obj_data_type.append(obj_def.get_obj_att_def().get(j))
-
-    def get_obj_def_str(self):
-        """
-        GETTER FOR OBJECT DEFINITION
-        :return: STRING - OBJECT DEFINITION IN A STRING
-        """
-        s = self.__obj_type + "{|"
-        for i in range(0, len(self.__obj_attributes)):
-            s = s + " {}: {} |".format(self.__obj_attributes[i], self.__obj_data_type[i])
-        s = s + "}"
-        return s
-
-    def get_obj_def(self):
-        """
-        GET OBJECT DEFINITION
-        :return: OBJECTTYPE - OBJECT DEFINITION
-        """
-        return self.__obj_def
-
-    def __obj_check_data_type(self, values):
-        """
-           OBJECT COMPATIBILITY WITH COLLECTION
-          :param values: LIST - OBJECT VALUES
-          :return: BOOLEAN
-        """
-        for i in range(0, len(self.__obj_attributes)):
-            s = "{}".format(type(values[i]))
-            if not s.__contains__(self.__obj_data_type[i]):
-                return False
-        return True
-
-    def __obj_check_one_data_type(self, attribute, value):
-        """
-        CHECK ATTRIBUTE COMPATIBILITY WITH OBJECT
-        :param attribute: STRING - ATTRIBUTE
-        :param value: VALUE - NEW VALUE
-        :return: BOOLEAN
-        """
-        s = "{}".format(type(value))
-        return s.__contains__(self.__obj_data_type[self.__obj_attributes.index(attribute)])
 
     def add_obj(self, attribute_values):
         """
@@ -77,10 +34,8 @@ class Collection(object):
         :param attribute_values: LIST - VALUES FOR AN OBJECT'S ATTRIBUTES
         :return: VOID
         """
-        if len(attribute_values) != len(self.__obj_attributes):
-            print("Object fields do not match with Collection type")
-            return
-        if not self.__obj_check_data_type(attribute_values):
+        if len(attribute_values) != len(self.__obj_attributes)\
+                or not self.__obj_check_data_type(attribute_values):
             print("Object not compatible with collection")
             return
         self.__obj_collection.append(self.__Object(attribute_values))
@@ -91,7 +46,7 @@ class Collection(object):
         :param index: INTEGER - INDEX OF OBJECT TO BE REMOVED
         :return: VOID
         """
-        if index < 0 or index > len(self.__obj_collection)-1:
+        if index < 0 or index > len(self.__obj_collection) - 1:
             print("Index is out of bounds")
             return
         self.__obj_collection.remove(self.__obj_collection[index])
@@ -104,7 +59,7 @@ class Collection(object):
         :param value: NEW VALUE
         :return: VOID
         """
-        if index < 0 or index > len(self.__obj_collection)-1:
+        if index < 0 or index > len(self.__obj_collection) - 1:
             print("Index is out of bounds")
             return
         if not self.__obj_attributes.__contains__(attribute):
@@ -122,7 +77,7 @@ class Collection(object):
         :param attribute: STRING - VALUE TO BE RETURNED
         :return: VALUE
         """
-        if index < 0 or index > len(self.__obj_collection)-1:
+        if index < 0 or index > len(self.__obj_collection) - 1:
             print("Index is out of bounds")
             return
         if not self.__obj_attributes.__contains__(attribute):
@@ -140,8 +95,9 @@ class Collection(object):
             print('Object does not have attribute "{}"'.format(attribute))
             return
         temp = []
+        valpos = self.__obj_val_map.get(attribute)
         for o in self.__obj_collection:
-            temp.append(o.get_value(self.__obj_val_map.get(attribute)))
+            temp.append(o.get_value(valpos))
         return temp
 
     def get_obj(self, index):
@@ -161,6 +117,46 @@ class Collection(object):
         :return: LIST - OBJECT
         """
         return self.__obj_collection
+
+    def get_obj_def(self):
+        """
+        GET OBJECT DEFINITION
+        :return: OBJECTTYPE - OBJECT DEFINITION
+        """
+        return self.__obj_def
+
+    def get_obj_def_str(self):
+        """
+        GETTER FOR OBJECT DEFINITION
+        :return: STRING - OBJECT DEFINITION IN A STRING
+        """
+        s = self.__obj_type + "{|"
+        for i in self.__obj_att_dict:
+            s = s + " {}: {} |".format(i, self.__obj_att_dict[i])
+        s = s + "}"
+        return s
+
+    def __obj_check_data_type(self, values):
+        """
+        OBJECT COMPATIBILITY WITH COLLECTION
+        :param values: LIST - OBJECT VALUES
+        :return: BOOLEAN
+        """
+        for i in range(0, len(self.__obj_attributes)):
+            s = "{}".format(type(values[i]))
+            if not s.__contains__(self.__obj_data_type[i]):
+                return False
+        return True
+
+    def __obj_check_one_data_type(self, attribute, value):
+        """
+        CHECK ATTRIBUTE COMPATIBILITY WITH OBJECT
+        :param attribute: STRING - ATTRIBUTE
+        :param value: VALUE - NEW VALUE
+        :return: BOOLEAN
+        """
+        s = "{}".format(type(value))
+        return s.__contains__(self.__obj_data_type[self.__obj_attributes.index(attribute)])
 
     def display_col(self):
         """
@@ -204,7 +200,7 @@ class Collection(object):
         """
         self.__col_name = None
         self.__obj_type = None
-        self.__obj_attributes.clear
+        self.__obj_attributes.clear()
         self.__obj_val_map.clear()
         self.__obj_data_type.clear()
         self.__obj_val_map.clear()
