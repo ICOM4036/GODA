@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'COMMAND DS INFO\n    statement : statement_parseCommand\n    \n    statement_parseCommand : COMMAND DS\n                            | INFO\n                            | COMMAND\n                            | COMMAND COMMAND\n    '
+_lr_signature = 'COMMAND DS INFO\n    statement : statement_parseCommand\n    \n    statement_parseCommand : COMMAND DS\n                            | INFO\n    '
     
-_lr_action_items = {'COMMAND':([0,3,],[3,5,]),'INFO':([0,],[4,]),'$end':([1,2,3,4,5,6,],[0,-1,-4,-3,-5,-2,]),'DS':([3,],[6,]),}
+_lr_action_items = {'COMMAND':([0,],[3,]),'INFO':([0,],[4,]),'$end':([1,2,4,5,],[0,-1,-3,-2,]),'DS':([3,],[5,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -30,6 +30,4 @@ _lr_productions = [
   ('statement -> statement_parseCommand','statement',1,'p_statement','Parser.py',11),
   ('statement_parseCommand -> COMMAND DS','statement_parseCommand',2,'p_statement_parseCommand','Parser.py',20),
   ('statement_parseCommand -> INFO','statement_parseCommand',1,'p_statement_parseCommand','Parser.py',21),
-  ('statement_parseCommand -> COMMAND','statement_parseCommand',1,'p_statement_parseCommand','Parser.py',22),
-  ('statement_parseCommand -> COMMAND COMMAND','statement_parseCommand',2,'p_statement_parseCommand','Parser.py',23),
 ]

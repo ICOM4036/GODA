@@ -31,7 +31,7 @@ class ObjectType(object):
         """
         return [self.__attributes_dict[x] for x in self.__attributes_dict]
 
-    def get_obj_att_def(self):
+    def get_obj_att_dict(self):
         """
         GET DICTIONARY OF ATTRIBUTES WITH RESPECTIVE DATA TYPES
         :return: DICTIONARY - {ATTRIBUTE : DATA TYPE}
@@ -44,6 +44,5 @@ class ObjectType(object):
         :return: STRING - OBJECT TYPE
         """
         return self.__obj_type
-
 
 

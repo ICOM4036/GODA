@@ -6,12 +6,10 @@ Rule 0     S' -> statement
 Rule 1     statement -> statement_parseCommand
 Rule 2     statement_parseCommand -> COMMAND DS
 Rule 3     statement_parseCommand -> INFO
-Rule 4     statement_parseCommand -> COMMAND
-Rule 5     statement_parseCommand -> COMMAND COMMAND
 
 Terminals, with rules where they appear
 
-COMMAND              : 2 4 5 5
+COMMAND              : 2
 DS                   : 2
 INFO                 : 3
 error                : 
@@ -29,8 +27,6 @@ state 0
     (1) statement -> . statement_parseCommand
     (2) statement_parseCommand -> . COMMAND DS
     (3) statement_parseCommand -> . INFO
-    (4) statement_parseCommand -> . COMMAND
-    (5) statement_parseCommand -> . COMMAND COMMAND
 
     COMMAND         shift and go to state 3
     INFO            shift and go to state 4
@@ -54,12 +50,8 @@ state 2
 state 3
 
     (2) statement_parseCommand -> COMMAND . DS
-    (4) statement_parseCommand -> COMMAND .
-    (5) statement_parseCommand -> COMMAND . COMMAND
 
-    DS              shift and go to state 6
-    $end            reduce using rule 4 (statement_parseCommand -> COMMAND .)
-    COMMAND         shift and go to state 5
+    DS              shift and go to state 5
 
 
 state 4
@@ -70,13 +62,6 @@ state 4
 
 
 state 5
-
-    (5) statement_parseCommand -> COMMAND COMMAND .
-
-    $end            reduce using rule 5 (statement_parseCommand -> COMMAND COMMAND .)
-
-
-state 6
 
     (2) statement_parseCommand -> COMMAND DS .
 
