@@ -35,10 +35,14 @@ handler.sort('PersonalidadesDeHelp', 'help3', 'name')
 handler.remove_collection_from_library('PersonalidadesDeHelp', 'help1')
 handler.remove_collection_from_library('PersonalidadesDeHelp', 'help2')
 
-print("\n\nTesting remove\n")
+print("\n\nTesting remove 'help1' and 'help2'\n")
 handler.show_library('PersonalidadesDeHelp')
 
-print("\n\nTesting search\n")
+print("\n\nTesting delete object at index 1\n")
+handler.remove_object_from_collection('PersonalidadesDeHelp', 'help3', 1)
+handler.show_collection("PersonalidadesDeHelp", 'help3')
+
+print("\n\nTesting search objects with 'nivel' = 10\n")
 handler.search_in_collection('PersonalidadesDeHelp', 'help3', 'nivel', 10)
 
-#handler.remove_library('PersonalidadesDeHelp')
+handler.remove_library('PersonalidadesDeHelp')

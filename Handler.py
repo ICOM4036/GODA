@@ -6,7 +6,6 @@ import InputManager, OutputManager, OutputManager2
 from Comparators.NumberComparator import NumberComparator
 from Comparators.LetterComparator import LetterComparator
 from SortingAlgorithms.Quicksort import Quicksort
-from SortingAlgorithms import Quicksort
 from math import fabs
 
 
@@ -15,7 +14,7 @@ class Handler:
     def __init__(self):
 
         # This is the default Directory where libraries are saved
-        self.dir_path = "C:/Users/crysm/PycharmProjects/GODA/Directory"
+        self.dir_path = "C:/Users/irixa/PycharmProjects/GODA/Directory"
         self.libraries = {}
         #self.collections = {}
         self.objects = {}
@@ -28,36 +27,6 @@ class Handler:
         :param library_name: str - library name
         :return: None
         """
-
-        # library_path = "{}/{}".format(self.dir_path, library_name)
-        #
-        # try:
-        #     # Open list with collections in library
-        #     with open("{}/{}.txt".format(library_path, library_name), 'wb') as csvfile:
-        #         library_reader = csv.reader(csvfile, delimiter=",", quotechar="|")
-        #
-        #     for coll in library_reader:
-        #         # Open collection text
-        #         with open("{}/{}.txt".format(library_path, coll), 'wb') as csvfile:
-        #             collection_reader = csv.reader(csvfile, delimiter=",", quotechar="|")
-        #             coll_name = collection_reader.nextLine
-        #             obj_name = nextLine
-        #             if object_name is not in self.objects:
-        #                 obj_attributes = nextLine
-        #                 object = ObjectType().__init__(obj_name, obj_attributes)
-        #                 self.objects.append(object)
-        #             collection
-        #
-        #     # Open Collection List
-        #     with open("{}/{}/CollectionsList.csv".format(self.dir_path, library_name), 'wb') as csvfile:
-        #         collection_reader = csv.reader(csvfile, delimiter=",", quotechar="|")
-        #
-        #     for row in collection_reader:
-        #         createCollection(row)
-        #
-        #
-        # except Error:
-        #     pass
 
         if self.library_is_opened(library_name):
             print("Library %s is already opened" % library_name)
@@ -84,76 +53,6 @@ class Handler:
             if key == library_name:
                 return True
         return False
-
-
-    # def createLibraryDirectory(self, library_name):
-    #
-    #     # Create a directory with the library's name
-    #     library_path = "%s/%s" % (self.dir_path, library_name)
-    #
-    #     try:
-    #         os.makedirs(library_path)
-    #     except OSError as e:
-    #         print("A library with that name already exists")
-    #         return
-    #
-    #     # Create an ObjectList csv file
-    #     with open('{}/ObjectsList.csv'.format(library_path), 'wb') as csvfile:
-    #         filewriter = csv.writer(csvfile, delimiter=",", quotechar="|", quoting=csv.QUOTE_MINIMAL)
-    #
-    #     # Create a CollectionsList csv file
-    #     with open('{}/CollectionsList.csv'.format(library_path), 'wb') as csvfile:
-    #         filewriter = csv.writer(csvfile, delimiter=",", quotechar="|", quoting=csv.QUOTE_MINIMAL)
-    #
-    #     # Create an ImportedCommandsList csv file
-    #     with open('{}/ImportedCommandsList.csv'.format(library_path), 'wb') as csvfile:
-    #         filewriter = csv.writer(csvfile, delimiter=",", quotechar="|", quoting=csv.QUOTE_MINIMAL)
-    #
-    #     # Create a subdirectory to contain all collections
-    #     coll_path = "{}/Collections".format(library_path)
-    #     os.makedirs(coll_path)
-    #
-    #
-    #
-    # def createObject(self, obj_string):
-    #     """
-    #     Crea un objeto con la clase OjectType
-    #     :param str:
-    #     :return:
-    #     """
-    #
-    #     type = obj_string[0]
-    #     attributes = []
-    #     for s in range(len(obj_string) - 1):
-    #         attributes.append(obj_string[s + 1])
-    #     new_object = ObjectType(type, self.mapAttributesToDict(attributes))
-    #
-    #     self.objects[type] = new_object
-    #
-    #
-    # def mapAttributesToDict(self, attributes):
-    #     dict = {}
-    #     for a in attributes:
-    #         dict[a] = None
-    #     return dict
-    #
-    # def createLibrary(self, library_name):
-    #
-    #     lib = Library(library_name)
-    #     self.libraries[library_name] = lib
-    #
-    #
-    #
-    # def addObjectToLibrary(self, library, object):
-    #     library_path = "{}/{}".format(self.dir_path, library)
-    #
-    #     #Open ObjectsList file
-    #     filewriter = csv.writer(open ('{}/ObjectsList.csv'.format(library_path), 'w'))
-    #
-    #     #Append the object to ObjectsList file
-    #     filewriter.writerow(object)
-    #
-    #     self.createObject(object)
 
 
     def create_library(self, library_name):
@@ -185,7 +84,6 @@ class Handler:
         col = Collection(collection_name, obj_type)
         lib.add_collection(col)
         OutputManager2.create_collection(self.dir_path, library_name, col)
-        #OutputManager.export_collection(col)
 
 
     def create_object(self, obj_name, obj_attributes):
@@ -257,10 +155,9 @@ class Handler:
             return
         lib = self.libraries[library_name]
         col = lib.get_collection(collection_name)
-        col.get_obj(index).destroy_obj()
-        path = ""
-        OutputManager.export_collection(col, path)
-
+        col.remove_obj(index)
+        OutputManager2.delete_collection(self.dir_path + "/" + library_name, collection_name)
+        OutputManager2.create_collection(self.dir_path, library_name, col)
 
     def sort(self, library_name, collection_name, attribute_name):
         """
@@ -366,11 +263,7 @@ class Handler:
             print("Library %s does not exist or is not opened" % library_name)
             return
         library = self.libraries[library_name]
-        collections = library.get_collection_name_list()
-        print("Library: %s" % library_name)
-        print("Collections:")
-        for col in collections:
-            print(col)
+        library.display_lib()
 
 
     def show_collection(self, library_name, collection_name):
@@ -386,6 +279,19 @@ class Handler:
         lib = self.libraries[library_name]
         collection = lib.get_collection(collection_name)
         collection.display_col()
+
+
+    def show_all_in_library(self, library_name):
+        """
+        Display all the collections in a library with corresponding data
+        :param library_name: str - library name
+        :return: None
+        """
+        if not self.library_is_opened(library_name):
+            print("Library %s does not exist or is not opened" % library_name)
+            return
+        lib = self.libraries[library_name]
+        lib.display_all_lib()
 
 
     def merge(self, lib1, col_name1, lib2, col_name2, new_col_name):
