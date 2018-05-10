@@ -25,7 +25,7 @@ class Collection(object):
         self.__obj_type = obj_def.get_obj_type()
         self.__obj_attributes = obj_def.get_obj_attributes()
         self.__obj_val_map = {self.__obj_attributes[i]: i for i in range(0, len(self.__obj_attributes))}
-        self.__obj_data_type = obj_def.get_obj_data_types()
+        self.__obj_data_types = obj_def.get_obj_data_types()
         self.__obj_collection = []
 
     def add_obj(self, attribute_values):
@@ -132,7 +132,7 @@ class Collection(object):
         """
         s = self.__obj_type + "{|"
         for i in self.__obj_att_dict:
-            s = s + " {}: {} |".format(i, self.__obj_att_dict[i])
+            s = s + " {}: {} |".format(i, str(self.__obj_att_dict[i]).split("'")[1])
         s = s + "}"
         return s
 
@@ -142,9 +142,8 @@ class Collection(object):
         :param values: LIST - OBJECT VALUES
         :return: BOOLEAN
         """
-        for i in range(0, len(self.__obj_attributes)):
-            s = "{}".format(type(values[i]))
-            if not s.__contains__(self.__obj_data_type[i]):
+        for i in range(0, len(self.__obj_data_types)):
+            if not isinstance(values[i], self.__obj_data_types[i]):
                 return False
         return True
 
@@ -155,8 +154,8 @@ class Collection(object):
         :param value: VALUE - NEW VALUE
         :return: BOOLEAN
         """
-        s = "{}".format(type(value))
-        return s.__contains__(self.__obj_data_type[self.__obj_attributes.index(attribute)])
+        index = self.__obj_val_map[attribute]
+        return isinstance(value, self.__obj_data_types[index])
 
     def display_col(self):
         """
@@ -202,9 +201,9 @@ class Collection(object):
         self.__obj_type = None
         self.__obj_attributes.clear()
         self.__obj_val_map.clear()
-        self.__obj_data_type.clear()
+        self.__obj_data_types.clear()
         self.__obj_val_map.clear()
-        self.__obj_data_type.clear()
+        self.__obj_data_types.clear()
         self.__obj_def = None
         for o in self.__obj_collection:
             o.destroy_obj()

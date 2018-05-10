@@ -4,9 +4,9 @@
     - IMPORT FILES
     - MANAGE INPUT
 """
-from DataTypes import Library
-from DataTypes import Collection
-from DataTypes import ObjectType
+from DataTypes.Library import *
+from DataTypes.Collection import *
+from DataTypes.ObjectType import *
 import csv
 import ntpath
 
@@ -52,9 +52,10 @@ def imp_data(filename, col):
             for line in data:
                 obj = []
                 for i in range(0, len(line)):
-                    if odt[i] == "int":
+                    t = str(odt[i]).split("'")[1]
+                    if t == "int":
                         obj.append(int(line[i]))
-                    elif odt[i] == "float":
+                    elif t == "float":
                         obj.append(float(line[i]))
                     else:
                         obj.append(line[i])
@@ -88,7 +89,8 @@ def imp_new_library(filename):
         return None
 
 
-def imp_raw_collection(filename):
+###############################################################################
+def imp_raw_collection(filename):                     # THIS WILL NOT BE USED #
     """
     IMPORT RAW COLLECTION:
     READS A CSV FILE WHICH CONTAINS OBJECT TYPE, OBJECT DEFINITION, AND DATA
