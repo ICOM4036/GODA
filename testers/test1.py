@@ -23,6 +23,7 @@ print('\n**********************************\nAdding Students to "Roll Book 1"\n'
 c1 = lib0.get_collection("Roll Book 1")
 c1.add_obj(["802-15-1388", 3.00, "Alex", "ICOM"])
 c1.add_obj(["802-18-1400", 2.00, "Prepa", "CIPO"])
+c1.add_obj([None, None, None, None])
 c1.add_obj(["802-10-6088", 4.00, "Changoma", "BIOL"])
 c1.add_obj(["802-80-2802", 10.0, "help", "ICOM"])
 c1.add_obj(["802-04-0420", 4.20, "Willy", "MAFU"])

@@ -143,7 +143,7 @@ class Collection(object):
         :return: BOOLEAN
         """
         for i in range(0, len(self.__obj_data_types)):
-            if not isinstance(values[i], self.__obj_data_types[i]):
+            if not isinstance(values[i], self.__obj_data_types[i]) and values[i] is not None:
                 return False
         return True
 
@@ -155,7 +155,7 @@ class Collection(object):
         :return: BOOLEAN
         """
         index = self.__obj_val_map[attribute]
-        return isinstance(value, self.__obj_data_types[index])
+        return isinstance(value, self.__obj_data_types[index]) and value is not None
 
     def display_col(self):
         """

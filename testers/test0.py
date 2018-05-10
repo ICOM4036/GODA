@@ -33,6 +33,16 @@ c3.add_obj(["Pedro", False])
 c3.add_obj(["Bienve", False])
 c3.add_obj(["Hawking", True])
 
+ot4 = "Something with null"
+at4 = {"name": "str", "siblings": "int"}
+o4 = ObjectType(ot4, at4)
+cn4 = "Stuff with list"
+c4 = Collection(cn4, o4)
+c4.add_obj(["Willy Wonka", None])
+c4.add_obj(["Pedro", 2])
+c4.add_obj(["Bienve", 1])
+c4.add_obj(["Hawking", 4])
+
 print("\n")
 print(c1.get_obj_def_str())
 c1.display_col()
@@ -42,6 +52,9 @@ c2.display_col()
 print("\n")
 print(c3.get_obj_def_str())
 c3.display_col()
+print("\n")
+print(c4.get_obj_def_str())
+c4.display_col()
 print("\n")
 
 

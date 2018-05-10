@@ -53,7 +53,9 @@ def imp_data(filename, col):
                 obj = []
                 for i in range(0, len(line)):
                     t = str(odt[i]).split("'")[1]
-                    if t == "int":
+                    if line[i] == "None":
+                        obj.append(None)
+                    elif t == "int":
                         obj.append(int(line[i]))
                     elif t == "float":
                         obj.append(float(line[i]))
