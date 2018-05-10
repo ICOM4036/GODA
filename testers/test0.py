@@ -23,15 +23,15 @@ c2.add_obj(["Willy Wonka", 55])
 c2.add_obj(["Pedro", 62])
 c2.add_obj(["Bienve", 47])
 
-ot3 = "Something with a list"
-at3 = {"name": "str", "stuff": "list"}
+ot3 = "Something with bool"
+at3 = {"name": "str", "dead": "bool"}
 o3 = ObjectType(ot3, at3)
 cn3 = "Stuff with list"
 c3 = Collection(cn3, o3)
-c3.add_obj(["Willy Wonka", ["candy", 45, "chocolate", "oompa-loompa"]])
-c3.add_obj(["Pedro", ["Data", 4035, "Structures"]])
-c3.add_obj(["Bienve", [4015, "Advanced", "Programming", "Computista", "Director"]])
-c3.add_obj(["MATE", ["mate"]])
+c3.add_obj(["Willy Wonka", False])
+c3.add_obj(["Pedro", False])
+c3.add_obj(["Bienve", False])
+c3.add_obj(["Hawking", True])
 
 print("\n")
 print(c1.get_obj_def_str())

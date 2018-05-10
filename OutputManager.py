@@ -40,7 +40,7 @@ def export_library(library, directory):
         a = c.get_obj_def().get_obj_attributes()
         d = c.get_obj_def().get_obj_data_types()
         for i in range(0, len(a)):
-            f.write(a[i]+':'+d[i])
+            f.write(a[i]+':'+str(d[i]).split("'")[1])
             if i < len(a)-1:
                 f.write(',')
         f.close()
