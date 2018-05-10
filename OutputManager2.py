@@ -45,7 +45,7 @@ def create_collection(dir_path, library_name, collection):
     colfile.write("\n" + collection.get_obj_def().get_obj_att_string())
 
     # Create a csv file where the collection objects will be written
-    csvfile = open(lib_path + "/Collections/" + collection.get_name() + ".csv", 'w')
+    open(lib_path + "/Collections/" + collection.get_name() + ".csv", 'w')
 
 def add_object_to_collection(col_path, obj_values):
     file_writer = csv.writer(open(col_path, 'a', newline = ''))
