@@ -41,4 +41,4 @@ handler.show_library('PersonalidadesDeHelp')
 print("\n\nTesting search\n")
 handler.search_in_collection('PersonalidadesDeHelp', 'help3', 'nivel', 10)
 
-handler.remove_library('PersonalidadesDeHelp')
+#handler.remove_library('PersonalidadesDeHelp')

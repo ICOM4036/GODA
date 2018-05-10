@@ -57,6 +57,9 @@ class Handler:
         # except Error:
         #     pass
 
+        if self.library_is_opened(library_name):
+            print("Library %s is already opened" % library_name)
+            return
         #library = InputManager.imp_new_library(library_name)
         self.libraries[library_name] = Library(library_name)
 
@@ -68,7 +71,18 @@ class Handler:
         :param library_name: str - library name
         :return: None
         """
+        if not self.library_is_opened(library_name):
+            print("Library %s does not exist or it is not opened" % library_name)
+            return
         del self.libraries[library_name]
+
+
+    def library_is_opened(self, library_name):
+        for key in self.libraries:
+            if key == library_name:
+                return True
+        return False
+
 
     # def createLibraryDirectory(self, library_name):
     #
@@ -147,7 +161,7 @@ class Handler:
         :return: None
         """
         #library = Library(library_name)
-        OutputManager2.create_library(library_name)
+        OutputManager2.create_library(self.dir_path, library_name)
         #OutputManager.save_library(library)
         self.openLibrary(library_name)
 
@@ -160,10 +174,15 @@ class Handler:
         :param object_type: str - name of the object type
         :return:
         """
+        if not self.library_is_opened(library_name):
+            print("Library %s does not exist or is not opened" % library_name)
+            return
+
         lib = self.libraries[library_name]
         obj_type = self.objects[object_type]
         col = Collection(collection_name, obj_type)
         lib.add_collection(col)
+        OutputManager2.create_collection(self.dir_path, library_name, col)
         #OutputManager.export_collection(col)
 
 
@@ -186,9 +205,13 @@ class Handler:
         :param arr: array - object values
         :return: None
         """
+        if not self.library_is_opened(library_name):
+            print("Library %s does not exist or is not opened" % library_name)
+            return
         lib = self.libraries[library_name]
         col = lib.get_collection(collection_name)
         col.add_obj(arr)
+        OutputManager2.add_object_to_collection("{}/{}/Collections/{}.csv".format(self.dir_path, library_name, collection_name), arr)
 
 
     def remove_library(self, library_name):
@@ -197,7 +220,10 @@ class Handler:
         :param library_name: str - library name
         :return: None
         """
-        OutputManager2.delete_library(library_name)
+        if not self.library_is_opened(library_name):
+            print("Library %s does not exist or is not opened" % library_name)
+            return
+        OutputManager2.delete_library(self.dir_path + "/" + library_name)
         del self.libraries[library_name]
 
 
@@ -208,9 +234,12 @@ class Handler:
         :param collection_name: str - collection name
         :return: None
         """
+        if not self.library_is_opened(library_name):
+            print("Library %s does not exist or is not opened" % library_name)
+            return
         lib = self.libraries[library_name]
         lib.remove_collection(collection_name)
-        OutputManager2.delete_collection(library_name, collection_name)
+        OutputManager2.delete_collection(self.dir_path + "/" + library_name, collection_name)
 
 
     def remove_object_from_collection(self, library_name, collection_name, index):
@@ -221,6 +250,9 @@ class Handler:
         :param index: int - index of the object to be removed
         :return: None
         """
+        if not self.library_is_opened(library_name):
+            print("Library %s does not exist or is not opened" % library_name)
+            return
         lib = self.libraries[library_name]
         col = lib.get_collection(collection_name)
         col.get_obj(index).destroy_obj()
@@ -236,6 +268,9 @@ class Handler:
         :param attribute_name: str - attribute to which the collection will be sorted
         :return: None
         """
+        if not self.library_is_opened(library_name):
+            print("Library %s does not exist or is not opened" % library_name)
+            return
         lib = self.libraries[library_name]
         col = lib.get_collection(collection_name)
         obj = col.get_obj_def()
@@ -284,6 +319,9 @@ class Handler:
         :param data_to_search: data that the user wishes to search
         :return: None
         """
+        if not self.library_is_opened(library_name):
+            print("Library %s does not exist or is not opened" % library_name)
+            return
         lib = self.libraries[library_name]
         col = lib.get_collection(collection_name)
 
@@ -322,6 +360,9 @@ class Handler:
         :param library_name: str - library name
         :return:
         """
+        if not self.library_is_opened(library_name):
+            print("Library %s does not exist or is not opened" % library_name)
+            return
         library = self.libraries[library_name]
         collections = library.get_collection_name_list()
         print("Library: %s" % library_name)
@@ -337,6 +378,9 @@ class Handler:
         :param collection_name: str - collection name
         :return: None
         """
+        if not self.library_is_opened(library_name):
+            print("Library %s does not exist or is not opened" % library_name)
+            return
         lib = self.libraries[library_name]
         collection = lib.get_collection(collection_name)
         collection.display_col()
@@ -352,6 +396,9 @@ class Handler:
         :param new_col_name: str - name of the new collection to be created
         :return: None
         """
+        if not self.library_is_opened(lib1) or not self.library_is_opened(lib2):
+            print("Either library %s or %s do not exist or are not opened" % (lib1, lib2))
+            return
         lib1 = self.libraries[lib1]
         lib2 = self.libraries[lib2]
 
