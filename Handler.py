@@ -6,7 +6,6 @@ import InputManager, OutputManager, OutputManager2
 from Comparators.NumberComparator import NumberComparator
 from Comparators.LetterComparator import LetterComparator
 from SortingAlgorithms.Quicksort import Quicksort
-from SortingAlgorithms import Quicksort
 from math import fabs
 
 

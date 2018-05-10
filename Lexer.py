@@ -1,6 +1,6 @@
 import ply.lex as lex
 
-#check the int, and float definitions which haven't been defined just yet
+#the int, and float definitions as str
 
 tokens = ["INFO", "DS", "COMMAND","TYPE","COLON"]
 
@@ -132,11 +132,6 @@ def t_ALL(t):
     t.type = reserved.get(t.value)
     return t
 
-
-#def t_EDIT(t):
- #   r'\b edit \b'
-  #   t.type = reserved.get(t.value)
-  #  return t
 
 def t_INFO(t):
     r'\b [a-zA-Z0-9._^%$\#!~@]* \b'

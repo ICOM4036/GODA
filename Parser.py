@@ -3,9 +3,6 @@ import Lexer
 from Lexer import tokens
 # P&L
 
-#Check this carefully with the newly added statements
-#Make sure that every thing is working correctly
-
 def p_statement(p):
     '''
     statement : statement_parseCommand
@@ -37,6 +34,7 @@ def p_statement_parseInfo(p):
     statement_parseCommand : INFO
     '''
     p[0] = {"info":p[1]}
+
 
 def p_error(p):
     if not p:

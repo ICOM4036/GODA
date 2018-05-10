@@ -11,11 +11,14 @@ class Goda:
         self.names = {}
 
 
+#Work with Alex para el textpool
 def simple_help():
     print("This is the Help Option")
 
+
 def cmd_help(cmd):
     print("This is the command specific help")
+
 
 def show(ds):
     if ds == "lib":
@@ -37,6 +40,7 @@ def show(ds):
         # handler.Handler.show_library(names['info'])
     else:
         print("Not a valid operation!!")
+
 
 def delete(ds):
     if ds == "lib":
@@ -63,7 +67,8 @@ def delete(ds):
     else:
         print("Not a valid operation!!")
 
-
+#add loop for the object attributes - dict
+#add loop for the attributes - array
 def create(ds):
     if ds == "lib":
         print("Please enter the name of the Library: ")
@@ -104,7 +109,7 @@ def quit(ds):
     else:
         print("Not a valid operation!!")
 
-
+#Library,collection,attribute_name
 def sort(ds):
     if ds == "coll":
         print("Please enter the name of the structure: ")
@@ -113,7 +118,7 @@ def sort(ds):
     else:
         print("Not a valid operation!!")
 
-
+#add third library name
 def merge():
     print("Please enter the name of the first library: ")
     lib1 = par.parser.parse(input(">>>"))
@@ -128,6 +133,7 @@ def merge():
     print("Merging collection #1: ", coll1['info']," with collection #2: ",coll2['info'], " into new collection with name: ",coll3['info'])
     #handler.Handler.merge(lib1['info'],coll1['info'],lib2['info'],coll2['info'],coll3['info'])
 
+#Check the coll part because we need to add a few things
 def search(ds):
     if ds == "lib":
         print("Please enter the name of the library: ")
@@ -149,6 +155,7 @@ def open(ds):
        # handler.Handler.openLibrary(names['info'])
     else:
         print("Not a valid operation!!")
+
 
 if __name__ == '__main__':
     t = Goda()
