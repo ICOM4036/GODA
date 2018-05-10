@@ -5,6 +5,7 @@ from DataTypes.Library import Library
 import InputManager, OutputManager, OutputManager2
 from Comparators.NumberComparator import NumberComparator
 from Comparators.LetterComparator import LetterComparator
+from Comparators.BooleanComparator import BooleanComparator
 from SortingAlgorithms.Quicksort import Quicksort
 from math import fabs
 
@@ -155,6 +156,9 @@ class Handler:
             return
         lib = self.libraries[library_name]
         col = lib.get_collection(collection_name)
+        if index >= col.col_size():
+            print("An object with index %s does not exist" % index)
+            return
         col.remove_obj(index)
         OutputManager2.delete_collection(self.dir_path + "/" + library_name, collection_name)
         OutputManager2.create_collection(self.dir_path, library_name, col)
@@ -186,13 +190,16 @@ class Handler:
             return
 
         # Create comparator according to the attribute data type
-        data_type = obj.get_obj_data_types()[index]
-        if data_type == 'str':
+        data_type = obj.get_obj_data_types()[index]\
+        # Data type is a string
+        if isinstance(data_type, str):
             comp = LetterComparator()
-        elif data_type == 'int' or 'float':
+        # Data type is either an int or a float
+        elif isinstance(data_type, int) or isinstance(data_type, float):
             comp = NumberComparator()
-        elif data_type == 'boolean':
-            pass
+        # Data type is boolean
+        elif isinstance(data_type, bool):
+            comp = BooleanComparator()
         else:
             print("Error") # no se supone que ocurra este error
 
@@ -294,24 +301,33 @@ class Handler:
         lib.display_all_lib()
 
 
-    def merge(self, lib1, col_name1, lib2, col_name2, new_col_name):
+    def merge(self, lib_name1, col_name1, lib_name2, col_name2, new_col_name, lib_name3):
         """
         Merges two collections
-        :param lib1: str - library name of collection 1
+        :param lib_name1: str - library name of collection 1
         :param col_name1: str - collection 1 name
-        :param lib2: str - library name of collection 2
+        :param lib_name2: str - library name of collection 2
         :param col_name2: str - collection 2 name
         :param new_col_name: str - name of the new collection to be created
+        :param lib1: str - library name where new collection will be saved
         :return: None
         """
-        if not self.library_is_opened(lib1) or not self.library_is_opened(lib2):
-            print("Either library %s or %s do not exist or are not opened" % (lib1, lib2))
+        if not self.library_is_opened(lib_name1):
+            print("Library %s does not exist or is not opened" % lib_name1)
             return
-        lib1 = self.libraries[lib1]
-        lib2 = self.libraries[lib2]
+        if not self.library_is_opened(lib_name2):
+            print("Library %s does not exist or is not opened" % lib_name2)
+            return
+        if not self.library_is_opened(lib_name3):
+            print("Library %s does not exist or is not opened" % lib_name3)
+            return
 
-        col1 = lib1.get_collection(col_name1)
-        col2 = lib2.get_collection(col_name2)
+        lib1 = self.libraries[lib_name1]
+        lib2 = self.libraries[lib_name2]
+        lib3 = self.libraries[lib_name3]
+
+        col1 = lib_name1.get_collection(col_name1)
+        col2 = lib_name2.get_collection(col_name2)
 
         # Get object types
         obj1 = col1.get_obj_def()
@@ -334,9 +350,8 @@ class Handler:
                 for v in values:
                     newValues.append(v)
                 newCol.add_obj(newValues)
-            # Fix this to output to default directory
-            lib1.add_collection(newCol)
-            #OutputManager.export_collection(newCol)
+
+            lib3.add_collection(newCol)
 
         # Not compatible
         else:
