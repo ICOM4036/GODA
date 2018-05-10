@@ -51,6 +51,16 @@ class ObjectType(object):
         """
         return self.__attributes_dict
 
+    def get_obj_att_string(self):
+        string = ""
+        count = len(self.__attributes_dict) - 1
+        for key in self.__attributes_dict:
+            count -= 1
+            string += key + ":" + self.__attributes_dict[key]
+            if count >= 0:
+                string += ","
+        return string
+
     def get_obj_type(self):
         """
         GET OBJECT TYPE
