@@ -15,7 +15,7 @@ class Handler:
     def __init__(self):
 
         # This is the default Directory where libraries are saved
-        self.dir_path = "C:/Users/irixa/PycharmProjects/GODA/Directory"
+        self.dir_path = "C:/Users/crysm/PycharmProjects/GODA/Directory"
         self.libraries = {}
         #self.collections = {}
         self.objects = {}

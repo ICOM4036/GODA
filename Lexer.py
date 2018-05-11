@@ -12,7 +12,7 @@ reserved = {
     'show': 'COMMAND' ,
     'merge': 'COMMAND' ,
     'lib': 'DS' ,
-    'coll': 'DS' ,
+    'col': 'DS' ,
     'inst': 'DS',
     'obj': 'DS',
     'open': 'COMMAND',
@@ -89,8 +89,8 @@ def t_LIB(t):
     return t
 
 
-def t_COLL(t):
-    r'\b coll \b'
+def t_COL(t):
+    r'\b col \b'
     t.type = reserved.get(t.value)
     return t
 
