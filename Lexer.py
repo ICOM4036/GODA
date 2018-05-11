@@ -1,6 +1,6 @@
 import ply.lex as lex
 
-tokens = ["INFO", "DS", "COMMAND","TYPE","COMMAS","US"]
+tokens = ["INFO", "DS", "COMMAND","TYPE","COMMAS"]
 
 reserved = {
     'crt': 'COMMAND',
@@ -26,7 +26,6 @@ reserved = {
 # Tokens
 
 t_ignore = '\t '
-t_US = '\_'
 t_COMMAS = r'\"'
 
 
@@ -151,7 +150,7 @@ def t_ALL(t):
 
 
 def t_INFO(t):
-    r'\b [a-zA-Z0-9._"!?@#%$^&]* \b'
+    r'\b [a-zA-Z0-9._"]* \b'
     t.type = "INFO"
     return t
 
@@ -163,7 +162,7 @@ def t_newline(t):
 
 def t_error(t):
     print("Illegal character '%s'" % t.value[0])
-   # t.lexer.skip(1)
+    t.lexer.skip(1)
 
 
 lexer = lex.lex()

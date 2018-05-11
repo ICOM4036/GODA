@@ -22,10 +22,12 @@ def p_statement_parseCommand(p):
                             | INFO
                             | COMMAS INFO COMMAS
                             | INFO INFO
-                            | INFO US INFO
     '''
     if len(p)== 2:
-        p[0] = {"command":p[1]}
+        if 'COMMAND' == reserved.get(p[1]):
+            p[0] = {"command":p[1]}
+        else:
+            p[0] = {"info": p[1]}
     elif len(p)== 3:
         if 'DS' == reserved.get(p[2]):
             p[0] = {"command": p[1], "ds": p[2]}
@@ -35,13 +37,9 @@ def p_statement_parseCommand(p):
             p[0] = {"command": p[1], "command2": p[2]}
         else:
            p[0] = {"info": p[1]+" "+p[2]}
-    elif len(p) == 4:
-        if 'COMMAS' == reserved.get(p[1]):
-            p[0] = {"info":p[2]}
-        else:
-            p[0] = {"info":p[1]+"_"+p[3]}
     else:
-        p[0] = {"info": p[1]}
+        p[0] = {"info":p[2]}
+
 
 
 def p_error(p):

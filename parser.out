@@ -11,16 +11,14 @@ Rule 5     statement_parseCommand -> INFO TYPE
 Rule 6     statement_parseCommand -> INFO
 Rule 7     statement_parseCommand -> COMMAS INFO COMMAS
 Rule 8     statement_parseCommand -> INFO INFO
-Rule 9     statement_parseCommand -> INFO US INFO
 
 Terminals, with rules where they appear
 
 COMMAND              : 2 3 4 4
 COMMAS               : 7 7
 DS                   : 2
-INFO                 : 5 6 7 8 8 9 9
+INFO                 : 5 6 7 8 8
 TYPE                 : 5
-US                   : 9
 error                : 
 
 Nonterminals, with rules where they appear
@@ -41,7 +39,6 @@ state 0
     (6) statement_parseCommand -> . INFO
     (7) statement_parseCommand -> . COMMAS INFO COMMAS
     (8) statement_parseCommand -> . INFO INFO
-    (9) statement_parseCommand -> . INFO US INFO
 
     COMMAND         shift and go to state 3
     INFO            shift and go to state 4
@@ -79,19 +76,17 @@ state 4
     (5) statement_parseCommand -> INFO . TYPE
     (6) statement_parseCommand -> INFO .
     (8) statement_parseCommand -> INFO . INFO
-    (9) statement_parseCommand -> INFO . US INFO
 
     TYPE            shift and go to state 9
     $end            reduce using rule 6 (statement_parseCommand -> INFO .)
     INFO            shift and go to state 8
-    US              shift and go to state 10
 
 
 state 5
 
     (7) statement_parseCommand -> COMMAS . INFO COMMAS
 
-    INFO            shift and go to state 11
+    INFO            shift and go to state 10
 
 
 state 6
@@ -124,26 +119,12 @@ state 9
 
 state 10
 
-    (9) statement_parseCommand -> INFO US . INFO
+    (7) statement_parseCommand -> COMMAS INFO . COMMAS
 
-    INFO            shift and go to state 12
+    COMMAS          shift and go to state 11
 
 
 state 11
-
-    (7) statement_parseCommand -> COMMAS INFO . COMMAS
-
-    COMMAS          shift and go to state 13
-
-
-state 12
-
-    (9) statement_parseCommand -> INFO US INFO .
-
-    $end            reduce using rule 9 (statement_parseCommand -> INFO US INFO .)
-
-
-state 13
 
     (7) statement_parseCommand -> COMMAS INFO COMMAS .
 
