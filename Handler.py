@@ -395,7 +395,18 @@ class Handler:
 
         return True
 
-
+    def get_col_attributes(self, library_name, collection_name):
+        """
+        Get a list of object attributes
+        :param library_name: str - library name
+        :param collection_name: str - collection name
+        :return: str[] - list of object attributes
+        """
+        lib = self.libraries[library_name]
+        col = lib.get_collection(collection_name)
+        obj = col.get_obj_def()
+        obj_attributes = obj.get_obj_attributes()
+        return obj_attributes
 
     def edit_collection(self, collection_name):
         pass
