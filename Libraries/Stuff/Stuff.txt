@@ -1,5 +1,4 @@
-Stuff
-Libraries/Stuff/Roll Book 1.txt
-Libraries/Stuff/Roll Book 2.txt
-Libraries/Stuff/Faculty.txt
-Libraries/Stuff/Garage.txt
+C:/Users/irixa/PycharmProjects/GODA/Libraries/Stuff/Roll Book 1.txt
+C:/Users/irixa/PycharmProjects/GODA/Libraries/Stuff/Roll Book 2.txt
+C:/Users/irixa/PycharmProjects/GODA/Libraries/Stuff/Faculty.txt
+C:/Users/irixa/PycharmProjects/GODA/Libraries/Stuff/Garage.txt

@@ -1,0 +1,5 @@
+Stuff
+TestingRes\Libraries/Stuff/Roll Book 1.txt
+TestingRes\Libraries/Stuff/Roll Book 2.txt
+TestingRes\Libraries/Stuff/Faculty.txt
+TestingRes\Libraries/Stuff/Garage.txt

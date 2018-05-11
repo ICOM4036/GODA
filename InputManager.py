@@ -8,7 +8,7 @@ from DataTypes.Library import *
 from DataTypes.Collection import *
 from DataTypes.ObjectType import *
 import csv
-import ntpath
+import os
 
 
 def imp_new_collection(filename):
@@ -91,50 +91,43 @@ def imp_new_library(filename):
         return None
 
 
-###############################################################################
-def imp_raw_collection(filename):                     # THIS WILL NOT BE USED #
+def imp_cmd(cmd_name, pyfile):
     """
-    IMPORT RAW COLLECTION:
-    READS A CSV FILE WHICH CONTAINS OBJECT TYPE, OBJECT DEFINITION, AND DATA
-    EXTRACTS COLLECTION NAME FROM FILE NAME
-    :param filename: STRING - FILE NAME
-    :return: COLLECTION - NEW COLLECTION
+    IMPORT COMMAND
+    :param cmd_name: STRING - COMMAND NAME
+    :param pyfile: STRING - PATH OF ALGORITHM
+    :return: VOID
     """
     try:
-        f = open(filename, 'r+')
-        lines = []
-        for line in f:
-            lines.append(line.replace('\n', ''))
-        f.close()
-        head, tail = ntpath.split(filename)
-        name = tail or ntpath.basename(head)
-        objname = lines[0].split(',')[0]
-        rawdef = lines[1].split(',')
-        objdef = {}
-        for a in rawdef:
-            v = a.split(":")
-            objdef.__setitem__(v[0], v[1])
-        obj = ObjectType(objname, objdef)
-        col = Collection(name.replace('.csv', ''), obj)
-        lines.remove(lines[1])
-        lines.remove(lines[0])
-        odt = col.get_obj_def().get_obj_data_types()
+        pyname = os.path.basename(pyfile)
+        cmd_dir = r'ImportedCommands/'+pyname
+        mod_name = pyname.replace(".py", "")
+        f1 = open(pyfile, 'r+')
+        f2 = open(cmd_dir, 'w+')
+        lines = f1.readlines()
         for line in lines:
-            obj = []
-            line = line.split(',')
-            for i in range(0, len(line)):
-                if odt[i] == "int":
-                    obj.append(int(line[i]))
-                elif odt[i] == "float":
-                    obj.append(float(line[i]))
-                else:
-                    obj.append(line[i])
-            col.add_obj(obj)
-        return col
-
+            f2.write(line)
+        f1.close()
+        f2.close()
+        f3 = open('ImpCmd.py', 'r+')
+        cmd_par = f3.readlines()
+        f3.close()
+        f4 = open('ImpCmd.py', 'w+')
+        for line in cmd_par:
+            if "# imports" in line:
+                f4.write(line)
+                f4.write('import ImportedCommands.{} as {}\n'.format(mod_name, mod_name))
+            elif "# cmds" in line:
+                f4.write(line+'\n')
+                f4.write('    elif cmd is "{}":\n'.format(cmd_name))
+                f4.write('        return {}.main(lib)\n'.format(mod_name))
+            else:
+                f4.write(line)
+        f4.close()
     except FileNotFoundError:
-        print('Something went wrong while importing ', filename, '.',
-              '\nPlease make sure that the file exists and that its format is correct.')
-        return None
+        print("nope")
+
+
+
 
 

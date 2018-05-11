@@ -8,7 +8,7 @@ print("===================\n\nTESTING OUTPUT MANAGER\n\n===================")
 
 # Importing library from project files
 print('\n**********************************\nImporting library from project files\n')
-lib = imp_new_library(r"Libraries\University\University.txt")
+lib = imp_new_library(r"TestingRes\Libraries\University\University.txt")
 lib.display_lib()
 
 c1 = lib.get_collection("RollBook1")
@@ -21,7 +21,7 @@ save_library(lib)
 
 # Exporting Library to Desktop (replace my directory with your to test for yourself)
 print('\n**********************************\nExporting Library to Desktop (replace my directory with your own to test)\n')
-export_library(lib, r'C:/Users/cintr/Desktop/Libraries')
+export_library(lib, r'TestingRes/Libraries')
 
 # Creating a Library
 print('\n**********************************''\nCreating Library "Stuff" (same Library "University", renames "Stuff" from "test1.py")')
@@ -64,7 +64,7 @@ lib0.add_collection(c1)
 
 # Exporting Library to Desktop (replace my directory with your to test for yourself)
 print('\n**********************************\nExporting Library to Desktop (replace my directory with your own to test)\n')
-export_library(lib0, 'C:/Users/cintr/Desktop/Libraries')
+export_library(lib0, r'TestingRes\Libraries')
 
 # Saving Library in project files
 print('\n**********************************\nSaving Library in project files\n')
