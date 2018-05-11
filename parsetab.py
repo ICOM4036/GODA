@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'COLON COMMAND DS INFO TYPE\n    statement : statement_parseCommand\n    \n    statement_parseCommand : COMMAND DS\n                            | COMMAND\n                            | COMMAND COMMAND\n                            | INFO COLON TYPE\n    \n    statement_parseCommand : INFO\n    '
+_lr_signature = 'COMMAND COMMAS DS INFO TYPE US\n    statement : statement_parseCommand\n    \n    statement_parseCommand : COMMAND DS\n                            | COMMAND\n                            | COMMAND COMMAND\n                            | INFO TYPE\n                            | INFO\n                            | COMMAS INFO COMMAS\n                            | INFO INFO\n                            | INFO US INFO\n    '
     
-_lr_action_items = {'COMMAND':([0,3,],[3,5,]),'INFO':([0,],[4,]),'$end':([1,2,3,4,5,6,8,],[0,-1,-3,-6,-4,-2,-5,]),'DS':([3,],[6,]),'COLON':([4,],[7,]),'TYPE':([7,],[8,]),}
+_lr_action_items = {'COMMAND':([0,3,],[3,6,]),'INFO':([0,4,5,10,],[4,8,11,12,]),'COMMAS':([0,11,],[5,13,]),'$end':([1,2,3,4,6,7,8,9,12,13,],[0,-1,-3,-6,-4,-2,-8,-5,-9,-7,]),'DS':([3,],[7,]),'TYPE':([4,],[9,]),'US':([4,],[10,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -27,10 +27,13 @@ for _k, _v in _lr_goto_items.items():
 del _lr_goto_items
 _lr_productions = [
   ("S' -> statement","S'",1,None,None,None),
-  ('statement -> statement_parseCommand','statement',1,'p_statement','Parser.py',8),
-  ('statement_parseCommand -> COMMAND DS','statement_parseCommand',2,'p_statement_parseCommand','Parser.py',17),
-  ('statement_parseCommand -> COMMAND','statement_parseCommand',1,'p_statement_parseCommand','Parser.py',18),
-  ('statement_parseCommand -> COMMAND COMMAND','statement_parseCommand',2,'p_statement_parseCommand','Parser.py',19),
-  ('statement_parseCommand -> INFO COLON TYPE','statement_parseCommand',3,'p_statement_parseCommand','Parser.py',20),
-  ('statement_parseCommand -> INFO','statement_parseCommand',1,'p_statement_parseInfo','Parser.py',34),
+  ('statement -> statement_parseCommand','statement',1,'p_statement','Parser.py',9),
+  ('statement_parseCommand -> COMMAND DS','statement_parseCommand',2,'p_statement_parseCommand','Parser.py',18),
+  ('statement_parseCommand -> COMMAND','statement_parseCommand',1,'p_statement_parseCommand','Parser.py',19),
+  ('statement_parseCommand -> COMMAND COMMAND','statement_parseCommand',2,'p_statement_parseCommand','Parser.py',20),
+  ('statement_parseCommand -> INFO TYPE','statement_parseCommand',2,'p_statement_parseCommand','Parser.py',21),
+  ('statement_parseCommand -> INFO','statement_parseCommand',1,'p_statement_parseCommand','Parser.py',22),
+  ('statement_parseCommand -> COMMAS INFO COMMAS','statement_parseCommand',3,'p_statement_parseCommand','Parser.py',23),
+  ('statement_parseCommand -> INFO INFO','statement_parseCommand',2,'p_statement_parseCommand','Parser.py',24),
+  ('statement_parseCommand -> INFO US INFO','statement_parseCommand',3,'p_statement_parseCommand','Parser.py',25),
 ]

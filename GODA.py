@@ -50,19 +50,19 @@ def show(ds):
         print("Please enter the name of the Library: ")
         names = par.parser.parse(input(">>>"))
         print("Showing structure with name: ", names['info'])
-        handler.Handler.show_library(handler,names['info'])
+        handler.Handler.show_library(names['info'])
     elif ds == "col":
         print("Please enter the name of the Library: ")
         lib = par.parser.parse(input(">>>"))
         print("Please enter the name of the Collection: ")
         coll = par.parser.parse(input(">>>"))
         print("Showing Collection with name: ", coll['info'])
-        handler.Handler.show_collection(handler,lib['info'],coll['info'])
+        handler.Handler.show_collection(lib['info'],coll['info'])
     elif ds == "all":
         print("Please enter the name of the Library: ")
         names = par.parser.parse(input(">>>"))
         print("Showing contents of the Library with name: ", names['info'])
-        handler.Handler.show_library(handler,names['info'])
+        handler.Handler.show_library(names['info'])
     else:
         print("Not a valid operation!!")
 
@@ -72,14 +72,14 @@ def delete(ds):
         print("Please enter the name of the Library: ")
         names = par.parser.parse(input(">>>"))
         print("Deleting Library with name: ", names['info'])
-        handler.Handler.remove_library(handler,names['info'])
+        handler.Handler.remove_library(names['info'])
     elif ds == "col":
         print("Please enter the name of the Library: ")
         lib = par.parser.parse(input(">>>"))
         print("Please enter the name of the Collection: ")
         coll = par.parser.parse(input(">>>"))
         print("Deleting Collection with name: ", coll['info'])
-        handler.Handler.remove_collection_from_library(handler,lib['info'],coll['info'])
+        handler.Handler.remove_collection_from_library(lib['info'],coll['info'])
     elif ds == "inst":
         print("Please enter the name of the Library: ")
         lib = par.parser.parse(input(">>>"))
@@ -88,7 +88,7 @@ def delete(ds):
         print("Please enter the index: ")
         index = par.parser.parse(input(">>>"))
         print("Deleting Instance with index: ", index['info'], " in Collection: ",coll['info'])
-        handler.Handler.remove_object_from_collection(handler,lib['info'],coll['info'],index['info'])
+        handler.Handler.remove_object_from_collection(lib['info'],coll['info'],index['info'])
     else:
         print("Not a valid operation!!")
 
@@ -98,7 +98,7 @@ def create(ds):
         print("Please enter the name of the Library: ")
         names = par.parser.parse(input(">>>"))
         print("Creating library with name: ", names['info'])
-        handler.Handler.create_library(handler,names['info'])
+        handler.Handler.create_library(names['info'])
     elif ds == "col":
         print("Please enter the name of the Library: ")
         lib = par.parser.parse(input(">>>"))
@@ -107,7 +107,7 @@ def create(ds):
         print("Please enter the name of the Object: ")
         obj = par.parser.parse(input(">>>"))
         print("Creating collection with name: ", coll['info']," with object: ",obj['info'])
-        handler.Handler.create_collection(handler,lib['info'],coll['info'],obj['info'])
+        handler.Handler.create_collection(lib['info'],coll['info'],obj['info'])
     elif ds == "obj":
         list = {}
         print("Please enter the name of the Object: ")
@@ -123,20 +123,20 @@ def create(ds):
             else:
                 continue
         print("Creating Object with name: ", names['info']," with list of attributes: ",list)
-        handler.Handler.create_object(handler,names['info'],list)
+        handler.Handler.create_object(names['info'],list)
     elif ds == "inst":
         print("Please enter the name of the Library: ")
         lib = par.parser.parse(input(">>>"))
         print("Please enter the name of the Collection: ")
         coll = par.parser.parse(input(">>>"))
         list = []
-        obj = handler.Handler.get_col_attributes(handler,lib['info'],coll['info'])
+        obj = handler.Handler.get_col_attributes(lib['info'],coll['info'])
         for key in obj:
             print("Please enter the value of: ", key)
             attr = input(">>>")
             list.append(attr)
         print("Creating instance with in Collection with name: ", coll['info'], " with values: ",list)
-        handler.Handler.add_object(handler,lib['info'],coll['info'],list)
+        handler.Handler.add_object(lib['info'],coll['info'],list)
     else:
         print("Not a valid structure!!!!!!")
 
@@ -145,7 +145,7 @@ def quit_lib(ds):
     print("Please enter the name of the library: ")
     names = par.parser.parse(input(">>>"))
     print("Quiting structure with name: ", names['info'])
-    handler.Handler.close_library(handler,names['info'])
+    handler.Handler.close_library(names['info'])
 
 
 def sort():
@@ -156,7 +156,7 @@ def sort():
     print("Please enter the name of the attribute to sort by: ")
     attri = par.parser.parse(input(">>>"))
     print("Sorting Collection with name: ", coll['info'], " by attribute: ",attri['info'])
-    handler.Handler.sort(handler,lib['info'],coll['info'],attri['info'])
+    handler.Handler.sort(lib['info'],coll['info'],attri['info'])
 
 
 def merge():
@@ -173,7 +173,7 @@ def merge():
     print("Please enter the name of the new collection: ")
     coll3 = par.parser.parse(input(">>>"))
     print("Merging collection #1: ",coll1['info']," with collection #2: ",coll2['info']," into new collection with name: ",coll3['info'])
-    handler.Handler.merge(handler,lib1['info'],coll1['info'],lib2['info'],coll2['info'],coll3['info'],lib3['info'])
+    handler.Handler.merge(lib1['info'],coll1['info'],lib2['info'],coll2['info'],coll3['info'],lib3['info'])
 
 
 def search(ds):
@@ -187,7 +187,7 @@ def search(ds):
         print("Please enter the specific value to search for: ")
         value = par.parser.parse(input(">>>"))
         print("Searching collection with name: ", coll['info'], " for all entries with value: ",value['info'])
-        handler.Handler.search_in_collection(handler,lib['info'],coll['info'],attri['info'],value['info'])
+        handler.Handler.search_in_collection(lib['info'],coll['info'],attri['info'],value['info'])
     else:
         print("Not a valid operation!!!")
 
@@ -197,7 +197,7 @@ def open(ds):
         print("Please enter the name of the library: ")
         names = par.parser.parse(input(">>>"))
         print("Opening library with name: ", names['info'])
-        handler.Handler.openLibrary(handler,names['info'])
+        handler.Handler.openLibrary(names['info'])
     else:
         print("Not a valid operation!!")
 
@@ -220,8 +220,8 @@ while True:
     if user_input is not None: #and 'command' in user_input is True and 'info' in user_input is False:
 
         if user_input['command'] == "help":
-            if len(user_input) == 2:
-                cmd_help(user_input['ds'])
+            if 'command2' in user_input:
+                cmd_help(user_input['command2'])
             else:
                 simple_help()
         elif user_input['command'] == "quit":
@@ -230,21 +230,45 @@ while True:
             else:
                 quit(user_input['ds'])
         elif user_input['command'] == "show":
-            show(user_input['ds'])
+            if 'ds' in user_input:
+                show(user_input['ds'])
+            else:
+                print("{} is not recognized".format(user_input))
         elif user_input['command'] == "rm":
-            delete(user_input['ds'])
+            if 'ds' in user_input:
+                delete(user_input['ds'])
+            else:
+                print("{} is not recognized".format(user_input))
         elif user_input['command'] == "crt":
-            create(user_input['ds'])
+            if 'ds' in user_input:
+                create(user_input['ds'])
+            else:
+                print("{} is not recognized".format(user_input))
         elif user_input['command'] == "merge":
-            merge()
+            if 'ds' in user_input:
+                print("{} is not recognized".format(user_input))
+            else:
+                merge()
         elif user_input['command'] == "search":
-            search(user_input['ds'])
+            if 'ds' in user_input:
+                search(user_input['ds'])
+            else:
+                print("{} is not recognized".format(user_input))
         elif user_input['command'] == "sort":
-            sort()
+            if 'ds' in user_input:
+                print("{} is not recognized".format(user_input))
+            else:
+                sort()
         elif user_input['command'] == "open":
-            open(user_input['ds'])
+            if 'ds' in user_input:
+                open(user_input['ds'])
+            else:
+                print("{} is not recognized".format(user_input))
         elif user_input['command'] == "imp":
-            import_file(user_input['ds'])
+            if 'ds' in user_input:
+                import_file(user_input['ds'])
+            else:
+                print("{} is not recognized".format(user_input))
         else:
             print("{} is not recognized".format(user_input))
     else:
