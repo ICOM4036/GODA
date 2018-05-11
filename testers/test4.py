@@ -24,7 +24,7 @@ print("\n")
 handler.show_collection('PersonalidadesDeHelp', 'help2')
 
 print("\n\nTesting merge\n")
-handler.merge('PersonalidadesDeHelp', 'help1', 'PersonalidadesDeHelp', 'help2', 'help3')
+handler.merge('PersonalidadesDeHelp', 'help1', 'PersonalidadesDeHelp', 'help2', 'help3', 'PersonalidadesDeHelp')
 handler.show_collection('PersonalidadesDeHelp', 'help3')
 
 print("\n\nTesting sort by int\n")

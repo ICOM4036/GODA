@@ -1,5 +1,3 @@
-import DataTypes.Null as null
-
 
 class ObjectType(object):
     """
@@ -57,7 +55,7 @@ class ObjectType(object):
         count = len(self.__attributes_dict) - 1
         for key in self.__attributes_dict:
             count -= 1
-            string += key + ":" + self.__attributes_dict[key]
+            string += key + ":" + str(self.__attributes_dict[key]).split("'")[1]
             if count >= 0:
                 string += ","
         return string

@@ -5,6 +5,15 @@ class LetterComparator:
         for idx in range(min(len(string1), len(string2))):
             # Get the "value" of the character
             ordinal1, ordinal2 = ord(string1[idx]), ord(string2[idx])
+            # string1 and string2 are null
+            if string1 is None and string2 is None:
+                return 0
+            # string1 is null
+            if string1 is None:
+                return -1
+            # string2 is null
+            if string2 is None:
+                return 1
             # If the "value" is identical check the next characters
             if ordinal1 == ordinal2:
                 continue

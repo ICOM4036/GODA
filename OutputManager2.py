@@ -13,7 +13,7 @@ def create_library(dir_path, library_name):
 
     # Create a CollectionsList text file
     txtfile = open('{}/{}.txt'.format(library_path, library_name), 'w')
-    txtfile.write(library_name)
+    txtfile.close()
 
     # Create a subdirectory to contain all collections
     coll_path = "{}/Collections".format(library_path)
@@ -36,16 +36,19 @@ def create_collection(dir_path, library_name, collection):
 
     # Write the collection name in library text file
     txtfile = open("%s/%s.txt" % (lib_path, library_name), 'a')
-    txtfile.write("\n" + collection.get_name())
+    txtfile.write("{}/{}.txt\n".format(lib_path, collection.get_name()))
+    txtfile.close()
 
     # Create a text file with the collection details
     colfile = open("%s/%s.txt" % (lib_path, collection.get_name()), 'w')
+    colfile.write("{}/Collections/{}.csv".format(lib_path, collection.get_name()))
     colfile.write("\n" + collection.get_name())
     colfile.write("\n" + collection.get_obj_def().get_obj_type())
     colfile.write("\n" + collection.get_obj_def().get_obj_att_string())
+    colfile.close()
 
     # Create a csv file where the collection objects will be written
-    open(lib_path + "/Collections/" + collection.get_name() + ".csv", 'w')
+    open(lib_path + "/Collections/" + collection.get_name() + ".csv", 'w').close()
 
 def add_object_to_collection(col_path, obj_values):
     file_writer = csv.writer(open(col_path, 'a', newline = ''))
@@ -58,11 +61,26 @@ def delete_library(lib_path):
         print("Cannot delete library. Library does not exist.")
 
 
-def delete_collection(lib_path, collection_name):
+def delete_collection(lib_path, lib_name, collection_name):
     try:
         path1 = "{}/{}.txt".format(lib_path, collection_name)
-        os.remove(path)
+        os.remove(path1)
         path2 = "{}/Collections/{}.csv".format(lib_path, collection_name)
         os.remove(path2)
+
+        txtfile = open("%s/%s.txt" % (lib_path, lib_name), 'r')
+        textreader = txtfile.read().split("\n")
+        del textreader[len(textreader) - 1]
+        new_txtfile = []
+        for line in textreader:
+            if not line == path1:
+                new_txtfile.append(line)
+
+        txtfile.close()
+        txtfile = open("%s/%s.txt" % (lib_path, lib_name), 'w+')
+        for line in new_txtfile:
+            txtfile.write(line + "\n")
+
+
     except Exception:
         print("Cannot delete collection %s. Collection does not exist." % collection_name)

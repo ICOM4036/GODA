@@ -140,7 +140,7 @@ class Handler:
             return
         lib = self.libraries[library_name]
         lib.remove_collection(collection_name)
-        OutputManager2.delete_collection(self.dir_path + "/" + library_name, collection_name)
+        OutputManager2.delete_collection(self.dir_path + "/" + library_name, library_name, collection_name)
 
 
     def remove_object_from_collection(self, library_name, collection_name, index):
@@ -160,7 +160,7 @@ class Handler:
             print("An object with index %s does not exist" % index)
             return
         col.remove_obj(index)
-        OutputManager2.delete_collection(self.dir_path + "/" + library_name, collection_name)
+        OutputManager2.delete_collection(self.dir_path + "/" + library_name, library_name, collection_name)
         OutputManager2.create_collection(self.dir_path, library_name, col)
 
     def sort(self, library_name, collection_name, attribute_name):
@@ -190,18 +190,19 @@ class Handler:
             return
 
         # Create comparator according to the attribute data type
-        data_type = obj.get_obj_data_types()[index]\
+        data_type = obj.get_obj_data_types()[index]
         # Data type is a string
-        if isinstance(data_type, str):
+        if data_type is str:
             comp = LetterComparator()
         # Data type is either an int or a float
-        elif isinstance(data_type, int) or isinstance(data_type, float):
+        elif data_type is (int or float): #type(data_type) is (type(int) or type(float)):
             comp = NumberComparator()
         # Data type is boolean
-        elif isinstance(data_type, bool):
+        elif data_type is bool:#type(data_type) is type(bool):
             comp = BooleanComparator()
         else:
             print("Error") # no se supone que ocurra este error
+            return
 
         data = col.get_obj_list()
 
@@ -326,8 +327,8 @@ class Handler:
         lib2 = self.libraries[lib_name2]
         lib3 = self.libraries[lib_name3]
 
-        col1 = lib_name1.get_collection(col_name1)
-        col2 = lib_name2.get_collection(col_name2)
+        col1 = lib1.get_collection(col_name1)
+        col2 = lib2.get_collection(col_name2)
 
         # Get object types
         obj1 = col1.get_obj_def()
@@ -335,23 +336,32 @@ class Handler:
 
         # Check compatibility
         if self.is_coll_compatible(obj1, obj2):
-            newCol = Collection(new_col_name, obj1)
+            self.create_collection(lib_name3, new_col_name, obj1.get_obj_type())
+            # lib3.create_collection(new_col_name, obj1.get_obj_type(), obj1.get_obj_att_dict())
+            new_col = lib3.get_collection(new_col_name)
+            # OutputManager2.create_collection(self.dir_path, lib_name3, new_col)
+            # Append objects in collection 1
             list1 = col1.get_obj_list()
             for obj in list1:
                 newValues = []
                 values = obj.get_values()
                 for v in values:
                     newValues.append(v)
-                newCol.add_obj(newValues)
+                # new_col.add_obj(newValues)
+                # OutputManager2.add_object_to_collection("{}/{}/Collections/{}.csv".format(self.dir_path, lib_name3,
+                #                                                                           new_col_name), newValues)
+                self.add_object(lib_name3, new_col_name, newValues)
+            # Append objects in collection 2
             list2 = col2.get_obj_list()
             for obj in list2:
                 newValues = []
                 values = obj.get_values()
                 for v in values:
                     newValues.append(v)
-                newCol.add_obj(newValues)
-
-            lib3.add_collection(newCol)
+                # new_col.add_obj(newValues)
+                # OutputManager2.add_object_to_collection("{}/{}/Collections/{}.csv".format(self.dir_path, lib_name3,
+                #                                                                           new_col_name), newValues)
+                self.add_object(lib_name3, new_col_name, newValues)
 
         # Not compatible
         else:
