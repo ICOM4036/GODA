@@ -1,4 +1,3 @@
-import DataTypes.Null as null
 
 
 class ObjectType(object):
