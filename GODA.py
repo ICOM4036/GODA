@@ -1,6 +1,8 @@
 import Parser as par
 import os
 import Handler as handler
+import InputManager as ip
+import textpool
 
 class Goda:
     def __init__(self):
@@ -13,11 +15,33 @@ class Goda:
 
 #Work with Alex para el textpool
 def simple_help():
-    print("This is the Help Option")
+    print(textpool.help_txt)
 
 
 def cmd_help(cmd):
-    print("This is the command specific help")
+    print(textpool.help_cmd)
+
+
+def import_file(ds):
+    if ds == "lib":
+        print("Please enter the name of the file: ")
+        names = par.parser.parse(input(">>>"))
+        print("Importing Library from file with name: ", names['info'])
+        # ip.imp_new_library(names['info'])
+    elif ds == "coll":
+        print("Please enter the name of the file: ")
+        coll = par.parser.parse(input(">>>"))
+        print("Importing Collection from file with name: ", coll['info'])
+        # ip.imp_new_collection(coll['info'])
+    elif ds == "inst":
+        print("Please enter the name of the file: ")
+        names = par.parser.parse(input(">>>"))
+        print("Please enter the name of the Collection: ")
+        coll = par.parser.parse(input(">>>"))
+        print("Importing data from file with name: ", names['info'], " into Collection: ",coll['info'])
+        # ip.imp_data(names['info'],coll['info'])
+    else:
+        print("Not a valid operation!!")
 
 
 def show(ds):
@@ -34,9 +58,9 @@ def show(ds):
         print("Showing Collection with name: ", coll['info'])
         # handler.Handler.show_collection(lib['info'],coll['info'])
     elif ds == "all":
-        print("Please enter the name of the structure: ")
+        print("Please enter the name of the Library: ")
         names = par.parser.parse(input(">>>"))
-        print("Showing structure with name: ", names['info'])
+        print("Showing contents of the Library with name: ", names['info'])
         # handler.Handler.show_library(names['info'])
     else:
         print("Not a valid operation!!")
@@ -66,6 +90,7 @@ def delete(ds):
         # handler.Handler.remove_object_from_collection(lib['info'],coll['info'],index['info'])
     else:
         print("Not a valid operation!!")
+
 
 #add loop for the object attributes - dict
 #add loop for the attributes - array
@@ -98,27 +123,24 @@ def create(ds):
         print("Not a valid structure!!!!!!")
 
 
-def quit(ds):
-    if ds == "lib":
-        print("Please enter the name of the library: ")
-        names = par.parser.parse(input(">>>"))
-        print("Quiting structure with name: ", names['info'])
-       # handler.Handler.close_library(names['info'])
-    elif ds == "all":
-        exit("\tQuitting Goda \n \tGoodbye!!!")
-    else:
-        print("Not a valid operation!!")
+def quit_lib(ds):
+    print("Please enter the name of the library: ")
+    names = par.parser.parse(input(">>>"))
+    print("Quiting structure with name: ", names['info'])
+    # handler.Handler.close_library(names['info'])
 
-#Library,collection,attribute_name
-def sort(ds):
-    if ds == "coll":
-        print("Please enter the name of the structure: ")
-        names = par.parser.parse(input(">>>"))
-        print("Sorting structure with name: ", names['info'])
-    else:
-        print("Not a valid operation!!")
 
-#add third library name
+def sort():
+    print("Please enter the name of the Library: ")
+    lib = par.parser.parse(input(">>>"))
+    print("Please enter the name of the Collection: ")
+    coll = par.parser.parse(input(">>>"))
+    print("Please enter the name of the attribute to sort by: ")
+    attri = par.parser.parse(input(">>>"))
+    print("Sorting Collection with name: ", coll['info'], " by attribute: ",attri['info'])
+    # handler.Handler.sort(lib['info'],coll['info'],attri['info'])
+
+
 def merge():
     print("Please enter the name of the first library: ")
     lib1 = par.parser.parse(input(">>>"))
@@ -128,21 +150,26 @@ def merge():
     lib2 = par.parser.parse(input(">>>"))
     print("Please enter the name of the second collection: ")
     coll2 = par.parser.parse(input(">>>"))
+    # print("Please enter the name of the library where the new collection will be placed: ")
+    # lib3 = par.parser.parse(input(">>>"))
     print("Please enter the name of the new collection: ")
     coll3 = par.parser.parse(input(">>>"))
-    print("Merging collection #1: ", coll1['info']," with collection #2: ",coll2['info'], " into new collection with name: ",coll3['info'])
-    #handler.Handler.merge(lib1['info'],coll1['info'],lib2['info'],coll2['info'],coll3['info'])
+    print("Merging collection #1: ",coll1['info']," with collection #2: ",coll2['info']," into new collection with name: ",coll3['info'])
+    # handler.Handler.merge(lib1['info'],coll1['info'],lib2['info'],coll2['info'],coll3['info'])
 
-#Check the coll part because we need to add a few things
+
 def search(ds):
-    if ds == "lib":
-        print("Please enter the name of the library: ")
-        names = par.parser.parse(input(">>>"))
-        print("Searching library with name: ", names['info'])
-    elif ds == "coll":
-        print("Please enter the name of the collection: ")
-        names = par.parser.parse(input(">>>"))
-        print("Searching collection with name: ", names['info'])
+    if ds == "coll":
+        print("Please enter the name of the Library: ")
+        lib = par.parser.parse(input(">>>"))
+        print("Please enter the name of the Collection: ")
+        coll = par.parser.parse(input(">>>"))
+        print("Please enter the name of the attribute to sort by: ")
+        attri = par.parser.parse(input(">>>"))
+        print("Please enter the specific value to search for: ")
+        value = par.parser.parse(input(">>>"))
+        print("Searching collection with name: ", coll['info'], " for all entries with value: ",value['info'])
+        # handler.Handler.search_in_collection(lib['info'],coll['info'],attri['info'],value['info'])
     else:
         print("Not a valid operation!!!")
 
@@ -180,21 +207,26 @@ while True:
             else:
                 simple_help()
         elif user_input['command'] == "quit":
-            quit(user_input['ds'])
+            if len(user_input) == 1:
+                quit("\tQuitting Goda \n \tGoodbye!!!")
+            else:
+                quit(user_input['ds'])
         elif user_input['command'] == "show":
             show(user_input['ds'])
-        elif user_input['command'] == "delete":
+        elif user_input['command'] == "rm":
             delete(user_input['ds'])
-        elif user_input['command'] == "create":
+        elif user_input['command'] == "crt":
             create(user_input['ds'])
         elif user_input['command'] == "merge":
             merge()
         elif user_input['command'] == "search":
             search(user_input['ds'])
         elif user_input['command'] == "sort":
-            sort(user_input['ds'])
+            sort()
         elif user_input['command'] == "open":
             open(user_input['ds'])
+        elif user_input['command'] == "imp":
+            import_file()
         else:
             print("{} is not recognized".format(user_input))
     else:

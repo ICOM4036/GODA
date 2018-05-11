@@ -1,12 +1,10 @@
 import ply.lex as lex
 
-#the int, and float definitions as str
-
 tokens = ["INFO", "DS", "COMMAND","TYPE","COLON"]
 
 reserved = {
-    'create': 'COMMAND',
-    'delete': 'COMMAND',
+    'crt': 'COMMAND',
+    'rm': 'COMMAND',
     'help': 'COMMAND',
     'quit': 'COMMAND',
     'sort': 'COMMAND',
@@ -18,7 +16,7 @@ reserved = {
     'inst': 'DS',
     'obj': 'DS',
     'open': 'COMMAND',
-    'import': 'COMMAND',
+    'imp': 'COMMAND',
     'all': 'DS',
     'int': 'TYPE',
     'float':'TYPE',
@@ -31,14 +29,14 @@ t_ignore = '\t '
 t_COLON = r':'
 
 
-def t_CREATE(t):
-    r'\b create \b'
+def t_CRT(t):
+    r'\b crt \b'
     t.type = reserved.get(t.value)
     return t
 
 
-def t_DELETE(t):
-    r'\b delete \b'
+def t_RM(t):
+    r'\b rm \b'
     t.type = reserved.get(t.value)
     return t
 
@@ -85,19 +83,19 @@ def t_MERGE(t):
     return t
 
 
-def t_LIBRARY(t):
+def t_LIB(t):
     r'\b lib \b'
     t.type = reserved.get(t.value)
     return t
 
 
-def t_COLLECTION(t):
+def t_COLL(t):
     r'\b coll \b'
     t.type = reserved.get(t.value)
     return t
 
 
-def t_INSTANCE(t):
+def t_INST(t):
     r'\b inst \b'
     t.type = reserved.get(t.value)
     return t
@@ -115,7 +113,19 @@ def t_STR(t):
     return t
 
 
-def t_OBJECT(t):
+def t_INT(t):
+    r'\b int \b'
+    t.type = reserved.get(t.value)
+    return t
+
+
+def t_FLOAT(t):
+    r'\b float \b'
+    t.type = reserved.get(t.value)
+    return t
+
+
+def t_OBJ(t):
     r'\b obj \b'
     t.type = reserved.get(t.value)
     return t
@@ -127,6 +137,12 @@ def t_OPEN(t):
     return t
 
 
+def t_IMP(t):
+    r'\b imp \b'
+    t.type = reserved.get(t.value)
+    return t
+
+
 def t_ALL(t):
     r'\b all \b'
     t.type = reserved.get(t.value)
@@ -134,7 +150,7 @@ def t_ALL(t):
 
 
 def t_INFO(t):
-    r'\b [a-zA-Z0-9._^%$\#!~@]* \b'
+    r'\b [a-zA-Z0-9._]* \b'
     t.type = "INFO"
     return t
 
