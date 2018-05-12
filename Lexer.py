@@ -1,6 +1,6 @@
 import ply.lex as lex
 
-tokens = ["INFO", "DS", "COMMAND","TYPE","COLON"]
+tokens = ["INFO", "DS", "COMMAND","TYPE","COMMAS"]
 
 reserved = {
     'crt': 'COMMAND',
@@ -12,7 +12,7 @@ reserved = {
     'show': 'COMMAND' ,
     'merge': 'COMMAND' ,
     'lib': 'DS' ,
-    'coll': 'DS' ,
+    'col': 'DS' ,
     'inst': 'DS',
     'obj': 'DS',
     'open': 'COMMAND',
@@ -26,7 +26,7 @@ reserved = {
 # Tokens
 
 t_ignore = '\t '
-t_COLON = r':'
+t_COMMAS = r'\"'
 
 
 def t_CRT(t):
@@ -89,8 +89,8 @@ def t_LIB(t):
     return t
 
 
-def t_COLL(t):
-    r'\b coll \b'
+def t_COL(t):
+    r'\b col \b'
     t.type = reserved.get(t.value)
     return t
 
@@ -150,7 +150,7 @@ def t_ALL(t):
 
 
 def t_INFO(t):
-    r'\b [a-zA-Z0-9._]* \b'
+    r'\b [a-zA-Z0-9._"]* \b'
     t.type = "INFO"
     return t
 

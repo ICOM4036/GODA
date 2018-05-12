@@ -7,15 +7,17 @@ Rule 1     statement -> statement_parseCommand
 Rule 2     statement_parseCommand -> COMMAND DS
 Rule 3     statement_parseCommand -> COMMAND
 Rule 4     statement_parseCommand -> COMMAND COMMAND
-Rule 5     statement_parseCommand -> INFO COLON TYPE
+Rule 5     statement_parseCommand -> INFO TYPE
 Rule 6     statement_parseCommand -> INFO
+Rule 7     statement_parseCommand -> COMMAS INFO COMMAS
+Rule 8     statement_parseCommand -> INFO INFO
 
 Terminals, with rules where they appear
 
-COLON                : 5
 COMMAND              : 2 3 4 4
+COMMAS               : 7 7
 DS                   : 2
-INFO                 : 5 6
+INFO                 : 5 6 7 8 8
 TYPE                 : 5
 error                : 
 
@@ -33,11 +35,14 @@ state 0
     (2) statement_parseCommand -> . COMMAND DS
     (3) statement_parseCommand -> . COMMAND
     (4) statement_parseCommand -> . COMMAND COMMAND
-    (5) statement_parseCommand -> . INFO COLON TYPE
+    (5) statement_parseCommand -> . INFO TYPE
     (6) statement_parseCommand -> . INFO
+    (7) statement_parseCommand -> . COMMAS INFO COMMAS
+    (8) statement_parseCommand -> . INFO INFO
 
     COMMAND         shift and go to state 3
     INFO            shift and go to state 4
+    COMMAS          shift and go to state 5
 
     statement                      shift and go to state 1
     statement_parseCommand         shift and go to state 2
@@ -61,44 +66,67 @@ state 3
     (3) statement_parseCommand -> COMMAND .
     (4) statement_parseCommand -> COMMAND . COMMAND
 
-    DS              shift and go to state 6
+    DS              shift and go to state 7
     $end            reduce using rule 3 (statement_parseCommand -> COMMAND .)
-    COMMAND         shift and go to state 5
+    COMMAND         shift and go to state 6
 
 
 state 4
 
-    (5) statement_parseCommand -> INFO . COLON TYPE
+    (5) statement_parseCommand -> INFO . TYPE
     (6) statement_parseCommand -> INFO .
+    (8) statement_parseCommand -> INFO . INFO
 
-    COLON           shift and go to state 7
+    TYPE            shift and go to state 9
     $end            reduce using rule 6 (statement_parseCommand -> INFO .)
+    INFO            shift and go to state 8
 
 
 state 5
+
+    (7) statement_parseCommand -> COMMAS . INFO COMMAS
+
+    INFO            shift and go to state 10
+
+
+state 6
 
     (4) statement_parseCommand -> COMMAND COMMAND .
 
     $end            reduce using rule 4 (statement_parseCommand -> COMMAND COMMAND .)
 
 
-state 6
+state 7
 
     (2) statement_parseCommand -> COMMAND DS .
 
     $end            reduce using rule 2 (statement_parseCommand -> COMMAND DS .)
 
 
-state 7
-
-    (5) statement_parseCommand -> INFO COLON . TYPE
-
-    TYPE            shift and go to state 8
-
-
 state 8
 
-    (5) statement_parseCommand -> INFO COLON TYPE .
+    (8) statement_parseCommand -> INFO INFO .
 
-    $end            reduce using rule 5 (statement_parseCommand -> INFO COLON TYPE .)
+    $end            reduce using rule 8 (statement_parseCommand -> INFO INFO .)
+
+
+state 9
+
+    (5) statement_parseCommand -> INFO TYPE .
+
+    $end            reduce using rule 5 (statement_parseCommand -> INFO TYPE .)
+
+
+state 10
+
+    (7) statement_parseCommand -> COMMAS INFO . COMMAS
+
+    COMMAS          shift and go to state 11
+
+
+state 11
+
+    (7) statement_parseCommand -> COMMAS INFO COMMAS .
+
+    $end            reduce using rule 7 (statement_parseCommand -> COMMAS INFO COMMAS .)
 
