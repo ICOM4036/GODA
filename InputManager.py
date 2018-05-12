@@ -4,9 +4,9 @@
     - IMPORT FILES
     - MANAGE INPUT
 """
-from DataTypes.Library import *
-from DataTypes.Collection import *
-from DataTypes.ObjectType import *
+from ADT.Library import *
+from ADT.Collection import *
+from ADT.ObjectType import *
 import csv
 import os
 

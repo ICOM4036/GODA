@@ -1,11 +1,11 @@
 import os, csv
-from DataTypes.Library import Library
+from ADT.Library import Library
+from Exceptions import *
 
 
 def import_library(lib_path, lib_name):
     if not os.path.isdir(lib_path):
-        print("Library does not exist")
-        return
+        return LibraryDoesNotExistError(lib_name)
 
     # Create a library
     lib = Library(lib_name)
