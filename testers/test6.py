@@ -1,5 +1,5 @@
-from DataTypes.ObjectType import ObjectType
-from DataTypes.Collection import Collection
+from ADT.ObjectType import ObjectType
+from ADT.Collection import Collection
 from Handler import Handler
 
 # Creating collection with an object that has boolean attributes

@@ -1,5 +1,30 @@
-import InputManager2
+print('EXCEPTIONS TESTER')
 
-dir_path = "C:/Users/irixa/PycharmProjects/GODA"
-lib = InputManager2.import_library("{}/Directory/PersonalidadesDeHelp".format(dir_path), 'PersonalidadesDeHelp')
-lib.display_all_lib()
+from Handler import Handler
+from Exceptions import *
+
+handler = Handler()
+handler.create_object('aiuda', {'que':'str', 'dios':'str', 'me':'str', 'acompane':'str'})
+handler.create_library('test')
+handler.create_collection('test', 'col', 'aiuda')
+e = handler.openLibrary('nose')
+print(e.message())
+handler.openLibrary('test')
+e = handler.create_object('aiuda', {'que':'str', 'hostia':'str'})
+print(e.message())
+e = handler.openLibrary('test')
+print(e.message())
+e = handler.close_library('mierda')
+print(e.message())
+e = handler.create_library('test')
+print(e.message())
+e = handler.create_collection('test', 'yizus', 'none')
+print(e.message())
+e = handler.create_collection('test', 'col', 'aiuda')
+print(e.message())
+e = handler.remove_collection_from_library('test', 'help')
+print(e.message())
+e = handler.remove_object_from_collection('test', 'col', 2)
+print(e.message())
+e = handler.sort('test', 'col', 'medalla')
+print(e.message())

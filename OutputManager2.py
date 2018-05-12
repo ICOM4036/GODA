@@ -1,15 +1,14 @@
 import os, shutil
 import csv
-
+from Exceptions import *
 
 def create_library(dir_path, library_name):
 
     library_path = "{}/{}".format(dir_path, library_name)
     try:
         os.makedirs(library_path)
-    except OSError as e:
-        print("A library with that name already exists")
-        return
+    except Exception:
+        return LibraryExistsError(library_name)
 
     # Create a CollectionsList text file
     txtfile = open('{}/{}.txt'.format(library_path, library_name), 'w')

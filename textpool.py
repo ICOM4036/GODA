@@ -7,13 +7,30 @@ ver = '\tG.O.D.A' \
       '\nVERSION\t\t\t#.##' \
       '\nRELEASE DATE\t\tMM-DD-YYYY' \
       '\nWEBSITE\t\t\tSOMETHING.COM'
+
 help_txt = 'FOR MORE INFORMATION ON A COMMAND TYPE "HELP -[CMD]"\n' \
-           '\nCRT\t\tCREATE LIBRARY OR COLLECTION' \
-           '\nOPEN\t\tOPEN AN INSTANCED LIBRARY OR COLLECTION' \
-           '\nCLOSE\t\tCLOSE AN INSTANCED LIBRARY OR COLLECTION'
+           '\nQUIT\t\tEXIT THE PROGRAM' \
+           '\n\nOPEN LIB\t\tOPEN AN EXISTING LIBRARY' \
+           '\nQUIT LIB\t\tCLOSE AN OPENED LIBRARY' \
+           '\n\nCRT LIB\t\tCREATE LIBRARY' \
+           '\nCRT COLL\t\tCREATE COLLECTION' \
+           '\nCRT OBJ\t\tCREATE OBJECT' \
+           '\nCRT INST\t\tCREATE INSTANCE INSIDE OF COLLECTION' \
+           '\n\nSHOW LIB\t\tDISPLAY THE COLLECTION THAT BELONG TO LIBRARY' \
+           '\nSHOW COL\t\tSHOW EVERYTHING INSIDE A COLLECTION' \
+           '\nSHOW ALL\t\tSHOW EVERYTHING INSIDE EVERY COLLECTION OF A LIBRARY' \
+           '\n\nRM LIB\t\tDELETE A LIBRARY' \
+           '\nRM COL\t\tDELETE A COLLECTION' \
+           '\nRM INST\t\tREMOVE AN INSTANCE INSIDE A COLLECTION' \
+           '\n\nSORT\t\tSORT A COLLECTION BY A SPECIFIC ATTRIBUTE' \
+           '\nMERGE\t\tMERGE TWO COLLECTIONS INTO ONE' \
+           '\nSEARCH COL\t\tSEARCH IN A COLLECTION A SPECIFIC ATTRIBUTE' \
+           '\n\nIMP LIB\t\tIMPORT A LIBRARY' \
+           '\nIMP COL\t\tIMPORT A COLLECTION' \
+           '\nIMP INST\t\tIMPORT DATA INTO A COLLECTION' \
 
 help_cmd = {
-    'crt': '\nCRT\t\tCREATE COMMAND'
+    'open lib': '\nCRT\t\tCREATE COMMAND'
            '\nCRT LIB\t\tCREATE A NEW LIBRARY'
            '\nCRT COL\t\tCREATE A NEW COLLECTION',
     'open': '\nOPEN\t\tOPEN COMMAND'

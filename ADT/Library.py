@@ -1,6 +1,6 @@
-from DataTypes.ObjectType import ObjectType
-from DataTypes.Collection import Collection
-
+from ADT.ObjectType import ObjectType
+from ADT.Collection import Collection
+from Exceptions import *
 
 class Library(object):
     """
@@ -57,8 +57,7 @@ class Library(object):
         """
         for c in self.__col_list:
             if c.get_name() == collection.get_name():
-                print("A Collection with that name already exists")
-                return
+                return CollectionExistsError(c.get_name())
         self.__col_list.append(collection)
         obj_def = collection.get_obj_def()
         objdef_exist = False
@@ -88,7 +87,7 @@ class Library(object):
                     self.__obj_list.remove(obj_def)
                 c.destroy_col()
                 return
-        print('"{}" does not exist in this library.'.format(col_name))
+        return CollectionDoesNotExistError(col_name)
 
     def get_collection(self, col_name):
         """
@@ -99,7 +98,7 @@ class Library(object):
         for c in self.__col_list:
             if c.get_name() == col_name:
                 return c
-        print('"{}" does not exist in this library.'.format(col_name))
+        return CollectionDoesNotExistError(col_name)
 
     def get_col_list_size(self):
         """

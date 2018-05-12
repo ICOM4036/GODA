@@ -1,13 +1,14 @@
 import os, csv
-from DataTypes.ObjectType import ObjectType
-from DataTypes.Collection import Collection
-from DataTypes.Library import Library
-import InputManager, OutputManager, OutputManager2
+from ADT.ObjectType import ObjectType
+from ADT.Collection import Collection
+from ADT.Library import Library
+import InputManager, OutputManager, InputManager2, OutputManager2
 from Comparators.NumberComparator import NumberComparator
 from Comparators.LetterComparator import LetterComparator
 from Comparators.BooleanComparator import BooleanComparator
 from SortingAlgorithms.Quicksort import Quicksort
 from math import fabs
+from Exceptions import *
 
 
 class Handler:
@@ -29,11 +30,15 @@ class Handler:
         :return: None
         """
 
-        if self.library_is_opened(library_name):
-            print("Library %s is already opened" % library_name)
-            return
-        #library = InputManager.imp_new_library(library_name)
-        self.libraries[library_name] = Library(library_name)
+        if library_name in self.libraries:
+            return LibraryOpenedError(library_name)
+
+        library = InputManager2.import_library(self.dir_path + "/" + library_name, library_name)
+
+        if isinstance(library, Error):
+            return library
+
+        self.libraries[library_name] = library
 
 
 
@@ -43,18 +48,18 @@ class Handler:
         :param library_name: str - library name
         :return: None
         """
-        if not self.library_is_opened(library_name):
-            print("Library %s does not exist or it is not opened" % library_name)
-            return
-        del self.libraries[library_name]
+        try:
+            del self.libraries[library_name]
+        except Exception:
+            return LibraryNotOpenedError(library_name)
 
 
-    def library_is_opened(self, library_name):
-        for key in self.libraries:
-            if key == library_name:
-                return True
-        return False
-
+    # def library_is_opened(self, library_name):
+    #     for key in self.libraries:
+    #         if key == library_name:
+    #             return True
+    #     return False
+    #
 
     def create_library(self, library_name):
         """
@@ -62,10 +67,13 @@ class Handler:
         :param library_name: str - library name
         :return: None
         """
-        #library = Library(library_name)
-        OutputManager2.create_library(self.dir_path, library_name)
-        #OutputManager.save_library(library)
-        self.openLibrary(library_name)
+        e = OutputManager2.create_library(self.dir_path, library_name)
+        # If library exists OutputManager returns an error
+        if isinstance(e, Error):
+            return e
+        # If e is None then an error was not catched
+        # else:
+        #     self.openLibrary(library_name)
 
 
     def create_collection(self, library_name, collection_name, object_type):
@@ -76,15 +84,23 @@ class Handler:
         :param object_type: str - name of the object type
         :return:
         """
-        if not self.library_is_opened(library_name):
-            print("Library %s does not exist or is not opened" % library_name)
-            return
+        try:
+            lib = self.libraries[library_name]
+        except Exception:
+            return LibraryNotOpenedError(library_name)
 
-        lib = self.libraries[library_name]
-        obj_type = self.objects[object_type]
+        try:
+            obj_type = self.objects[object_type]
+        except Exception:
+            return ObjectDoesNotExistError(object_type)
+
         col = Collection(collection_name, obj_type)
-        lib.add_collection(col)
-        OutputManager2.create_collection(self.dir_path, library_name, col)
+        e = lib.add_collection(col)
+        # If collection already exists Library returns an error
+        if isinstance(e, Error):
+            return e
+        else:
+            OutputManager2.create_collection(self.dir_path, library_name, col)
 
 
     def create_object(self, obj_name, obj_attributes):
@@ -94,6 +110,9 @@ class Handler:
         :param obj_attributes: dictionary of object attributes
         :return: None
         """
+        if obj_name in self.objects:
+            return ObjectExistsError(obj_name)
+
         obj = ObjectType(obj_name, obj_attributes)
         self.objects[obj_name] = obj
 
@@ -106,11 +125,14 @@ class Handler:
         :param arr: array - object values
         :return: None
         """
-        if not self.library_is_opened(library_name):
-            print("Library %s does not exist or is not opened" % library_name)
-            return
-        lib = self.libraries[library_name]
+        try:
+            lib = self.libraries[library_name]
+        except Exception:
+            return LibraryNotOpenedError(library_name)
+
         col = lib.get_collection(collection_name)
+        if isinstance(col, Error):
+            return col
         col.add_obj(arr)
         OutputManager2.add_object_to_collection("{}/{}/Collections/{}.csv".format(self.dir_path, library_name, collection_name), arr)
 
@@ -121,11 +143,12 @@ class Handler:
         :param library_name: str - library name
         :return: None
         """
-        if not self.library_is_opened(library_name):
-            print("Library %s does not exist or is not opened" % library_name)
-            return
-        OutputManager2.delete_library(self.dir_path + "/" + library_name)
-        del self.libraries[library_name]
+        try:
+            del self.libraries[library_name]
+            OutputManager2.delete_library(self.dir_path + "/" + library_name)
+        except Exception:
+            return LibraryNotOpenedError(library_name)
+
 
 
     def remove_collection_from_library(self, library_name, collection_name):
@@ -135,11 +158,14 @@ class Handler:
         :param collection_name: str - collection name
         :return: None
         """
-        if not self.library_is_opened(library_name):
-            print("Library %s does not exist or is not opened" % library_name)
-            return
-        lib = self.libraries[library_name]
-        lib.remove_collection(collection_name)
+        try:
+            lib = self.libraries[library_name]
+        except Exception:
+            return LibraryNotOpenedError(library_name)
+
+        e = lib.remove_collection(collection_name)
+        if isinstance(e, Error):
+            return e
         OutputManager2.delete_collection(self.dir_path + "/" + library_name, library_name, collection_name)
 
 
@@ -151,14 +177,18 @@ class Handler:
         :param index: int - index of the object to be removed
         :return: None
         """
-        if not self.library_is_opened(library_name):
-            print("Library %s does not exist or is not opened" % library_name)
-            return
-        lib = self.libraries[library_name]
+        try:
+            lib = self.libraries[library_name]
+        except Exception:
+            return LibraryNotOpenedError(library_name)
+
         col = lib.get_collection(collection_name)
+        if isinstance(col, Error):
+            return col
+
         if index >= col.col_size():
-            print("An object with index %s does not exist" % index)
-            return
+            return ObjectIndexOutOfBound(str(index))
+
         col.remove_obj(index)
         OutputManager2.delete_collection(self.dir_path + "/" + library_name, library_name, collection_name)
         OutputManager2.create_collection(self.dir_path, library_name, col)
@@ -171,11 +201,15 @@ class Handler:
         :param attribute_name: str - attribute to which the collection will be sorted
         :return: None
         """
-        if not self.library_is_opened(library_name):
-            print("Library %s does not exist or is not opened" % library_name)
-            return
-        lib = self.libraries[library_name]
+        try:
+            lib = self.libraries[library_name]
+        except Exception:
+            return LibraryNotOpenedError(library_name)
+
         col = lib.get_collection(collection_name)
+        if isinstance(col, Error):
+            return col
+
         obj = col.get_obj_def()
         attr = obj.get_obj_attributes()
 
@@ -186,8 +220,7 @@ class Handler:
                 index = a
                 break
         if index == -1:
-            print("Attribute %s does not exist." % attribute_name)
-            return
+            return AttributeDoesNotExistError(attribute_name)
 
         # Create comparator according to the attribute data type
         data_type = obj.get_obj_data_types()[index]
@@ -226,11 +259,14 @@ class Handler:
         :param data_to_search: data that the user wishes to search
         :return: None
         """
-        if not self.library_is_opened(library_name):
-            print("Library %s does not exist or is not opened" % library_name)
-            return
-        lib = self.libraries[library_name]
+        try:
+            lib = self.libraries[library_name]
+        except Exception:
+            return LibraryNotOpenedError(library_name)
+
         col = lib.get_collection(collection_name)
+        if isinstance(col, Error):
+            return col
 
         attr = col.get_obj_def().get_obj_attributes()
         # Get the attribute index in the object array
@@ -240,8 +276,7 @@ class Handler:
                 index = a
                 break
         if index == -1:
-            print("Attribute %s does not exist." % attribute_name)
-            return
+            return AttributeDoesNotExistError(attribute_name)
 
         data = col.get_obj_list()
         result = []
@@ -267,11 +302,12 @@ class Handler:
         :param library_name: str - library name
         :return:
         """
-        if not self.library_is_opened(library_name):
-            print("Library %s does not exist or is not opened" % library_name)
-            return
-        library = self.libraries[library_name]
-        library.display_lib()
+        try:
+            lib = self.libraries[library_name]
+        except Exception:
+            return LibraryNotOpenedError(library_name)
+
+        lib.display_lib()
 
 
     def show_collection(self, library_name, collection_name):
@@ -281,12 +317,16 @@ class Handler:
         :param collection_name: str - collection name
         :return: None
         """
-        if not self.library_is_opened(library_name):
-            print("Library %s does not exist or is not opened" % library_name)
-            return
-        lib = self.libraries[library_name]
-        collection = lib.get_collection(collection_name)
-        collection.display_col()
+        try:
+            lib = self.libraries[library_name]
+        except Exception:
+            return LibraryNotOpenedError(library_name)
+
+        col = lib.get_collection(collection_name)
+        if isinstance(col, Error):
+            return col
+
+        col.display_col()
 
 
     def show_all_in_library(self, library_name):
@@ -295,10 +335,11 @@ class Handler:
         :param library_name: str - library name
         :return: None
         """
-        if not self.library_is_opened(library_name):
-            print("Library %s does not exist or is not opened" % library_name)
-            return
-        lib = self.libraries[library_name]
+        try:
+            lib = self.libraries[library_name]
+        except Exception:
+            return LibraryNotOpenedError(library_name)
+
         lib.display_all_lib()
 
 
@@ -313,22 +354,26 @@ class Handler:
         :param lib1: str - library name where new collection will be saved
         :return: None
         """
-        if not self.library_is_opened(lib_name1):
-            print("Library %s does not exist or is not opened" % lib_name1)
-            return
-        if not self.library_is_opened(lib_name2):
-            print("Library %s does not exist or is not opened" % lib_name2)
-            return
-        if not self.library_is_opened(lib_name3):
-            print("Library %s does not exist or is not opened" % lib_name3)
-            return
-
-        lib1 = self.libraries[lib_name1]
-        lib2 = self.libraries[lib_name2]
-        lib3 = self.libraries[lib_name3]
+        try:
+            lib1 = self.libraries[lib_name1]
+        except Exception:
+            return LibraryNotOpenedError(lib_name1)
+        try:
+            lib2 = self.libraries[lib_name2]
+        except Exception:
+            return LibraryNotOpenedError(lib_name2)
+        try:
+            lib3 = self.libraries[lib_name3]
+        except Exception:
+            return LibraryNotOpenedError(lib_name3)
 
         col1 = lib1.get_collection(col_name1)
+        if isinstance(col1, Error):
+            return col1
+
         col2 = lib2.get_collection(col_name2)
+        if isinstance(col2, Error):
+            return col2
 
         # Get object types
         obj1 = col1.get_obj_def()
@@ -365,8 +410,7 @@ class Handler:
 
         # Not compatible
         else:
-            print("Collections %s and %s are not compatible." % (col_name1, col_name2))
-
+            return CollectionsNotCompatibleError(col_name1, col_name2)
 
     # Not sure if this function is already in another class ??
     def is_coll_compatible(self, obj1, obj2):
@@ -402,8 +446,15 @@ class Handler:
         :param collection_name: str - collection name
         :return: str[] - list of object attributes
         """
-        lib = self.libraries[library_name]
+        try:
+            lib = self.libraries[library_name]
+        except Exception:
+            return LibraryNotOpenedError(library_name)
+
         col = lib.get_collection(collection_name)
+        if isinstance(col, Error):
+            return col
+
         obj = col.get_obj_def()
         obj_attributes = obj.get_obj_attributes()
         return obj_attributes
