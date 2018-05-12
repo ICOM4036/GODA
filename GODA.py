@@ -115,7 +115,10 @@ def create(ds):
         while True:
             print("Please enter the value of the key : type ")
             definition = par.parser.parse(input(">>>"))
-            list.update({definition["info"]: definition['type']})
+            if definition is not None:
+                list.update({definition["info"]: definition['type']})
+            else:
+                print("Not a valid input!! Definition will not be added to object definition!!")
             print("Wish to continue?")
             u = input(">>>")
             if u == "no":
