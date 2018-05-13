@@ -44,13 +44,18 @@ def import_collection(coll_path, col, attribute_types):
         for row in coll_reader:
             values = []
             for a in range(len(attribute_types)):
-                if attribute_types[a] is None:
-                    values.append(None)
+                if attribute_types[a] is str:
+                    values.append(row[a])
+                elif attribute_types[a] is bool:
+                    if row[a] == 'True':
+                        values.append(True)
+                    else:
+                        values.append(False)
                 elif attribute_types[a] is int:
                     values.append(int(row[a]))
                 elif attribute_types[a] is float:
                     values.append(float(row[a]))
                 else:
-                    values.append(row[a])
+                    values.append(None)
             col.add_obj(values)
     return col

@@ -18,9 +18,7 @@ class Handler:
         # This is the default Directory where libraries are saved
         self.dir_path = "C:/Users/irixa/PycharmProjects/GODA/Directory"
         self.libraries = {}
-        #self.collections = {}
         self.objects = {}
-        self.objects['botellas de agua'] = ObjectType('botellas de agua', {'name':'str', 'height':'int', 'sabor':'int'})
 
 
     def openLibrary(self, library_name):
@@ -40,7 +38,11 @@ class Handler:
             return library
 
         self.libraries[library_name] = library
-
+        collections = library.get_collection_list()
+        for col in collections:
+            obj = col.get_obj_def().get_obj_type()
+            if not obj in self.objects:
+                self.objects[obj] = col.get_obj_def()
 
 
     def close_library(self, library_name):
@@ -55,13 +57,6 @@ class Handler:
             return LibraryNotOpenedError(library_name)
 
 
-    # def library_is_opened(self, library_name):
-    #     for key in self.libraries:
-    #         if key == library_name:
-    #             return True
-    #     return False
-    #
-
     def create_library(self, library_name):
         """
         Creates a new library
@@ -72,9 +67,6 @@ class Handler:
         # If library exists OutputManager returns an error
         if isinstance(e, Error):
             return e
-        # If e is None then an error was not catched
-        # else:
-        #     self.openLibrary(library_name)
 
 
     def create_collection(self, library_name, collection_name, object_type):
@@ -184,7 +176,7 @@ class Handler:
         col = lib.get_collection(collection_name)
         if isinstance(col, Error):
             return col
-
+        index = int(index)
         if index >= col.col_size():
             return ObjectIndexOutOfBound(str(index))
 
@@ -382,7 +374,6 @@ class Handler:
         if self.is_coll_compatible(obj1, obj2):
             self.create_collection(lib_name3, new_col_name, obj1.get_obj_type())
             # lib3.create_collection(new_col_name, obj1.get_obj_type(), obj1.get_obj_att_dict())
-            new_col = lib3.get_collection(new_col_name)
             # OutputManager2.create_collection(self.dir_path, lib_name3, new_col)
             # Append objects in collection 1
             list1 = col1.get_obj_list()
