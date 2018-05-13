@@ -18,10 +18,11 @@ def p_statement_parseCommand(p):
     statement_parseCommand : COMMAND DS
                             | COMMAND
                             | COMMAND COMMAND
-                            | INFO TYPE
+                            | INFO COLON TYPE
                             | INFO
                             | COMMAS INFO COMMAS
                             | INFO INFO
+                            | INFO INFO INFO
     '''
     if len(p)== 2:
         if 'COMMAND' == reserved.get(p[1]):
@@ -31,14 +32,15 @@ def p_statement_parseCommand(p):
     elif len(p)== 3:
         if 'DS' == reserved.get(p[2]):
             p[0] = {"command": p[1], "ds": p[2]}
-        elif 'TYPE' == reserved.get(p[2]):
-            p[0] = {"info": p[1], "type":p[2]}
         elif 'COMMAND' == reserved.get(p[2]):
             p[0] = {"command": p[1], "command2": p[2]}
         else:
-           p[0] = {"info": p[1]+" "+p[2]}
+            p[0] = {"info": p[1]+" "+p[2]}
     else:
-        p[0] = {"info":p[2]}
+        if 'TYPE' == reserved.get(p[3]):
+            p[0] = {"info": p[1], "type":p[3]}
+        else:
+            p[0] = {"info": p[1]+" "+p[2]+" "+p[3]}
 
 
 
