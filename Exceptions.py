@@ -3,7 +3,10 @@ class Error(Exception):
 
 
 class LibraryNotOpenedError(Error):
-
+    """
+    Error when a command is tried to use with a library that is not opened.
+    Receives the name of the library.
+    """
     def __init__(self, expression):
         self.expression = expression
 
@@ -12,7 +15,10 @@ class LibraryNotOpenedError(Error):
 
 
 class LibraryOpenedError(Error):
-
+    """
+    Error when a library is tried to be opened but it is already opened.
+    Receives the name of the library.
+    """
     def __init__(self, expression):
         self.expression = expression
 
@@ -21,7 +27,10 @@ class LibraryOpenedError(Error):
 
 
 class LibraryDoesNotExistError(Error):
-
+    """
+    Error when a command is called with a library does not exist.
+    Receives the name of the library.
+    """
     def __init__(self, expression):
         self.expression = expression
 
@@ -30,7 +39,10 @@ class LibraryDoesNotExistError(Error):
 
 
 class CollectionDoesNotExistError(Error):
-
+    """
+    Error when a command is called with a collection that does not exist.
+    Receives the name of the collection.
+    """
     def __init__(self, expression):
         self.expression = expression
 
@@ -39,7 +51,10 @@ class CollectionDoesNotExistError(Error):
 
 
 class ObjectDoesNotExistError(Error):
-
+    """
+    Error when a command is called with an object that does not exist.
+    Receives the name of the object.
+    """
     def __init__(self, expression):
         self.expression = expression
 
@@ -48,7 +63,10 @@ class ObjectDoesNotExistError(Error):
 
 
 class AttributeDoesNotExistError(Error):
-
+    """
+    Error when a command is called with an attribute that does not exist.
+    Receives the name of the attribute.
+    """
     def __init__(self, expression):
         self.expression = expression
 
@@ -57,7 +75,10 @@ class AttributeDoesNotExistError(Error):
 
 
 class ObjectExistsError(Error):
-
+    """
+    Error when an object is tried to be created but an object with that name already exists.
+    Receives the name of the object.
+    """
     def __init__(self, expression):
         self.expression = expression
 
@@ -66,7 +87,10 @@ class ObjectExistsError(Error):
 
 
 class LibraryExistsError(Error):
-
+    """
+    Error when a library is tried to be created but an library with that name already exists.
+    Receives the name of the library.
+    """
     def __init__(self, expression):
         self.expression = expression
 
@@ -75,7 +99,10 @@ class LibraryExistsError(Error):
 
 
 class CollectionExistsError(Error):
-
+    """
+    Error when a collection is tried to be created but a collection with that name already exists.
+    Receives the name of the collection.
+    """
     def __init__(self, expression):
         self.expression = expression
 
@@ -84,7 +111,10 @@ class CollectionExistsError(Error):
 
 
 class CollectionsNotCompatibleError(Error):
-
+    """
+    Error when two collections are being compared but are not compatible.
+    Receives the name of both collections.
+    """
     def __init__(self, expression1, expression2):
         self.expression1 = expression1
         self.expression2 = expression2
@@ -94,7 +124,10 @@ class CollectionsNotCompatibleError(Error):
 
 
 class ObjectIndexOutOfBound(Error):
-
+    """
+    Error when an object is tried to be accessed with an index out of bounds.
+    Receives the index number.
+    """
     def __init__(self, expression):
         self.expression = expression
 

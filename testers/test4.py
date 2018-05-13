@@ -5,6 +5,8 @@ handler = Handler()
 handler.create_library('PersonalidadesDeHelp')
 handler.create_object('help', {'name':'str', 'nivel':'int'})
 
+handler.openLibrary('PersonalidadesDeHelp')
+
 handler.create_collection('PersonalidadesDeHelp', 'help1', 'help')
 handler.create_collection('PersonalidadesDeHelp', 'help2', 'help')
 
@@ -32,8 +34,8 @@ handler.sort('PersonalidadesDeHelp', 'help3', 'nivel')
 print("\nTesting sort by strings\n")
 handler.sort('PersonalidadesDeHelp', 'help3', 'name')
 
-handler.remove_collection_from_library('PersonalidadesDeHelp', 'help1')
-handler.remove_collection_from_library('PersonalidadesDeHelp', 'help2')
+# handler.remove_collection_from_library('PersonalidadesDeHelp', 'help1')
+# handler.remove_collection_from_library('PersonalidadesDeHelp', 'help2')
 
 print("\n\nTesting remove 'help1' and 'help2'\n")
 handler.show_library('PersonalidadesDeHelp')
@@ -45,4 +47,4 @@ handler.show_collection("PersonalidadesDeHelp", 'help3')
 print("\n\nTesting search objects with 'nivel' = 10\n")
 handler.search_in_collection('PersonalidadesDeHelp', 'help3', 'nivel', 10)
 
-handler.remove_library('PersonalidadesDeHelp')
+#handler.remove_library('PersonalidadesDeHelp')

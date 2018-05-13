@@ -51,19 +51,19 @@ def show(ds):
     if ds == "lib":
         print("Please enter the name of the Library: ")
         names = par.parser.parse(input(">>>"))
-        msg = "Showing structure with name: " + names['info']
+        msg = "Showing structure with name: %s" % names['info']
         e = handler.show_library(names['info'])
     elif ds == "col":
         print("Please enter the name of the Library: ")
         lib = par.parser.parse(input(">>>"))
         print("Please enter the name of the Collection: ")
         coll = par.parser.parse(input(">>>"))
-        msg = "Showing Collection with name: " + coll['info']
+        msg = "Showing Collection with name: %s" % coll['info']
         e = handler.show_collection(lib['info'], coll['info'])
     elif ds == "all":
         print("Please enter the name of the Library: ")
         names = par.parser.parse(input(">>>"))
-        msg = "Showing contents of the Library with name: " + names['info']
+        msg = "Showing contents of the Library with name: %s" % names['info']
         e = handler.show_library(names['info'])
     else:
         msg = "Not a valid operation!!"
@@ -78,14 +78,14 @@ def delete(ds):
     if ds == "lib":
         print("Please enter the name of the Library: ")
         names = par.parser.parse(input(">>>"))
-        msg = "Deleting Library with name: " + names['info']
+        msg = "Deleting Library with name: %s" % names['info']
         e = handler.remove_library(names['info'])
     elif ds == "col":
         print("Please enter the name of the Library: ")
         lib = par.parser.parse(input(">>>"))
         print("Please enter the name of the Collection: ")
         coll = par.parser.parse(input(">>>"))
-        msg = "Deleting Collection with name: " + coll['info']
+        msg = "Deleting Collection with name: %s" % coll['info']
         e = handler.remove_collection_from_library(lib['info'],coll['info'])
     elif ds == "inst":
         print("Please enter the name of the Library: ")
@@ -94,7 +94,7 @@ def delete(ds):
         coll = par.parser.parse(input(">>>"))
         print("Please enter the index: ")
         index = par.parser.parse(input(">>>"))
-        msg = "Deleting Instance with index: " + index['info'] + " in Collection: " + coll['info']
+        msg = "Deleting Instance with index: %s in Collection: %s" % (index['info'], coll['info'])
         e = handler.remove_object_from_collection(lib['info'],coll['info'],index['info'])
     else:
         msg = "Not a valid operation!!"
@@ -109,7 +109,7 @@ def create(ds):
     if ds == "lib":
         print("Please enter the name of the Library: ")
         names = par.parser.parse(input(">>>"))
-        msg = "Creating library with name: " + names['info']
+        msg = "Creating library with name: %s" % names['info']
         e = handler.create_library(names['info'])
     elif ds == "col":
         print("Please enter the name of the Library: ")
@@ -118,7 +118,7 @@ def create(ds):
         coll = par.parser.parse(input(">>>"))
         print("Please enter the name of the Object: ")
         obj = par.parser.parse(input(">>>"))
-        msg = "Creating collection with name: " + coll['info'] + " with object: " + obj['info']
+        msg = "Creating collection with name: %s with object: %s" % (coll['info'], obj['info'])
         e = handler.create_collection(lib['info'],coll['info'],obj['info'])
     elif ds == "obj":
         list = {}
@@ -137,7 +137,7 @@ def create(ds):
                 break
             else:
                 continue
-        msg = "Creating Object with name: " + names['info'] + " with list of attributes: " + list
+        msg = "Creating Object with name: %s with list of attributes: %s" % (names['info'], list)
         e = handler.create_object(names['info'],list)
     elif ds == "inst":
         print("Please enter the name of the Library: ")
@@ -153,7 +153,7 @@ def create(ds):
             print("Please enter the value of: ", key)
             attr = input(">>>")
             list.append(attr)
-        msg = "Creating instance with in Collection with name: " + coll['info'] + " with values: " + list
+        msg = "Creating instance with in Collection with name: %s with values: %s" % (coll['info'], list)
         e = handler.add_object(lib['info'],coll['info'],list)
     else:
         msg = "Not a valid structure!!!!!!"
@@ -167,7 +167,7 @@ def quit_lib(ds):
     msg = ""
     print("Please enter the name of the library: ")
     names = par.parser.parse(input(">>>"))
-    msg = "Quiting structure with name: " + names['info']
+    msg = "Quiting structure with name: %s" % names['info']
     e = handler.close_library(names['info'])
 
     if isinstance(e, Error):
@@ -183,7 +183,7 @@ def sort():
     coll = par.parser.parse(input(">>>"))
     print("Please enter the name of the attribute to sort by: ")
     attri = par.parser.parse(input(">>>"))
-    msg = "Sorting Collection with name: " + coll['info'] + " by attribute: " + attri['info']
+    msg = "Sorting Collection with name: %s by attribute: %s" % (coll['info'], attri['info'])
     e = handler.sort(lib['info'],coll['info'],attri['info'])
 
     if isinstance(e, Error):
@@ -204,7 +204,7 @@ def merge():
     lib3 = par.parser.parse(input(">>>"))
     print("Please enter the name of the new collection: ")
     coll3 = par.parser.parse(input(">>>"))
-    msg = "Merging collection #1: " + coll1['info'] + " with collection #2: " + coll2['info'] + " into new collection with name: " + coll3['info']
+    msg = "Merging collection #1: %s with collection #2: %s into new collection with name: %s" % (coll1['info'], coll2['info'], coll3['info'])
     e = handler.merge(lib1['info'],coll1['info'],lib2['info'],coll2['info'],coll3['info'],lib3['info'])
 
     if isinstance(e, Error):
@@ -223,7 +223,7 @@ def search(ds):
         attri = par.parser.parse(input(">>>"))
         print("Please enter the specific value to search for: ")
         value = par.parser.parse(input(">>>"))
-        msg = "Searching collection with name: " + coll['info'] + " for all entries with value: " + value['info']
+        msg = "Searching collection with name: %s for all entries with value: %s" % (coll['info'], value['info'])
         e = handler.search_in_collection(lib['info'],coll['info'],attri['info'],value['info'])
     else:
         msg = "Not a valid operation!!!"
@@ -238,7 +238,7 @@ def open(ds):
     if ds == "lib":
         print("Please enter the name of the library: ")
         names = par.parser.parse(input(">>>"))
-        msg = "Opening library with name: ", names['info']
+        msg = "Opening library with name: %s" % names['info']
         e = handler.openLibrary(names['info'])
     else:
         msg = "Not a valid operation!!"

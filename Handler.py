@@ -20,6 +20,7 @@ class Handler:
         self.libraries = {}
         #self.collections = {}
         self.objects = {}
+        self.objects['botellas de agua'] = ObjectType('botellas de agua', {'name':'str', 'height':'int', 'sabor':'int'})
 
 
     def openLibrary(self, library_name):

@@ -5,8 +5,8 @@ ver = '\tG.O.D.A' \
       '\nGENERIC OBJECTIVE DATA ADMINISTRATOR' \
       '\n------------------------------------' \
       '\nVERSION\t\t\t#.##' \
-      '\nRELEASE DATE\t\tMM-DD-YYYY' \
-      '\nWEBSITE\t\t\tSOMETHING.COM'
+      '\nRELEASE DATE\t\t05-15-2018' \
+      '\nWEBSITE\t\t\thttps://github.com/ICOM4036/GODA'
 
 help_txt = 'FOR MORE INFORMATION ON A COMMAND TYPE "HELP -[CMD]"\n' \
            '\nQUIT\t\tEXIT THE PROGRAM OR CLOSE LIBRARY' \
@@ -23,7 +23,7 @@ help_cmd = {
     'open': '\nOPEN LIB\t\tOPENS A LIBRARY INSTANCE',
 
     'quit': '\nQUIT\t\tEXIT THE PROGRAM'
-             '\nQUIT LIB\t\tCLOSE AN OPENED LIBRARY',
+            '\nQUIT LIB\t\tCLOSE AN OPENED LIBRARY',
 
     'crt': '\nCRT LIB\t\tCREATE LIBRARY'
             '\nCRT COL\t\tCREATE COLLECTION'
