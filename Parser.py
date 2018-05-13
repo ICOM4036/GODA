@@ -8,7 +8,6 @@ def p_statement(p):
     '''
     statement : statement_parseCommand
     '''
-    print(p)
     p[0] = p[1]
     pass
 
