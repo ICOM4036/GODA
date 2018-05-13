@@ -44,7 +44,7 @@ class ObjectDoesNotExistError(Error):
         self.expression = expression
 
     def message(self):
-        return "Collection %s does not exist." % self.expression
+        return "Object %s does not exist." % self.expression
 
 
 class AttributeDoesNotExistError(Error):

@@ -16,7 +16,7 @@ class Handler:
     def __init__(self):
 
         # This is the default Directory where libraries are saved
-        self.dir_path = "C:/Users/crysm/PycharmProjects/GODA/Directory"
+        self.dir_path = "C:/Users/irixa/PycharmProjects/GODA/Directory"
         self.libraries = {}
         #self.collections = {}
         self.objects = {}
@@ -143,12 +143,10 @@ class Handler:
         :param library_name: str - library name
         :return: None
         """
-        try:
-            del self.libraries[library_name]
-            OutputManager2.delete_library(self.dir_path + "/" + library_name)
-        except Exception:
-            return LibraryNotOpenedError(library_name)
-
+        e = OutputManager2.delete_library(self.dir_path + "/" + library_name, library_name)
+        if isinstance(e, Error):
+            return e
+        del self.libraries[library_name]
 
 
     def remove_collection_from_library(self, library_name, collection_name):

@@ -53,11 +53,11 @@ def add_object_to_collection(col_path, obj_values):
     file_writer = csv.writer(open(col_path, 'a', newline = ''))
     file_writer.writerow(obj_values)
 
-def delete_library(lib_path):
+def delete_library(lib_path, lib_name):
     try:
         shutil.rmtree(lib_path)
     except Exception:
-        print("Cannot delete library. Library does not exist.")
+        return LibraryDoesNotExistError(lib_name)
 
 
 def delete_collection(lib_path, lib_name, collection_name):
