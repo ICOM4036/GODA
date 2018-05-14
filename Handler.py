@@ -129,19 +129,24 @@ class Handler:
         data_types = col.get_obj_def().get_obj_data_types()
         values = []
         for i in range(len(arr)):
-            if data_types[i] is bool:
-                if arr[i] == 'True':
-                    values.append(True)
+            try:
+                if arr[i] == 'None':
+                    values.append(None)
+                elif data_types[i] is bool:
+                    if arr[i] == 'True':
+                        values.append(True)
+                    else:
+                        values.append(False)
+                elif data_types[i] is str:
+                    values.append(arr[i])
+                elif data_types[i] is int:
+                    values.append(int(arr[i]))
+                elif data_types[i] is float:
+                    values.append(float(arr[i]))
                 else:
-                    values.append(False)
-            elif data_types[i] is str:
-                values.append(arr[i])
-            elif data_types[i] is int:
-                values.append(int(arr[i]))
-            elif data_types[i] is float:
-                values.append(float(arr[i]))
-            else:
-                values.append(None)
+                    values.append(None)
+            except Exception:
+                return ObjectNotCompatibleError()
 
         col.add_obj(values)
         OutputManager2.add_object_to_collection("{}/{}/Collections/{}.csv".format(self.dir_path, library_name, collection_name), arr)

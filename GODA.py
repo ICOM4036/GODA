@@ -193,13 +193,13 @@ def create(ds):
             obj = handler.get_col_attributes(lib['info'],coll['info'])
             if isinstance(obj, Error):
                 e = obj
-                pass
-            for key in obj:
-                print("Please enter the value of: ", key)
-                attr = input(">>>")
-                list.append(attr)
-            msg = "Creating instance with in Collection with name: %s with values: %s" % (coll['info'], list)
-            e = handler.add_object(lib['info'],coll['info'],list)
+            else:
+                for key in obj:
+                    print("Please enter the value of: ", key)
+                    attr = input(">>>")
+                    list.append(attr)
+                msg = "Creating instance with in Collection with name: %s with values: %s" % (coll['info'], list)
+                e = handler.add_object(lib['info'],coll['info'],list)
         else:
             msg = "Not a valid operation!!!!!!"
     else:

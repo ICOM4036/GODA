@@ -52,7 +52,9 @@ def import_collection(coll_path, col, attribute_types):
         for row in coll_reader:
             values = []
             for a in range(len(attribute_types)):
-                if attribute_types[a] is str:
+                if row[a] == 'None':
+                    values.append(None)
+                elif attribute_types[a] is str:
                     values.append(row[a])
                 elif attribute_types[a] is bool:
                     if row[a] == 'True':
