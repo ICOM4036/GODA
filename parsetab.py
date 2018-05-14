@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'COMMAND COMMAS DS INFO TYPE\n    statement : statement_parseCommand\n    \n    statement_parseCommand : COMMAND DS\n                            | COMMAND\n                            | COMMAND COMMAND\n                            | INFO TYPE\n                            | INFO\n                            | COMMAS INFO COMMAS\n                            | INFO INFO\n    '
+_lr_signature = 'COLON COMMAND COMMAS DS INFO TYPE\n    statement : statement_parseCommand\n    \n    statement_parseCommand : COMMAND DS\n                            | COMMAND\n                            | COMMAND COMMAND\n                            | INFO COLON TYPE\n                            | INFO\n                            | COMMAS INFO COMMAS\n                            | INFO INFO\n                            | INFO INFO INFO\n    '
     
-_lr_action_items = {'COMMAND':([0,3,],[3,6,]),'INFO':([0,4,5,],[4,8,10,]),'COMMAS':([0,10,],[5,11,]),'$end':([1,2,3,4,6,7,8,9,11,],[0,-1,-3,-6,-4,-2,-8,-5,-7,]),'DS':([3,],[7,]),'TYPE':([4,],[9,]),}
+_lr_action_items = {'COMMAND':([0,3,],[3,6,]),'INFO':([0,4,5,8,],[4,8,10,11,]),'COMMAS':([0,10,],[5,13,]),'$end':([1,2,3,4,6,7,8,11,12,13,],[0,-1,-3,-6,-4,-2,-8,-9,-5,-7,]),'DS':([3,],[7,]),'COLON':([4,],[9,]),'TYPE':([9,],[12,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -31,8 +31,9 @@ _lr_productions = [
   ('statement_parseCommand -> COMMAND DS','statement_parseCommand',2,'p_statement_parseCommand','Parser.py',18),
   ('statement_parseCommand -> COMMAND','statement_parseCommand',1,'p_statement_parseCommand','Parser.py',19),
   ('statement_parseCommand -> COMMAND COMMAND','statement_parseCommand',2,'p_statement_parseCommand','Parser.py',20),
-  ('statement_parseCommand -> INFO TYPE','statement_parseCommand',2,'p_statement_parseCommand','Parser.py',21),
+  ('statement_parseCommand -> INFO COLON TYPE','statement_parseCommand',3,'p_statement_parseCommand','Parser.py',21),
   ('statement_parseCommand -> INFO','statement_parseCommand',1,'p_statement_parseCommand','Parser.py',22),
   ('statement_parseCommand -> COMMAS INFO COMMAS','statement_parseCommand',3,'p_statement_parseCommand','Parser.py',23),
   ('statement_parseCommand -> INFO INFO','statement_parseCommand',2,'p_statement_parseCommand','Parser.py',24),
+  ('statement_parseCommand -> INFO INFO INFO','statement_parseCommand',3,'p_statement_parseCommand','Parser.py',25),
 ]

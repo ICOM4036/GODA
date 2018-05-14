@@ -1,6 +1,6 @@
 import ply.lex as lex
 
-tokens = ["INFO", "DS", "COMMAND","TYPE","COMMAS"]
+tokens = ["INFO", "DS", "COMMAND","TYPE","COMMAS","COLON"]
 
 reserved = {
     'crt': 'COMMAND',
@@ -27,6 +27,7 @@ reserved = {
 
 t_ignore = '\t '
 t_COMMAS = r'\"'
+t_COLON = r'\:'
 
 
 def t_CRT(t):

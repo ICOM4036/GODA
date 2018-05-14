@@ -25,46 +25,70 @@ def cmd_help(cmd):
 
 
 def import_file(ds):
+    msg = " "
+    e = " "
     if ds == "lib":
         print("Please enter the name of the file: ")
         names = par.parser.parse(input(">>>"))
-        print("Importing Library from file with name: ", names['info'])
-        ip.imp_new_library(names['info'])
+        if 'info' in names is not None or 'info' in names is True:
+            msg = "Importing Library from file with name: "% names['info']
+            e = ip.imp_new_library(names['info'])
+        else:
+            msg = "Not a valid operation!!"
     elif ds == "col":
         print("Please enter the name of the file: ")
-        coll = par.parser.parse(input(">>>"))
-        print("Importing Collection from file with name: ", coll['info'])
-        ip.imp_new_collection(coll['info'])
+        names = par.parser.parse(input(">>>"))
+        if 'info' in names is not None or 'info' in names is True:
+            msg = "Importing Collection from file with name: " % names['info']
+            e = ip.imp_new_collection(names['info'])
+        else:
+            msg = "Not a valid operation!!"
     elif ds == "inst":
         print("Please enter the name of the file: ")
         names = par.parser.parse(input(">>>"))
         print("Please enter the name of the Collection: ")
         coll = par.parser.parse(input(">>>"))
-        print("Importing data from file with name: ", names['info'], " into Collection: ",coll['info'])
-        ip.imp_data(names['info'],coll['info'])
+        if 'info' in names is not None and 'info' in coll is not None:
+            msg = "Importing data from file with name: " % names['info']% " into Collection: "%coll['info']
+            e = ip.imp_data(names['info'],coll['info'])
+        else:
+            msg = "Not a valid operation!!"
     else:
         print("Not a valid operation!!")
 
+    if isinstance(e, Error):
+        msg = e.message()
+    print(msg)
 
 def show(ds):
     msg = ""
+    e = " "
     if ds == "lib":
         print("Please enter the name of the Library: ")
         names = par.parser.parse(input(">>>"))
-        msg = "Showing structure with name: %s" % names['info']
-        e = handler.show_library(names['info'])
+        if 'info' in names is not None or 'info' in names is True:
+            msg = "Showing structure with name: %s" % names['info']
+            e = handler.show_library(names['info'])
+        else:
+            msg = "Not a valid operation!!"
     elif ds == "col":
         print("Please enter the name of the Library: ")
         lib = par.parser.parse(input(">>>"))
         print("Please enter the name of the Collection: ")
         coll = par.parser.parse(input(">>>"))
-        msg = "Showing Collection with name: %s" % coll['info']
-        e = handler.show_collection(lib['info'], coll['info'])
+        if 'info' in lib is not None and 'info' in coll is not None:
+            msg = "Showing Collection with name: %s" % coll['info']
+            e = handler.show_collection(lib['info'], coll['info'])
+        else:
+            msg = "Not a valid operation!!"
     elif ds == "all":
         print("Please enter the name of the Library: ")
         names = par.parser.parse(input(">>>"))
-        msg = "Showing contents of the Library with name: %s" % names['info']
-        e = handler.show_library(names['info'])
+        if 'info' in names is not None or 'info' in names is True:
+            msg = "Showing contents of the Library with name: %s" % names['info']
+            e = handler.show_library(names['info'])
+        else:
+            msg = "Not a valid operation!!"
     else:
         msg = "Not a valid operation!!"
 
@@ -75,18 +99,25 @@ def show(ds):
 
 def delete(ds):
     msg = ""
+    e = " "
     if ds == "lib":
         print("Please enter the name of the Library: ")
         names = par.parser.parse(input(">>>"))
-        msg = "Deleting Library with name: %s" % names['info']
-        e = handler.remove_library(names['info'])
+        if 'info' in names is not None or 'info' in names is True:
+            msg = "Deleting Library with name: %s" % names['info']
+            e = handler.remove_library(names['info'])
+        else:
+            msg = "Not a valid operation!!"
     elif ds == "col":
         print("Please enter the name of the Library: ")
         lib = par.parser.parse(input(">>>"))
         print("Please enter the name of the Collection: ")
         coll = par.parser.parse(input(">>>"))
-        msg = "Deleting Collection with name: %s" % coll['info']
-        e = handler.remove_collection_from_library(lib['info'],coll['info'])
+        if 'info' in lib is not None and 'info' in coll is not None:
+            msg = "Deleting Collection with name: %s" % coll['info']
+            e = handler.remove_collection_from_library(lib['info'],coll['info'])
+        else:
+            msg = "Not a valid operation!!"
     elif ds == "inst":
         print("Please enter the name of the Library: ")
         lib = par.parser.parse(input(">>>"))
@@ -94,8 +125,11 @@ def delete(ds):
         coll = par.parser.parse(input(">>>"))
         print("Please enter the index: ")
         index = par.parser.parse(input(">>>"))
-        msg = "Deleting Instance with index: %s in Collection: %s" % (index['info'], coll['info'])
-        e = handler.remove_object_from_collection(lib['info'],coll['info'],index['info'])
+        if 'info' in lib is not None and 'info' in coll is not None and 'info' in index is not None:
+            msg = "Deleting Instance with index: %s in Collection: %s" % (index['info'], coll['info'])
+            e = handler.remove_object_from_collection(lib['info'],coll['info'],index['info'])
+        else:
+            msg = "Not a valid operation!!!"
     else:
         msg = "Not a valid operation!!"
 
@@ -106,11 +140,15 @@ def delete(ds):
 
 def create(ds):
     msg = ""
+    e = " "
     if ds == "lib":
         print("Please enter the name of the Library: ")
         names = par.parser.parse(input(">>>"))
-        msg = "Creating library with name: %s" % names['info']
-        e = handler.create_library(names['info'])
+        if 'info' in names is not None or 'info' in names is True:
+            msg = "Creating library with name: %s" % names['info']
+            e = handler.create_library(names['info'])
+        else:
+            msg = "Not a valid operation!!"
     elif ds == "col":
         print("Please enter the name of the Library: ")
         lib = par.parser.parse(input(">>>"))
@@ -118,43 +156,52 @@ def create(ds):
         coll = par.parser.parse(input(">>>"))
         print("Please enter the name of the Object: ")
         obj = par.parser.parse(input(">>>"))
-        msg = "Creating collection with name: %s with object: %s" % (coll['info'], obj['info'])
-        e = handler.create_collection(lib['info'],coll['info'],obj['info'])
+        if 'info' in lib is not None and 'info' in coll is not None and 'info' in obj is not None:
+            msg = "Creating collection with name: %s with object: %s" % (coll['info'], obj['info'])
+            e = handler.create_collection(lib['info'],coll['info'],obj['info'])
+        else:
+            msg = "Not a valid operation!!"
     elif ds == "obj":
         list = {}
         print("Please enter the name of the Object: ")
         names = par.parser.parse(input(">>>"))
-        while True:
-            print("Please enter the value of the key : type ")
-            definition = par.parser.parse(input(">>>"))
-            if definition is not None:
-                list.update({definition["info"]: definition['type']})
-            else:
-                print("Not a valid input!! Definition will not be added to object definition!!")
-            print("Wish to continue?")
-            u = input(">>>")
-            if u == "no":
-                break
-            else:
-                continue
-        msg = "Creating Object with name: %s with list of attributes: %s" % (names['info'], list)
-        e = handler.create_object(names['info'],list)
+        if 'info' in names is not None or 'info' in names is True:
+            while True:
+                print("Please enter the value of the key : type ")
+                definition = par.parser.parse(input(">>>"))
+                if definition is not None:
+                    list.update({definition["info"]: definition['type']})
+                else:
+                    print("Not a valid input!! Definition will not be added to object definition!!")
+                print("Wish to continue?")
+                u = input(">>>")
+                if u == "no":
+                    break
+                else:
+                    continue
+            msg = "Creating Object with name: %s with list of attributes: %s" % (names['info'], list)
+            e = handler.create_object(names['info'],list)
+        else:
+            msg = "Not a valid operation!!"
     elif ds == "inst":
         print("Please enter the name of the Library: ")
         lib = par.parser.parse(input(">>>"))
         print("Please enter the name of the Collection: ")
         coll = par.parser.parse(input(">>>"))
-        list = []
-        obj = handler.get_col_attributes(lib['info'],coll['info'])
-        if isinstance(obj, Error):
-            e = obj
-            pass
-        for key in obj:
-            print("Please enter the value of: ", key)
-            attr = input(">>>")
-            list.append(attr)
-        msg = "Creating instance with in Collection with name: %s with values: %s" % (coll['info'], list)
-        e = handler.add_object(lib['info'],coll['info'],list)
+        if 'info' in lib is not None and 'info' in coll is not None:
+            list = []
+            obj = handler.get_col_attributes(lib['info'],coll['info'])
+            if isinstance(obj, Error):
+                e = obj
+                pass
+            for key in obj:
+                print("Please enter the value of: ", key)
+                attr = input(">>>")
+                list.append(attr)
+            msg = "Creating instance with in Collection with name: %s with values: %s" % (coll['info'], list)
+            e = handler.add_object(lib['info'],coll['info'],list)
+        else:
+            msg = "Not a valid operation!!!!!!"
     else:
         msg = "Not a valid structure!!!!!!"
 
@@ -165,11 +212,14 @@ def create(ds):
 
 def quit_lib(ds):
     msg = ""
+    e = " "
     print("Please enter the name of the library: ")
     names = par.parser.parse(input(">>>"))
-    msg = "Quiting structure with name: %s" % names['info']
-    e = handler.close_library(names['info'])
-
+    if 'info' in names is not None or 'info' in names is True:
+        msg = "Quiting structure with name: %s" % names['info']
+        e = handler.close_library(names['info'])
+    else:
+        msg = "Not a valid operation!!"
     if isinstance(e, Error):
         msg = e.message()
     print(msg)
@@ -177,14 +227,18 @@ def quit_lib(ds):
 
 def sort():
     msg = ""
+    e = " "
     print("Please enter the name of the Library: ")
     lib = par.parser.parse(input(">>>"))
     print("Please enter the name of the Collection: ")
     coll = par.parser.parse(input(">>>"))
     print("Please enter the name of the attribute to sort by: ")
     attri = par.parser.parse(input(">>>"))
-    msg = "Sorting Collection with name: %s by attribute: %s" % (coll['info'], attri['info'])
-    e = handler.sort(lib['info'],coll['info'],attri['info'])
+    if 'info' in lib is not None and 'info' in coll is not None and 'info' in attri is not None:
+        msg = "Sorting Collection with name: %s by attribute: %s" % (coll['info'], attri['info'])
+        e = handler.sort(lib['info'],coll['info'],attri['info'])
+    else:
+        msg = "Not a valid operation!!"
 
     if isinstance(e, Error):
         msg = e.message()
@@ -192,6 +246,8 @@ def sort():
 
 
 def merge():
+    msg = " "
+    e = " "
     print("Please enter the name of the first library: ")
     lib1 = par.parser.parse(input(">>>"))
     print("Please enter the name of the first collection: ")
@@ -204,9 +260,11 @@ def merge():
     lib3 = par.parser.parse(input(">>>"))
     print("Please enter the name of the new collection: ")
     coll3 = par.parser.parse(input(">>>"))
-    msg = "Merging collection #1: %s with collection #2: %s into new collection with name: %s" % (coll1['info'], coll2['info'], coll3['info'])
-    e = handler.merge(lib1['info'],coll1['info'],lib2['info'],coll2['info'],coll3['info'],lib3['info'])
-
+    if 'info' in lib1 is not None and 'info' in lib2 is not None and 'info' in lib3 is not None and 'info' in coll2 is not None and 'info' in coll3 is not None and 'info' in coll1 is not None:
+        msg = "Merging collection #1: %s with collection #2: %s into new collection with name: %s" % (coll1['info'], coll2['info'], coll3['info'])
+        e = handler.merge(lib1['info'],coll1['info'],lib2['info'],coll2['info'],coll3['info'],lib3['info'])
+    else:
+        msg = "Not a valid operation!!"
     if isinstance(e, Error):
         msg = e.message()
     print(msg)
@@ -214,6 +272,7 @@ def merge():
 
 def search(ds):
     msg = ""
+    e = " "
     if ds == "col":
         print("Please enter the name of the Library: ")
         lib = par.parser.parse(input(">>>"))
@@ -223,8 +282,11 @@ def search(ds):
         attri = par.parser.parse(input(">>>"))
         print("Please enter the specific value to search for: ")
         value = par.parser.parse(input(">>>"))
-        msg = "Searching collection with name: %s for all entries with value: %s" % (coll['info'], value['info'])
-        e = handler.search_in_collection(lib['info'],coll['info'],attri['info'],value['info'])
+        if 'info' in lib is not None and 'info' in coll is not None:
+            msg = "Searching collection with name: %s for all entries with value: %s" % (coll['info'], value['info'])
+            e = handler.search_in_collection(lib['info'],coll['info'],attri['info'],value['info'])
+        else:
+            msg = "Not a valid operation!!"
     else:
         msg = "Not a valid operation!!!"
 
@@ -235,14 +297,17 @@ def search(ds):
 
 def open(ds):
     msg = ""
+    e = ""
     if ds == "lib":
         print("Please enter the name of the library: ")
         names = par.parser.parse(input(">>>"))
-        msg = "Opening library with name: %s" % names['info']
-        e = handler.openLibrary(names['info'])
+        if 'info' in names is not None or 'info' in names is True:
+            msg = "Opening library with name: %s" % names['info']
+            e = handler.openLibrary(names['info'])
+        else:
+            msg = "Not a valid operation!!"
     else:
         msg = "Not a valid operation!!"
-
     if isinstance(e, Error):
         msg = e.message()
     print(msg)
@@ -271,7 +336,7 @@ while True:
             if len(user_input) == 1:
                 quit("\tQuitting Goda \n \tGoodbye!!!")
             else:
-                quit(user_input['ds'])
+                quit_lib(user_input['ds'])
         elif user_input['command'] == "show":
             if 'ds' in user_input:
                 show(user_input['ds'])
