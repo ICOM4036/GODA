@@ -18,6 +18,11 @@ def create_library(dir_path, library_name):
     coll_path = "{}/Collections".format(library_path)
     os.makedirs(coll_path)
 
+    # Write library name to libraries text file in Directory
+    libtxtfile = open('{}/libraries.txt'.format(dir_path), 'a', newline='')
+    libtxtfile.write("%s\n" % library_name)
+    libtxtfile.close()
+
 
 def create_collection(dir_path, library_name, collection):
 
@@ -49,16 +54,32 @@ def create_collection(dir_path, library_name, collection):
     # Create a csv file where the collection objects will be written
     open(lib_path + "/Collections/" + collection.get_name() + ".csv", 'w')
 
+
 def add_object_to_collection(col_path, obj_values):
     file_writer = csv.writer(open(col_path, 'a', newline = ''))
     file_writer.writerow(obj_values)
     print("paso")
 
-def delete_library(lib_path, lib_name):
+
+def delete_library(dir_path, lib_name):
     try:
-        shutil.rmtree(lib_path)
+        shutil.rmtree('%s/%s' % (dir_path, lib_name))
     except Exception:
         return LibraryDoesNotExistError(lib_name)
+
+    # Delete collection file path from library text file
+    txtfile = open("%s/libraries.txt" % dir_path, 'r')
+    textreader = txtfile.read().split("\n")
+    del textreader[len(textreader) - 1]
+    new_txtfile = []
+    for line in textreader:
+        if not line == lib_name:
+            new_txtfile.append(line)
+
+    txtfile.close()
+    txtfile = open("%s/libraries.txt" % dir_path, 'w+')
+    for line in new_txtfile:
+        txtfile.write(line + "\n")
 
 
 def delete_collection(lib_path, lib_name, collection_name):
@@ -68,6 +89,7 @@ def delete_collection(lib_path, lib_name, collection_name):
         path2 = "{}/Collections/{}.csv".format(lib_path, collection_name)
         os.remove(path2)
 
+        # Delete collection file path from library text file
         txtfile = open("%s/%s.txt" % (lib_path, lib_name), 'r')
         textreader = txtfile.read().split("\n")
         del textreader[len(textreader) - 1]
@@ -83,4 +105,4 @@ def delete_collection(lib_path, lib_name, collection_name):
 
 
     except Exception:
-        print("Cannot delete collection %s. Collection does not exist." % collection_name)
+        return CollectionDoesNotExistError(collection_name)

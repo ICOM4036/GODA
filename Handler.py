@@ -129,19 +129,24 @@ class Handler:
         data_types = col.get_obj_def().get_obj_data_types()
         values = []
         for i in range(len(arr)):
-            if data_types[i] is bool:
-                if arr[i] == 'True':
-                    values.append(True)
+            try:
+                if arr[i] == 'None':
+                    values.append(None)
+                elif data_types[i] is bool:
+                    if arr[i] == 'True':
+                        values.append(True)
+                    else:
+                        values.append(False)
+                elif data_types[i] is str:
+                    values.append(arr[i])
+                elif data_types[i] is int:
+                    values.append(int(arr[i]))
+                elif data_types[i] is float:
+                    values.append(float(arr[i]))
                 else:
-                    values.append(False)
-            elif data_types[i] is str:
-                values.append(arr[i])
-            elif data_types[i] is int:
-                values.append(int(arr[i]))
-            elif data_types[i] is float:
-                values.append(float(arr[i]))
-            else:
-                values.append(None)
+                    values.append(None)
+            except Exception:
+                return ObjectNotCompatibleError()
 
         col.add_obj(values)
         OutputManager2.add_object_to_collection("{}/{}/Collections/{}.csv".format(self.dir_path, library_name, collection_name), arr)
@@ -153,10 +158,13 @@ class Handler:
         :param library_name: str - library name
         :return: None
         """
-        e = OutputManager2.delete_library(self.dir_path + "/" + library_name, library_name)
+        e = OutputManager2.delete_library(self.dir_path, library_name)
         if isinstance(e, Error):
             return e
-        del self.libraries[library_name]
+        try:
+            del self.libraries[library_name]
+        except Exception:
+            pass
 
 
     def remove_collection_from_library(self, library_name, collection_name):
@@ -321,6 +329,12 @@ class Handler:
     def search_in_library(self):
         # What does this do?
         pass
+
+
+    def show_all_libraries(self):
+        libraries = InputManager2.get_library_names(self.dir_path)
+        for l in libraries:
+            print(l)
 
 
     def show_library(self, library_name):

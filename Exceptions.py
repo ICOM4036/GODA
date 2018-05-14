@@ -123,6 +123,17 @@ class CollectionsNotCompatibleError(Error):
         return "Collections %s and %s are not compatible." % (self.expression1, self.expression2)
 
 
+class ObjectNotCompatibleError(Error):
+    """
+    Error when an onject is tried to be added to a collection and attribute types are not compatible with collection.
+    """
+    def __init__(self):
+        pass
+
+    def message(self):
+        return "Object is not compatible with collection."
+
+
 class ObjectIndexOutOfBound(Error):
     """
     Error when an object is tried to be accessed with an index out of bounds.
