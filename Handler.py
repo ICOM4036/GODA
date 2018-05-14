@@ -158,10 +158,13 @@ class Handler:
         :param library_name: str - library name
         :return: None
         """
-        e = OutputManager2.delete_library(self.dir_path + "/" + library_name, library_name)
+        e = OutputManager2.delete_library(self.dir_path, library_name)
         if isinstance(e, Error):
             return e
-        del self.libraries[library_name]
+        try:
+            del self.libraries[library_name]
+        except Exception:
+            pass
 
 
     def remove_collection_from_library(self, library_name, collection_name):
@@ -326,6 +329,12 @@ class Handler:
     def search_in_library(self):
         # What does this do?
         pass
+
+
+    def show_all_libraries(self):
+        libraries = InputManager2.get_library_names(self.dir_path)
+        for l in libraries:
+            print(l)
 
 
     def show_library(self, library_name):

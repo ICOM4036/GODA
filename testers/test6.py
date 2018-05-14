@@ -23,5 +23,7 @@ handler.show_collection('Testing something with bool', cn3)
 
 handler.sort('Testing something with bool', "Stuff with list", 'dead')
 
+handler.show_all_libraries()
+
 handler.remove_library('Testing something with bool')
 

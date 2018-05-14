@@ -71,3 +71,9 @@ def import_collection(coll_path, col, attribute_types):
                     values.append(None)
             col.add_obj(values)
     return col
+
+
+def get_library_names(dir_path):
+    filereader = open("%s/libraries.txt" % dir_path, 'r')
+    libraries = filereader.read().split("\n")
+    return libraries
