@@ -102,7 +102,7 @@ def show(ds):
             msg = "Not a valid operation!!"
     elif ds == "liba":
         msg = "Showing contents of all open Libraries"
-        #e = handler.show_library(names['info'])
+        e = handler.show_all_libraries()
     else:
         msg = "Not a valid operation!!"
 
