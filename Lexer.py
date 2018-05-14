@@ -22,13 +22,20 @@ reserved = {
     'float':'TYPE',
     'str':'TYPE',
     'bool': 'TYPE',
-    'cmd' : 'DS'
+    'cmd': 'DS',
+    'liba':'DS'
 }
 # Tokens
 
 t_ignore = '\t '
 t_COMMAS = r'\"'
 t_COLON = r'\:'
+
+
+def t_LIBA(t):
+    r'\b liba \b'
+    t.type = reserved.get(t.value)
+    return t
 
 
 def t_CRT(t):
@@ -151,14 +158,8 @@ def t_ALL(t):
     return t
 
 
-def t_CMD(t):
-    r'\b [a-zA-Z0-9"]* \b'
-    t.type = "DS"
-    return t
-
-
 def t_INFO(t):
-    r'\b [a-zA-Z0-9._"]* \b'
+    r'\b [a-zA-Z0-9.]* \b'
     t.type = "INFO"
     return t
 
