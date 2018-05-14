@@ -21,7 +21,8 @@ reserved = {
     'int': 'TYPE',
     'float':'TYPE',
     'str':'TYPE',
-    'bool': 'TYPE'
+    'bool': 'TYPE',
+    'cmd' : 'DS'
 }
 # Tokens
 
@@ -147,6 +148,12 @@ def t_IMP(t):
 def t_ALL(t):
     r'\b all \b'
     t.type = reserved.get(t.value)
+    return t
+
+
+def t_CMD(t):
+    r'\b [a-zA-Z0-9"]* \b'
+    t.type = "DS"
     return t
 
 
