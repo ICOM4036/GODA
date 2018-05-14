@@ -38,7 +38,8 @@ class Collection(object):
                 or not self.__obj_check_data_type(attribute_values):
             print("Object not compatible with collection")
             return
-        self.__obj_collection.append(self.__Object(attribute_values, self.get_obj_def().get_obj_data_types()))
+        obj = self.__Object(attribute_values)
+        self.__obj_collection.append(obj)
 
     def remove_obj(self, index):
         """
@@ -216,26 +217,12 @@ class Collection(object):
         - LIST  VALUES
         """
 
-        def __init__(self, values, data_types):
+        def __init__(self, values):
             """
             CONSTRUCTOR FOR OBJECT
             :param values: LIST - VALUES FOR ATTRIBUTES
             """
-            self.__values = []
-            for v in range(len(values)):
-                if data_types[v] is int:
-                    self.__values.append(int(values[v]))
-                elif data_types[v] is float:
-                    self.__values.append(float(values[v]))
-                elif data_types[v] is str:
-                    self.__values.append(values[v])
-                # elif data_types[v] is bool:
-                #     if values[v] == 'True':
-                #         self.__values.append(True)
-                #     else:
-                #         self.__values.append(False)
-                else:
-                    self.__values.append(None)
+            self.__values = values
 
 
         def get_value(self, index):

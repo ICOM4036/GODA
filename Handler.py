@@ -16,7 +16,7 @@ class Handler:
     def __init__(self):
 
         # This is the default Directory where libraries are saved
-        self.dir_path = "C:/Users/irixa/PycharmProjects/GODA/Directory"
+        self.dir_path = "Directory"
         self.libraries = {}
         self.objects = {}
 
@@ -115,7 +115,7 @@ class Handler:
         Adds an object to a collection
         :param library_name: str - library name
         :param collection_name: str - collection name
-        :param arr: array - object values
+        :param arr: str[] - object values
         :return: None
         """
         try:
@@ -126,7 +126,24 @@ class Handler:
         col = lib.get_collection(collection_name)
         if isinstance(col, Error):
             return col
-        col.add_obj(arr)
+        data_types = col.get_obj_def().get_obj_data_types()
+        values = []
+        for i in range(len(arr)):
+            if data_types[i] is bool:
+                if arr[i] == 'True':
+                    values.append(True)
+                else:
+                    values.append(False)
+            elif data_types[i] is str:
+                values.append(arr[i])
+            elif data_types[i] is int:
+                values.append(int(arr[i]))
+            elif data_types[i] is float:
+                values.append(float(arr[i]))
+            else:
+                values.append(None)
+
+        col.add_obj(values)
         OutputManager2.add_object_to_collection("{}/{}/Collections/{}.csv".format(self.dir_path, library_name, collection_name), arr)
 
 
@@ -231,7 +248,7 @@ class Handler:
         data = col.get_obj_list()
 
         sorted_list = Quicksort().sort(data, comp, index)
-        temp_collection = Collection('temp', obj)
+        temp_collection = Collection('{} sorted by {}'.format(collection_name, attribute_name), obj)
         for o in sorted_list:
             temp_collection.add_obj(o.get_values())
         col = temp_collection
@@ -269,13 +286,32 @@ class Handler:
         if index == -1:
             return AttributeDoesNotExistError(attribute_name)
 
+        # Change the string of the data to search to its type
+        data_type = col.get_obj_def().get_obj_data_types()
+        type = data_type[index]
+        if type is int:
+            data_to_search = int(data_to_search)
+        elif type is float:
+            data_to_search = float(data_to_search)
+        elif type is bool:
+            if data_to_search == 'True':
+                data_to_search = True
+            elif data_to_search == 'False':
+                data_to_search = False
+            else:
+                data_to_search = None
+        elif data_to_search is str:
+            pass
+        else:
+            data_to_search = None
+
         data = col.get_obj_list()
         result = []
         for obj in data:
             if obj.get_value(index) == data_to_search:
                 result.append(obj)
 
-        temp_collection = Collection('temp', col.get_obj_def())
+        temp_collection = Collection('{} with {} as {}'.format(collection_name, attribute_name, data_to_search), col.get_obj_def())
         for o in result:
             temp_collection.add_obj(o.get_values())
         temp_collection.display_col()
@@ -381,7 +417,7 @@ class Handler:
                 newValues = []
                 values = obj.get_values()
                 for v in values:
-                    newValues.append(v)
+                    newValues.append(str(v))
                 # new_col.add_obj(newValues)
                 # OutputManager2.add_object_to_collection("{}/{}/Collections/{}.csv".format(self.dir_path, lib_name3,
                 #                                                                           new_col_name), newValues)
@@ -392,7 +428,7 @@ class Handler:
                 newValues = []
                 values = obj.get_values()
                 for v in values:
-                    newValues.append(v)
+                    newValues.append(str(v))
                 # new_col.add_obj(newValues)
                 # OutputManager2.add_object_to_collection("{}/{}/Collections/{}.csv".format(self.dir_path, lib_name3,
                 #                                                                           new_col_name), newValues)
