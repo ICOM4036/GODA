@@ -62,7 +62,7 @@ def import_file(ds):
         file = par.parser.parse(input(">>>"))
         if names is not None and file is not None and 'info' in names and 'info' in file:
             msg = "Importing Command from file with name: '{0}' with keyword: '{1}' ".format(file['info'],names['info'])
-            e = ic.run_cmd(names['info'],file['info'])
+           # e = ic.run_cmd(names['info'],file['info'])
         else:
             msg = "Not a valid operation!!"
     else:
@@ -95,14 +95,6 @@ def show(ds):
         else:
             msg = "Not a valid operation!!"
     elif ds == "all":
-        print("Please enter the name of the Library: ")
-        names = par.parser.parse(input(">>>"))
-        if names is not None and 'info' in names:
-            msg = "Showing contents of the Library with name: %s" % names['info']
-            e = handler.show_all_in_library(names['info'])
-        else:
-            msg = "Not a valid operation!!"
-    elif ds == "liba":
         msg = "Showing contents of all open Libraries"
         e = handler.show_all_libraries()
     else:
