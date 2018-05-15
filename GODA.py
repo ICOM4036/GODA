@@ -97,7 +97,7 @@ def show(ds):
         names = par.parser.parse(input(">>>"))
         if names is not None and 'info' in names:
             msg = "Showing contents of the Library with name: %s" % names['info']
-            e = handler.show_library(names['info'])
+            e = handler.show_all_in_library(names['info'])
         else:
             msg = "Not a valid operation!!"
     elif ds == "liba":
