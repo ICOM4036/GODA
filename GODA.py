@@ -31,7 +31,7 @@ def import_file(ds):
         print("Please enter the name of the file: ")
         names = par.parser.parse(input(">>>"))
         if names is not None and 'info' in names:
-            msg = "Importing Library from file with name: "% names['info']
+            msg = "Importing Library from file with name: ".format(names['info'])
             e = ip.imp_new_library(names['info'])
         else:
             msg = "Not a valid operation!!"
@@ -39,7 +39,7 @@ def import_file(ds):
         print("Please enter the name of the file: ")
         names = par.parser.parse(input(">>>"))
         if names is not None and 'info' in names:
-            msg = "Importing Collection from file with name: " % names['info']
+            msg = "Importing Collection from file with name: ".format(names['info'])
             e = ip.imp_new_collection(names['info'])
         else:
             msg = "Not a valid operation!!"
@@ -49,7 +49,7 @@ def import_file(ds):
         print("Please enter the name of the Collection: ")
         coll = par.parser.parse(input(">>>"))
         if names is not None and coll is not None and 'info' in names and 'info' in coll:
-            msg = "Importing data from file with name: " % names['info']% " into Collection: "%coll['info']
+            msg = "Importing data from file with name: '{0}' into Collection: '{1}' ".format(names['info'],coll['info'])
             e = ip.imp_data(names['info'],coll['info'])
         else:
             msg = "Not a valid operation!!"
