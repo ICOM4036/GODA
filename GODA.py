@@ -286,25 +286,22 @@ def merge():
     print(msg)
 
 
-def search(ds):
+def search():
     msg = ""
     e = " "
-    if ds == "col":
-        print("Please enter the name of the Library: ")
-        lib = par.parser.parse(input(">>>"))
-        print("Please enter the name of the Collection: ")
-        coll = par.parser.parse(input(">>>"))
-        print("Please enter the name of the attribute to sort by: ")
-        attri = par.parser.parse(input(">>>"))
-        print("Please enter the specific value to search for: ")
-        value = par.parser.parse(input(">>>"))
-        if  lib is not None and coll is not None and attri is not None and value is not None and 'info' in lib and 'info' in coll and 'info' in attri and 'info' in value:
-            msg = "Searching collection with name: %s for all entries with value: %s" % (coll['info'], value['info'])
-            e = handler.search_in_collection(lib['info'],coll['info'],attri['info'],value['info'])
-        else:
-            msg = "Not a valid operation!!"
+    print("Please enter the name of the Library: ")
+    lib = par.parser.parse(input(">>>"))
+    print("Please enter the name of the Collection: ")
+    coll = par.parser.parse(input(">>>"))
+    print("Please enter the name of the attribute to sort by: ")
+    attri = par.parser.parse(input(">>>"))
+    print("Please enter the specific value to search for: ")
+    value = par.parser.parse(input(">>>"))
+    if  lib is not None and coll is not None and attri is not None and value is not None and 'info' in lib and 'info' in coll and 'info' in attri and 'info' in value:
+        msg = "Searching collection with name: %s for all entries with value: %s" % (coll['info'], value['info'])
+        e = handler.search_in_collection(lib['info'],coll['info'],attri['info'],value['info'])
     else:
-        msg = "Not a valid operation!!!"
+        msg = "Not a valid operation!!"
 
     if isinstance(e, Error):
         msg = e.message()
@@ -377,7 +374,7 @@ while True:
                 merge()
         elif user_input['command'] == "search":
             if 'ds' in user_input:
-                search(user_input['ds'])
+                search()
             else:
                 print("{} is not recognized".format(user_input))
         elif user_input['command'] == "sort":
