@@ -3,6 +3,7 @@ from Handler import Handler
 import InputManager as ip
 import textpool
 from Exceptions import *
+import webbrowser
 import ImpCmd as ic
 
 handler = Handler()
@@ -18,6 +19,7 @@ class Goda:
 
 def simple_help():
     print(textpool.help_txt)
+    webbrowser.open_new('https://www.youtube.com/watch?v=ZNahS3OHPwA')
 
 
 def cmd_help(cmd):
