@@ -22,9 +22,11 @@ reserved = {
     'float':'TYPE',
     'str':'TYPE',
     'bool': 'TYPE',
-    'cmd': 'DS'
+    'cmd': 'DS',
+    'run': 'COMMAND'
 }
-# Tokens
+
+# Definition of the Tokens Rule
 
 t_ignore = '\t '
 t_COMMAS = r'\"'
@@ -149,6 +151,18 @@ def t_ALL(t):
     r'\b all \b'
     t.type = reserved.get(t.value)
     return t
+
+
+def t_CMD(t):
+    r'\b cmd \b'
+    t.type = reserved.get(t.value)
+    return t
+
+def t_RUN(t):
+    r'\b run \b'
+    t.type = reserved.get(t.value)
+    return t
+
 
 def t_INFO(t):
     r'\b [a-zA-Z0-9.]* \b'

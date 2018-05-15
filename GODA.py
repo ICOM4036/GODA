@@ -26,6 +26,25 @@ def cmd_help(cmd):
     print(textpool.help_cmd.get(cmd))
 
 
+def run_cmd(ds):
+    msg = " "
+    e = " "
+    if ds == "cmd":
+        print("Please enter the name of the keyword: ")
+        keys = par.parser.parse(input(">>>"))
+        if keys is not None and 'info' in keys:
+            msg = "Running command with name: '{0}' ".format(keys['info'])
+            # e =
+        else:
+            msg = "Not able to run command!!"
+    else:
+        msg = "Not a valid structure!!!!"
+
+    if isinstance(e, Error):
+        msg = e.message()
+    print(msg)
+
+
 def import_file(ds):
     msg = " "
     e = " "
@@ -33,26 +52,18 @@ def import_file(ds):
         print("Please enter the name of the file: ")
         names = par.parser.parse(input(">>>"))
         if names is not None and 'info' in names:
-            msg = "Importing Library from file with name: ".format(names['info'])
-            e = ip.imp_new_library(names['info'])
+            msg = "Importing Library from file with name: '{0}'".format(names['info'])
+            #e = ip.imp_new_library(names['info'])
         else:
             msg = "Not a valid operation!!"
     elif ds == "col":
+        print("Please enter the name of the Library: ")
+        lib = par.parser.parse(input(">>>"))
         print("Please enter the name of the file: ")
-        names = par.parser.parse(input(">>>"))
-        if names is not None and 'info' in names:
-            msg = "Importing Collection from file with name: ".format(names['info'])
-            e = ip.imp_new_collection(names['info'])
-        else:
-            msg = "Not a valid operation!!"
-    elif ds == "inst":
-        print("Please enter the name of the file: ")
-        names = par.parser.parse(input(">>>"))
-        print("Please enter the name of the Collection: ")
-        coll = par.parser.parse(input(">>>"))
-        if names is not None and coll is not None and 'info' in names and 'info' in coll:
-            msg = "Importing data from file with name: '{0}' into Collection: '{1}' ".format(names['info'],coll['info'])
-            e = ip.imp_data(names['info'],coll['info'])
+        file = par.parser.parse(input(">>>"))
+        if file is not None and 'info' in file:
+            msg = "Importing Collection from file with name: '{0}' into Library: '{1}' ".format(file['info'],lib['info'])
+            #e = ip.imp_new_collection(names['info'])
         else:
             msg = "Not a valid operation!!"
     elif ds == "cmd":
@@ -382,6 +393,11 @@ while True:
         elif user_input['command'] == "imp":
             if 'ds' in user_input:
                 import_file(user_input['ds'])
+            else:
+                print("{} is not recognized".format(user_input))
+        elif user_input['command'] == "run":
+            if 'ds' in user_input:
+                run_cmd(user_input['ds'])
             else:
                 print("{} is not recognized".format(user_input))
         else:
