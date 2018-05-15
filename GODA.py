@@ -53,8 +53,8 @@ def import_file(ds):
         if name is not None and 'info' in name:
             file = os.path.abspath(name['info'])
             if file is not None:
-                msg = "Importing Library from file with name: '{0}'".format(name)
-                e = handler.imp_lib(name)
+                msg = "Importing Library from file with name: %s",file
+                e = handler.imp_lib(file)
             else:
                 msg = "Not a valid operation!!"
         else:
@@ -105,8 +105,8 @@ def export(ds):
             print("Please enter the name of the Library to export: ")
             lib = par.parser.parse(input(">>>"))
             if path is not None and lib is not None and 'info' in lib:
-                msg = "Exporting Library into file with name: %s", path['info']
-                e = handler.export_library(lib['info'],path['info'])
+                msg = "Exporting Library into file with name: %s", path
+                e = handler.export_library(lib['info'],path)
             else:
                 msg = "Not a valid operation!!"
         else:
@@ -121,8 +121,8 @@ def export(ds):
         if name is not None and 'info' in name:
             file = os.path.abspath(name['info'])
             if file is not None and lib is not None and coll is not None and 'info' in lib and 'info' in coll:
-                msg = "Exporting Collection with name: '{0}' into path: '{1}' ".format(coll['info'],file['info'])
-                e = handler.export_colllection(lib['info'],coll['info'],file['info'])
+                msg = "Exporting Collection with name: '{0}' into path: '{1}' ".format(coll['info'],file)
+                e = handler.export_colllection(lib['info'],coll['info'],file)
             else:
                 msg = "Not a valid operation!!"
         else:
