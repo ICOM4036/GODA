@@ -1,4 +1,0 @@
-Libraries/University/Collections/RollBook2.csv
-RollBook2
-Student
-Name:str,ID:str,Age:int

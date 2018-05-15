@@ -1,4 +1,0 @@
-Libraries/University/Collections/Faculty.csv
-Faculty
-Professor
-Name:str,Course:str

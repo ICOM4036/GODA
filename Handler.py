@@ -32,7 +32,8 @@ class Handler:
         if library_name in self.libraries:
             return LibraryOpenedError(library_name)
 
-        library = InputManager2.import_library(self.dir_path + "/" + library_name, library_name)
+        # library = InputManager2.import_library(self.dir_path + "/" + library_name, library_name)
+        library = InputManager.imp_new_library('Directory/'+library_name)
 
         if isinstance(library, Error):
             return library
@@ -159,8 +160,10 @@ class Handler:
         :return:
         """
         library_name = os.path.basename(filename)
-        e = InputManager.import_library(filename, library_name)
+        # e = InputManager.import_library(filename, library_name)
+        e = InputManager.imp_new_library(filename)
         OutputManager2.create_library(self.dir_path, library_name)
+        OutputManager.save_library(e)
         return e
 
 

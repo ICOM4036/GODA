@@ -120,7 +120,7 @@ def save_library(library):
     :param library: LIBRARY - LIBRARY TO BE SAVED
     :return: VOID
     """
-    directory = 'Libraries'
+    directory = 'Directory'
     export_library(library, directory)
 
 

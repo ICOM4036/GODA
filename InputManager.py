@@ -150,6 +150,7 @@ def imp_new_library(filename):
     :param filename: STRING - FILE NAME
     :return: LIBRARY - NEW LIBRARY
     """
+    filename = filename + '/'+os.path.basename(filename) + '.txt'
     try:
         f = open(filename, 'r+')
         liblist = []

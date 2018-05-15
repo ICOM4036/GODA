@@ -1,4 +1,0 @@
-Libraries/Stuff/Collections/Roll Book 2.csv
-Roll Book 2
-Student
-ID:str,GPA:float,NAME:str,PROGRAM:str
