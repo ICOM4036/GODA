@@ -2,6 +2,7 @@ import Parser as par
 from Handler import Handler
 import textpool
 from Exceptions import *
+import os
 
 handler = Handler()
 
@@ -48,35 +49,46 @@ def import_file(ds):
     e = " "
     if ds == "lib":
         print("Please enter the name of the file: ")
-        names = par.parser.parse(input(">>>"))
-        if names is not None and 'info' in names:
-            msg = "Importing Library from file with name: '{0}'".format(names['info'])
-            e = handler.imp_lib(names['info'])
+        name = par.parser.parse(input(">>>"))
+        if name is not None and 'info' in name:
+            file = os.path.abspath(name['info'])
+            if file is not None:
+                msg = "Importing Library from file with name: '{0}'".format(name)
+                e = handler.imp_lib(name)
+            else:
+                msg = "Not a valid operation!!"
         else:
             msg = "Not a valid operation!!"
     elif ds == "col":
         print("Please enter the name of the Library: ")
         lib = par.parser.parse(input(">>>"))
         print("Please enter the name of the file: ")
-        file = par.parser.parse(input(">>>"))
-        if file is not None and 'info' in file:
-            msg = "Importing Collection from file with name: '{0}' into Library: '{1}' ".format(file['info'],lib['info'])
-            e = handler.imp_col(file['info'],lib['info'])
+        name = par.parser.parse(input(">>>"))
+        if name is not None and 'info' in name:
+            file = os.path.abspath(name['info'])
+            if file is not None and lib is not None and 'info' in lib:
+                msg = "Importing Collection from file: '{0}' into Library: '{1}' ".format(file,lib['info'])
+                e = handler.imp_col(file,lib['info'])
+            else:
+                msg = "Not a valid operation!!"
         else:
             msg = "Not a valid operation!!"
     elif ds == "cmd":
         print("Please enter the keyword: ")
         names = par.parser.parse(input(">>>"))
         print("Please enter the name of the Python file from which to import command: ")
-        file = par.parser.parse(input(">>>"))
-        if names is not None and file is not None and 'info' in names and 'info' in file:
-            msg = "Importing Command from file with name: '{0}' with keyword: '{1}' ".format(file['info'],names['info'])
-            e = handler.imp_command(names['info'],file['info'])
+        name = par.parser.parse(input(">>>"))
+        if name is not None:
+            file = os.path.abspath(name['info'])
+            if names is not None and file is not None and 'info' in names:
+                msg = "Importing Command from file with name: '{0}' with keyword: '{1}' ".format(file,names['info'])
+                e = handler.imp_command(names['info'],file)
+            else:
+                msg = "Not a valid operation!!"
         else:
             msg = "Not a valid operation!!"
     else:
         print("Not a valid operation!!")
-
     if isinstance(e, Error):
         msg = e.message()
     print(msg)
@@ -87,12 +99,16 @@ def export(ds):
     e = " "
     if ds == "lib":
         print("Please enter the path to export to: ")
-        path = par.parser.parse(input(">>>"))
-        print("Please enter the name of the Library to export: ")
-        lib = par.parser.parse(input(">>>"))
-        if path is not None and lib is not None and 'info' in path and 'info' in lib:
-            msg = "Exporting Library into file with name: '{0}'".format(path['info'])
-            e = handler.export_library(lib['info'],path['info'])
+        name = par.parser.parse(input(">>>"))
+        if name is not None and 'info' in name:
+            path = os.path.abspath(name['info'])
+            print("Please enter the name of the Library to export: ")
+            lib = par.parser.parse(input(">>>"))
+            if path is not None and lib is not None and 'info' in lib:
+                msg = "Exporting Library into file with name: %s", path['info']
+                e = handler.export_library(lib['info'],path['info'])
+            else:
+                msg = "Not a valid operation!!"
         else:
             msg = "Not a valid operation!!"
     elif ds == "col":
@@ -101,12 +117,16 @@ def export(ds):
         print("Please enter the name of the Collection to export: ")
         coll = par.parser.parse(input(">>>"))
         print("Please enter the path to export to: ")
-        file = par.parser.parse(input(">>>"))
-        if file is not None and lib is not None and coll is not None and 'info' in file and 'info' in lib and 'info' in coll:
-            msg = "Exporting Collection with name: '{0}' into path: '{1}' ".format(coll['info'],file['info'])
-            e = handler.export_colllection(lib['info'],coll['info'],file['info'])
+        name = par.parser.parse(input(">>>"))
+        if name is not None and 'info' in name:
+            file = os.path.abspath(name['info'])
+            if file is not None and lib is not None and coll is not None and 'info' in lib and 'info' in coll:
+                msg = "Exporting Collection with name: '{0}' into path: '{1}' ".format(coll['info'],file['info'])
+                e = handler.export_colllection(lib['info'],coll['info'],file['info'])
+            else:
+                msg = "Not a valid operation!!"
         else:
-            msg = "Not a valid operation!!"
+            msg = "Not a valid operation!!!"
     else:
         print("Not a valid operation!!")
 
@@ -424,6 +444,11 @@ while True:
         elif user_input['command'] == "imp":
             if 'ds' in user_input:
                 import_file(user_input['ds'])
+            else:
+                print("{} is not recognized".format(user_input))
+        elif user_input['command'] == "exp":
+            if 'ds' in user_input:
+                export(user_input['ds'])
             else:
                 print("{} is not recognized".format(user_input))
         elif user_input['command'] == "run":

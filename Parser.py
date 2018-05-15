@@ -39,6 +39,8 @@ def p_statement_parseCommand(p):
     else:
         if 'TYPE' == reserved.get(p[3]):
             p[0] = {"info": p[1], "type":p[3]}
+        elif 'COMMAS' == reserved.get(p[1]):
+            p[0] = {"info": p[2]}
         else:
             p[0] = {"info": p[1]+" "+p[2]+" "+p[3]}
 
