@@ -61,7 +61,7 @@ def import_file(ds):
         print("Please enter the name of the Python file from which to import command: ")
         file = par.parser.parse(input(">>>"))
         if names is not None and file is not None and 'info' in names and 'info' in file:
-            msg = "Importing Command from file with name: " % file['info'] % " with keyword: "%names['info']
+            msg = "Importing Command from file with name: '{0}' with keyword: '{1}' ".format(file['info'],names['info'])
             e = ic.run_cmd(names['info'],file['info'])
         else:
             msg = "Not a valid operation!!"
