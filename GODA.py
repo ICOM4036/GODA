@@ -1,10 +1,7 @@
 import Parser as par
 from Handler import Handler
-import InputManager as ip
 import textpool
 from Exceptions import *
-import webbrowser
-import ImpCmd as ic
 
 handler = Handler()
 
@@ -19,7 +16,6 @@ class Goda:
 
 def simple_help():
     print(textpool.help_txt)
-    webbrowser.open_new('https://www.youtube.com/watch?v=ZNahS3OHPwA')
 
 
 def cmd_help(cmd):
@@ -32,9 +28,11 @@ def run_cmd(ds):
     if ds == "cmd":
         print("Please enter the name of the keyword: ")
         keys = par.parser.parse(input(">>>"))
-        if keys is not None and 'info' in keys:
+        print("Please enter the library to which will run the command: ")
+        lib = par.parser.parse(input(">>>"))
+        if keys is not None and lib is not None and 'info' in keys and 'info' in lib:
             msg = "Running command with name: '{0}' ".format(keys['info'])
-            # e =
+            e = handler.run_command(keys['info'],lib['info'])
         else:
             msg = "Not able to run command!!"
     else:
@@ -53,7 +51,7 @@ def import_file(ds):
         names = par.parser.parse(input(">>>"))
         if names is not None and 'info' in names:
             msg = "Importing Library from file with name: '{0}'".format(names['info'])
-            #e = ip.imp_new_library(names['info'])
+            e = handler.imp_lib(names['info'])
         else:
             msg = "Not a valid operation!!"
     elif ds == "col":
@@ -63,7 +61,7 @@ def import_file(ds):
         file = par.parser.parse(input(">>>"))
         if file is not None and 'info' in file:
             msg = "Importing Collection from file with name: '{0}' into Library: '{1}' ".format(file['info'],lib['info'])
-            #e = ip.imp_new_collection(names['info'])
+            e = handler.imp_col(file['info'],lib['info'])
         else:
             msg = "Not a valid operation!!"
     elif ds == "cmd":
@@ -73,7 +71,40 @@ def import_file(ds):
         file = par.parser.parse(input(">>>"))
         if names is not None and file is not None and 'info' in names and 'info' in file:
             msg = "Importing Command from file with name: '{0}' with keyword: '{1}' ".format(file['info'],names['info'])
-           # e = ic.run_cmd(names['info'],file['info'])
+            e = handler.imp_command(names['info'],file['info'])
+        else:
+            msg = "Not a valid operation!!"
+    else:
+        print("Not a valid operation!!")
+
+    if isinstance(e, Error):
+        msg = e.message()
+    print(msg)
+
+
+def export(ds):
+    msg = " "
+    e = " "
+    if ds == "lib":
+        print("Please enter the path to export to: ")
+        path = par.parser.parse(input(">>>"))
+        print("Please enter the name of the Library to export: ")
+        lib = par.parser.parse(input(">>>"))
+        if path is not None and lib is not None and 'info' in path and 'info' in lib:
+            msg = "Exporting Library into file with name: '{0}'".format(path['info'])
+            e = handler.export_library(lib['info'],path['info'])
+        else:
+            msg = "Not a valid operation!!"
+    elif ds == "col":
+        print("Please enter the name of the Library: ")
+        lib = par.parser.parse(input(">>>"))
+        print("Please enter the name of the Collection to export: ")
+        coll = par.parser.parse(input(">>>"))
+        print("Please enter the path to export to: ")
+        file = par.parser.parse(input(">>>"))
+        if file is not None and lib is not None and coll is not None and 'info' in file and 'info' in lib and 'info' in coll:
+            msg = "Exporting Collection with name: '{0}' into path: '{1}' ".format(coll['info'],file['info'])
+            e = handler.export_colllection(lib['info'],coll['info'],file['info'])
         else:
             msg = "Not a valid operation!!"
     else:

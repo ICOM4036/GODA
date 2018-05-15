@@ -23,7 +23,8 @@ reserved = {
     'str':'TYPE',
     'bool': 'TYPE',
     'cmd': 'DS',
-    'run': 'COMMAND'
+    'run': 'COMMAND',
+    'exp': 'COMMAND'
 }
 
 # Definition of the Tokens Rule
@@ -41,6 +42,12 @@ def t_CRT(t):
 
 def t_RM(t):
     r'\b rm \b'
+    t.type = reserved.get(t.value)
+    return t
+
+
+def t_EXP(t):
+    r'\b exp \b'
     t.type = reserved.get(t.value)
     return t
 
@@ -165,7 +172,7 @@ def t_RUN(t):
 
 
 def t_INFO(t):
-    r'\b [a-zA-Z0-9.]* \b'
+    r'\b [a-zA-Z0-9.\/]* \b'
     t.type = "INFO"
     return t
 
