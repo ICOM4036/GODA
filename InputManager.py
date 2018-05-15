@@ -7,9 +7,8 @@
 from ADT.Library import *
 from ADT.Collection import *
 from ADT.ObjectType import *
-import csv
-import os
-import Exceptions
+import os, csv
+from Exceptions import *
 
 
 def import_library(lib_path, lib_name):
