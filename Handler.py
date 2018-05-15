@@ -33,8 +33,8 @@ class Handler:
         if library_name in self.libraries:
             return LibraryOpenedError(library_name)
 
-        library = InputManager2.import_library(self.dir_path + "/" + library_name, library_name)
-        # library = InputManager.imp_new_library('Directory/'+library_name)
+        # library = InputManager2.import_library(self.dir_path + "/" + library_name, library_name)
+        library = InputManager.imp_new_library('Directory/'+library_name)
 
         if isinstance(library, Error):
             return library

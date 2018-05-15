@@ -135,6 +135,8 @@ def imp_data(filename, col):
                         obj.append(int(line[i]))
                     elif t == "float":
                         obj.append(float(line[i]))
+                    elif t == "bool":
+                        obj.append(bool(line[i]))
                     else:
                         obj.append(line[i])
                 col.add_obj(obj)
