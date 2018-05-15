@@ -144,3 +144,25 @@ class ObjectIndexOutOfBound(Error):
 
     def message(self):
         return "An object with index %s does not exist." % self.expression
+
+
+class FileNotFoundError(Error):
+    """
+    Error when a file is not found.
+    """
+    def __init__(self, expression):
+        self.expression = expression
+
+    def message(self):
+        return "The file specified was not found: %s." % self.expression
+
+
+class CommandNotFoundError(Error):
+    """
+    Error when an imported command is not found.
+    """
+    def __init__(self, expression):
+        self.expression = expression
+
+    def message(self):
+        return "Command %s was not found. Make sure that it exists and that it is imported." % self.expression
