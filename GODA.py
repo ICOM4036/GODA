@@ -374,9 +374,9 @@ while True:
                 merge()
         elif user_input['command'] == "search":
             if 'ds' in user_input:
-                search()
-            else:
                 print("{} is not recognized".format(user_input))
+            else:
+                search()
         elif user_input['command'] == "sort":
             if 'ds' in user_input:
                 print("{} is not recognized".format(user_input))
