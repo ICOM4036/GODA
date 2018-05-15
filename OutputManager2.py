@@ -58,7 +58,6 @@ def create_collection(dir_path, library_name, collection):
 def add_object_to_collection(col_path, obj_values):
     file_writer = csv.writer(open(col_path, 'a', newline = ''))
     file_writer.writerow(obj_values)
-    print("paso")
 
 
 def delete_library(dir_path, lib_name):
