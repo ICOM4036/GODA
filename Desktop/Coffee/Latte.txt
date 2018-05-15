@@ -1,4 +1,0 @@
-Desktop/Coffee/Collections/Latte.csv
-Latte
-Cup
-size:str,foam:bool

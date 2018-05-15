@@ -9,6 +9,7 @@ from Comparators.BooleanComparator import BooleanComparator
 from SortingAlgorithms.Quicksort import Quicksort
 from math import fabs
 from Exceptions import *
+import importlib
 
 
 class Handler:
@@ -32,8 +33,8 @@ class Handler:
         if library_name in self.libraries:
             return LibraryOpenedError(library_name)
 
-        # library = InputManager2.import_library(self.dir_path + "/" + library_name, library_name)
-        library = InputManager.imp_new_library('Directory/'+library_name)
+        library = InputManager2.import_library(self.dir_path + "/" + library_name, library_name)
+        # library = InputManager.imp_new_library('Directory/'+library_name)
 
         if isinstance(library, Error):
             return library
@@ -207,8 +208,24 @@ class Handler:
 
 
     def imp_command(self, command_name, pyfile):
-        e = InputManager.imp_cmd(command_name, pyfile)
+        print('Please enter a description for "{}" command.'.format(command_name))
+        cmd_des = input('>>>')+' '
+        e = InputManager.imp_cmd(command_name, pyfile, cmd_des)
         return e
+
+
+    def imp_cmd_help(self):
+        help = ''
+        try:
+            c = open('ImportedCommands/ImportedCommands.txt', 'r')
+            lines = c.readlines()
+            c.close()
+            for line in lines:
+                line = line.split('{cmd+des}')
+                help += line[0] + '\t\t' + line[1]
+            print('Imported Commands help\n{}'.format(help))
+        except:
+            pass
 
 
     def run_command(self, command_name, library_name):
@@ -218,7 +235,9 @@ class Handler:
             return LibraryNotOpenedError(library_name)
 
         try:
-            ImpCmd.run_cmd(command_name, lib)
+            import ImpCmd as impcmd
+            impcmd = importlib.reload(ImpCmd)
+            impcmd.run_cmd(command_name, lib)
         except Exception:
             CommandNotFoundError(command_name)
 

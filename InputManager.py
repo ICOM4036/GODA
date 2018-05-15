@@ -150,7 +150,11 @@ def imp_new_library(filename):
     :param filename: STRING - FILE NAME
     :return: LIBRARY - NEW LIBRARY
     """
-    filename = filename + '/'+os.path.basename(filename) + '.txt'
+
+    lib_name = os.path.basename(filename)
+    if not os.path.isdir(filename):
+        return LibraryDoesNotExistError(lib_name)
+    filename = filename + '/'+lib_name + '.txt'
     try:
         f = open(filename, 'r+')
         liblist = []
@@ -168,7 +172,7 @@ def imp_new_library(filename):
         return None
 
 
-def imp_cmd(cmd_name, pyfile):
+def imp_cmd(cmd_name, pyfile, cmd_des):
     """
     IMPORT COMMAND
     :param cmd_name: STRING - COMMAND NAME
@@ -196,11 +200,14 @@ def imp_cmd(cmd_name, pyfile):
                 f4.write('import ImportedCommands.{} as {}\n'.format(mod_name, mod_name))
             elif "# cmds" in line:
                 f4.write(line+'\n')
-                f4.write('    elif cmd is "{}":\n'.format(cmd_name))
+                f4.write('    elif cmd == "{}":\n'.format(cmd_name))
                 f4.write('        return {}.main(lib)\n'.format(mod_name))
             else:
                 f4.write(line)
         f4.close()
+        f5 = open('ImportedCommands/ImportedCommands.txt', 'a')
+        f5.write(cmd_name+'{cmd+des}'+cmd_des+'\n')
+        f5.close()
     except Exception:
         FileNotFoundError(pyfile)
 

@@ -20,7 +20,10 @@ def simple_help():
 
 
 def cmd_help(cmd):
-    print(textpool.help_cmd.get(cmd))
+    if cmd == 'run':
+        handler.imp_cmd_help()
+    else:
+        print(textpool.help_cmd.get(cmd))
 
 
 def run_cmd(ds):

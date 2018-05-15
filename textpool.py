@@ -8,16 +8,17 @@ ver = '\tG.O.D.A' \
       '\nRELEASE DATE\t\t05-15-2018' \
       '\nWEBSITE\t\t\thttps://github.com/ICOM4036/GODA'
 
-help_txt = 'FOR MORE INFORMATION ON A COMMAND TYPE "HELP -[CMD]"\n' \
-           '\nQUIT\t\tEXIT THE PROGRAM OR CLOSE LIBRARY' \
-           '\nOPEN\t\tOPEN AN EXISTING LIBRARY' \
-           '\nCRT\t\tCREATE LIBRARY, COLLECTION, OR OBJECT' \
-           '\nSHOW\t\tDISPLAY' \
-           '\nRM\t\tREMOVE' \
-           '\nSORT\t\tSORT A COLLECTION BY A SPECIFIC ATTRIBUTE' \
-           '\nMERGE\t\tMERGE TWO COLLECTIONS INTO ONE' \
-           '\nSEARCH\t\tSEARCH IN A COLLECTION A SPECIFIC ATTRIBUTE' \
-           '\nIMP\t\tIMPORT A LIBRARY' \
+help_txt = 'FOR MORE INFORMATION ON A COMMAND TYPE "HELP [CMD]"\n' \
+           '\nQUIT\t\t\tEXIT THE PROGRAM OR CLOSE LIBRARY' \
+           '\nOPEN\t\t\tOPEN AN EXISTING LIBRARY' \
+           '\nCRT\t\t\tCREATE LIBRARY, COLLECTION, OR OBJECT' \
+           '\nSHOW\t\t\tDISPLAY' \
+           '\nRM\t\t\tREMOVE' \
+           '\nSORT\t\t\tSORT A COLLECTION BY A SPECIFIC ATTRIBUTE' \
+           '\nMERGE\t\t\tMERGE TWO COLLECTIONS INTO ONE' \
+           '\nSEARCH\t\t\tSEARCH IN A COLLECTION A SPECIFIC ATTRIBUTE' \
+           '\nIMP\t\t\tIMPORT SOMETHING' \
+           '\nRUN\t\t\tRUN AN IMPORTED COMMAND. TYPE "HELP RUN" TO SEE LIST OF IMPORTED COMMANDS. ' \
 
 help_cmd = {
     'open': '\nOPEN LIB\t\tOPENS A LIBRARY INSTANCE',
