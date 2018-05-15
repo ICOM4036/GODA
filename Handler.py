@@ -308,7 +308,7 @@ class Handler:
                 data_to_search = False
             else:
                 data_to_search = None
-        elif data_to_search is str:
+        elif type is str:
             pass
         else:
             data_to_search = None
