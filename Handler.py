@@ -2,7 +2,7 @@ import os, csv
 from ADT.ObjectType import ObjectType
 from ADT.Collection import Collection
 from ADT.Library import Library
-import InputManager, OutputManager, InputManager2, OutputManager2
+import InputManager, OutputManager, InputManager2, OutputManager2, ImpCmd
 from Comparators.NumberComparator import NumberComparator
 from Comparators.LetterComparator import LetterComparator
 from Comparators.BooleanComparator import BooleanComparator
@@ -152,6 +152,74 @@ class Handler:
         OutputManager2.add_object_to_collection("{}/{}/Collections/{}.csv".format(self.dir_path, library_name, collection_name), arr)
 
 
+    def imp_lib(self, filename):
+        """
+        Import an external library to the default directory
+        :param filename: str - path of the library directory
+        :return:
+        """
+        library_name = os.path.basename(filename)
+        e = InputManager.import_library(filename, library_name)
+        OutputManager2.create_library(self.dir_path, library_name)
+        return e
+
+
+    def imp_col(self, file_path, library_name):
+        try:
+            lib = self.libraries[library_name]
+        except Exception:
+            return LibraryNotOpenedError(library_name)
+
+        try:
+            filereader = open(file_path, 'r')
+        except Exception:
+            return FileNotFoundError(file_path)
+
+        file = filereader.read().split("\n")
+        # Path of file with data
+        col_path = file[0]
+        # Name of collection
+        col_name = file[1]
+        # Name of object
+        obj_name = file[2]
+        # Object attributes
+        obj_attr = file[3]
+
+        # Convert the object attributes to a string
+        att = obj_attr.split(",")
+        att_dict = {}
+        for a in att:
+            split = a.split(":")
+            att_dict[split[0]] = split[1]
+
+        obj = ObjectType(obj_name, att_dict)
+        data_types = obj.get_obj_data_types()
+        try:
+            col = InputManager.import_collection(col_path, Collection(col_name, obj), data_types)
+        except Exception:
+            return FileNotFoundError(col_path)
+
+        lib.add_collection(col)
+        OutputManager2.create_collection(self.dir_path, library_name, col)
+
+
+    def imp_command(self, command_name, pyfile):
+        e = InputManager.imp_cmd(command_name, pyfile)
+        return e
+
+
+    def run_command(self, command_name, library_name):
+        try:
+            lib = self.libraries[library_name]
+        except Exception:
+            return LibraryNotOpenedError(library_name)
+
+        try:
+            ImpCmd.run_cmd(command_name, lib)
+        except Exception:
+            CommandNotFoundError(command_name)
+
+
     def remove_library(self, library_name):
         """
         Deletes a library
@@ -209,6 +277,40 @@ class Handler:
         OutputManager2.delete_collection(self.dir_path + "/" + library_name, library_name, collection_name)
         OutputManager2.create_collection(self.dir_path, library_name, col)
 
+
+    def export_library(self, library_name, filepath):
+        """
+        Export existing library to a given path
+        :param library_name: str - library name
+        :param filepath: srt - path of file to export to
+        :return:
+        """
+        try:
+            lib = self.libraries[library_name]
+        except Exception:
+            return LibraryNotOpenedError(library_name)
+        OutputManager.export_library(lib, filepath)
+
+
+    def export_collection(self, library_name, collection_name, filepath):
+        """
+        Export an existing collection to a given path
+        :param library_name: str - library name
+        :param collection_name: str - collection name
+        :param filepath: srt - path of file to export to
+        :return:
+        """
+        try:
+            lib = self.libraries[library_name]
+        except Exception:
+            return LibraryNotOpenedError(library_name)
+        col = lib.get_collection(collection_name)
+        # Collection does not exist
+        if isinstance(col, Error):
+            return col
+        OutputManager.export_collection(col, filepath)
+
+
     def sort(self, library_name, collection_name, attribute_name):
         """
         Sorts a collection
@@ -262,8 +364,6 @@ class Handler:
         col = temp_collection
         del temp_collection
         col.display_col()
-        #OutputManager.export_collection(col)
-
 
 
     def search_in_collection(self, library_name, collection_name, attribute_name, data_to_search):
@@ -324,11 +424,6 @@ class Handler:
             temp_collection.add_obj(o.get_values())
         temp_collection.display_col()
         del temp_collection
-
-
-    def search_in_library(self):
-        # What does this do?
-        pass
 
 
     def show_all_libraries(self):
@@ -498,9 +593,3 @@ class Handler:
         obj = col.get_obj_def()
         obj_attributes = obj.get_obj_attributes()
         return obj_attributes
-
-    def edit_collection(self, collection_name):
-        pass
-
-    def edit_library(self, library_name):
-        pass
