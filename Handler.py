@@ -210,7 +210,12 @@ class Handler:
 
     def run_command(self, command_name, library_name):
         try:
-            ImpCmd.run_cmd(command_name, library_name)
+            lib = self.libraries[library_name]
+        except Exception:
+            return LibraryNotOpenedError(library_name)
+
+        try:
+            ImpCmd.run_cmd(command_name, lib)
         except Exception:
             CommandNotFoundError(command_name)
 
@@ -271,6 +276,40 @@ class Handler:
         col.remove_obj(index)
         OutputManager2.delete_collection(self.dir_path + "/" + library_name, library_name, collection_name)
         OutputManager2.create_collection(self.dir_path, library_name, col)
+
+
+    def export_library(self, library_name, filepath):
+        """
+        Export existing library to a given path
+        :param library_name: str - library name
+        :param filepath: srt - path of file to export to
+        :return:
+        """
+        try:
+            lib = self.libraries[library_name]
+        except Exception:
+            return LibraryNotOpenedError(library_name)
+        OutputManager.export_library(lib, filepath)
+
+
+    def export_collection(self, library_name, collection_name, filepath):
+        """
+        Export an existing collection to a given path
+        :param library_name: str - library name
+        :param collection_name: str - collection name
+        :param filepath: srt - path of file to export to
+        :return:
+        """
+        try:
+            lib = self.libraries[library_name]
+        except Exception:
+            return LibraryNotOpenedError(library_name)
+        col = lib.get_collection(collection_name)
+        # Collection does not exist
+        if isinstance(col, Error):
+            return col
+        OutputManager.export_collection(col, filepath)
+
 
     def sort(self, library_name, collection_name, attribute_name):
         """
