@@ -165,6 +165,7 @@ def t_CMD(t):
     t.type = reserved.get(t.value)
     return t
 
+
 def t_RUN(t):
     r'\b run \b'
     t.type = reserved.get(t.value)
@@ -172,7 +173,7 @@ def t_RUN(t):
 
 
 def t_INFO(t):
-    r'\b [a-zA-Z0-9.\/]* \b'
+    r'\b [a-zA-Z0-9.//\\]* \b'
     t.type = "INFO"
     return t
 
