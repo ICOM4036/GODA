@@ -179,7 +179,7 @@ def t_INFO(t):
 
 
 def t_newline(t):
-    r'\n+'
+    r'\n'
     t.lexer.lineno += t.value.count("\n")
 
 
