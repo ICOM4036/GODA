@@ -1,14 +1,14 @@
 """
     DEFAULT TEXT MESSAGES TO BE DISPLAYED SHALL BE DEFINED HERE TO AVOID TEXT CLUTTERING
 """
-ver = '\tG.O.D.A' \
-      '\nGENERIC OBJECTIVE DATA ADMINISTRATOR' \
-      '\n------------------------------------' \
-      '\nVERSION\t\t\t#.##' \
-      '\nRELEASE DATE\t\t05-15-2018' \
-      '\nWEBSITE\t\t\thttps://github.com/ICOM4036/GODA'
 
-help_txt = 'FOR MORE INFORMATION ON A COMMAND TYPE "HELP [CMD]"\n' \
+help_txt = '\t\t\t\tG.O.D.A' \
+           '\n\t\t\t\GENERIC OBJECTIVE DATA ADMINISTRATOR' \
+           '\n\t\t\t------------------------------------' \
+           '\n\t\t\tVERSION\t\t\t\t#.##' \
+           '\n\t\t\tRELEASE DATE\t\t05-15-2018' \
+           '\n\t\t\tWEBSITE\t\t\thttps://github.com/ICOM4036/GODA'\
+           '\n\nFOR MORE INFORMATION ON A COMMAND TYPE "HELP [CMD]"\n' \
            '\nQUIT\t\t\tEXIT THE PROGRAM OR CLOSE AN ACTIVE LIBRARY' \
            '\nOPEN\t\t\tOPEN AN EXISTING LIBRARY' \
            '\nCRT\t\t\t\tCREATE LIBRARY, COLLECTION, INSTANCE OF AN OBJECT, OR OBJECT DEFINITION' \
