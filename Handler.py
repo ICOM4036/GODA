@@ -300,7 +300,7 @@ class Handler:
         OutputManager2.create_collection(self.dir_path, library_name, col)
 
 
-    def export_library(self, library_name, filepath):
+    def export_library(self, library_name):
         """
         Export existing library to a given path
         :param library_name: str - library name
