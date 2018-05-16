@@ -17,7 +17,8 @@ help_txt = 'FOR MORE INFORMATION ON A COMMAND TYPE "HELP [CMD]"\n' \
            '\nSORT\t\t\tSORT A COLLECTION BY A SPECIFIC ATTRIBUTE' \
            '\nMERGE\t\t\tMERGE TWO COLLECTIONS INTO ONE' \
            '\nSEARCH\t\t\tSEARCH IN A COLLECTION A SPECIFIC ATTRIBUTE' \
-           '\nIMP\t\t\tIMPORT SOMETHING' \
+           '\nIMP\t\t\tEXPORT LIBRARY, COLLECTION OR COMMAND' \
+           '\nEXP\t\t\tEXPORT COLLECTION OR LIBRARY' \
            '\nRUN\t\t\tRUN AN IMPORTED COMMAND. TYPE "HELP RUN" TO SEE LIST OF IMPORTED COMMANDS. ' \
 
 help_cmd = {
@@ -42,6 +43,9 @@ help_cmd = {
     'imp': '\nIMP LIB\t\tIMPORT A LIBRARY'
            '\nIMP COL\t\tIMPORT A COLLECTION'
            '\nIMP CMD\t\tIMPORT A COMMAND',
+
+    'exp': '\nEXP LIB\t\tEXPORT A LIBRARY'
+           '\nEXP COL\t\tEXPORT A COLLECTION',
 
     'sort': '\nSORT\t\tSORT A COLLECTION BY A SPECIFIC ATTRIBUTE',
 

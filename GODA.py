@@ -101,17 +101,11 @@ def export(ds):
     msg = " "
     e = " "
     if ds == "lib":
-        print("Please enter the path to export to: ")
-        name = par.parser.parse(input(">>>"))
-        if name is not None and 'info' in name:
-            path = os.path.abspath(name['info'])
-            print("Please enter the name of the Library to export: ")
-            lib = par.parser.parse(input(">>>"))
-            if path is not None and lib is not None and 'info' in lib:
-                msg = "Exporting Library into file with name: %s", path
-                e = handler.export_library(lib['info'],path)
-            else:
-                msg = "Not a valid operation!!"
+        print("Please enter the name of the Library to export: ")
+        lib = par.parser.parse(input(">>>"))
+        if lib is not None and 'info' in lib:
+            msg = "Exporting Library %s into Desktop", lib['info']
+            e = handler.export_library(lib['info'])
         else:
             msg = "Not a valid operation!!"
     elif ds == "col":
@@ -119,15 +113,9 @@ def export(ds):
         lib = par.parser.parse(input(">>>"))
         print("Please enter the name of the Collection to export: ")
         coll = par.parser.parse(input(">>>"))
-        print("Please enter the path to export to: ")
-        name = par.parser.parse(input(">>>"))
-        if name is not None and 'info' in name:
-            file = os.path.abspath(name['info'])
-            if file is not None and lib is not None and coll is not None and 'info' in lib and 'info' in coll:
-                msg = "Exporting Collection with name: '{0}' into path: '{1}' ".format(coll['info'],file)
-                e = handler.export_colllection(lib['info'],coll['info'],file)
-            else:
-                msg = "Not a valid operation!!"
+        if lib is not None and coll is not None and 'info' in lib and 'info' in coll:
+            msg = "Exporting Collection with name: '{0}' from Library: '{1}' ".format(coll['info'],lib['info'])
+            e = handler.export_colllection(lib['info'],coll['info'])
         else:
             msg = "Not a valid operation!!!"
     else:
