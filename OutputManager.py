@@ -124,6 +124,17 @@ def save_library(library):
     export_library(library, directory)
 
 
+def exp_lib_aux(lib):
+    """
+    EXPORT A LIBRARY TO DESKTOP
+    :param library: LIBRARY - LIBRARY TO BE EXPORTED
+    :return: VOID
+    """
+    userpath = os.path.expanduser('~')
+    path = userpath+'/Desktop'
+    export_library(lib, path)
+
+
 def export_library(library, directory):
     """
     EXPORT A LIBRARY TO A SPECIFIED DIRECTORY
@@ -153,6 +164,17 @@ def export_library(library, directory):
         f.close()
         export_collection(c, directory+'/Collections')
     cl.close()
+
+
+def exp_col_aux(col):
+    """
+    EXPORT A COLLECTION IN PROJECT FILES
+    :param library: LIBRARY - COLLECTION TO BE EXPORTED
+    :return: VOID
+    """
+    userpath = os.path.expanduser('~')
+    path = userpath+'/Desktop'
+    export_collection(col, path)
 
 
 def export_collection(collection, directory):

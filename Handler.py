@@ -300,7 +300,7 @@ class Handler:
         OutputManager2.create_collection(self.dir_path, library_name, col)
 
 
-    def export_library(self, library_name, filepath):
+    def export_library(self, library_name):
         """
         Export existing library to a given path
         :param library_name: str - library name
@@ -311,10 +311,10 @@ class Handler:
             lib = self.libraries[library_name]
         except Exception:
             return LibraryNotOpenedError(library_name)
-        OutputManager.export_library(lib, filepath)
+        OutputManager.exp_lib_aux(lib)
 
 
-    def export_collection(self, library_name, collection_name, filepath):
+    def export_collection(self, library_name, collection_name):
         """
         Export an existing collection to a given path
         :param library_name: str - library name
@@ -330,7 +330,7 @@ class Handler:
         # Collection does not exist
         if isinstance(col, Error):
             return col
-        OutputManager.export_collection(col, filepath)
+        OutputManager.exp_col_aux(col)
 
 
     def sort(self, library_name, collection_name, attribute_name):
