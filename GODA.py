@@ -376,9 +376,10 @@ if __name__ == '__main__':
 
 user_input = {}
 
-print("\t\tWELCOME TO GODA     \n")
-print('GENERIC OBJECTIVE DATA ADMINISTRATOR\n')
-print("\t   HOPE YOU ENJOY IT!!   \n")
+print("\t\t\t\tWELCOME TO GODA     \n")
+print('\t\tGENERIC OBJECTIVE DATA ADMINISTRATOR\n')
+print('\t\t------------------------------------\n')
+print("\t\t\t WE HOPE YOU ENJOY IT!!   \n")
 
 while True:
     print("Please enter desired command:")
