@@ -124,6 +124,17 @@ def save_library(library):
     export_library(library, directory)
 
 
+def exp_lib_aux(library):
+    """
+    SAVE A LIBRARY IN PROJECT FILES
+    :param library: LIBRARY - LIBRARY TO BE SAVED
+    :return: VOID
+    """
+    userpath = os.path.expanduser('~')
+    path = userpath+'/Desktop'
+    export_library(library, path)
+
+
 def export_library(library, directory):
     """
     EXPORT A LIBRARY TO A SPECIFIED DIRECTORY

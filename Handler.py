@@ -311,7 +311,7 @@ class Handler:
             lib = self.libraries[library_name]
         except Exception:
             return LibraryNotOpenedError(library_name)
-        OutputManager.export_library(lib, filepath)
+        OutputManager.exp_lib_aux(lib)
 
 
     def export_collection(self, library_name, collection_name, filepath):
