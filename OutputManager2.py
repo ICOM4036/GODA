@@ -12,6 +12,7 @@ def create_library(dir_path, library_name):
 
     # Create a CollectionsList text file
     txtfile = open('{}/{}.txt'.format(library_path, library_name), 'w')
+    txtfile.write(library_name)
     txtfile.close()
 
     # Create a subdirectory to contain all collections

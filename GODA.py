@@ -3,6 +3,7 @@ from Handler import Handler
 import textpool
 from Exceptions import *
 import os
+import time
 
 handler = Handler()
 
@@ -376,6 +377,8 @@ if __name__ == '__main__':
 
 user_input = {}
 
+os.system('cls')
+os.system('color a')
 print("\t\t\t\tWELCOME TO GODA     \n")
 print('\t\tGENERIC OBJECTIVE DATA ADMINISTRATOR\n')
 print('\t\t------------------------------------\n')
@@ -394,7 +397,11 @@ while True:
                 simple_help()
         elif user_input['command'] == "quit":
             if len(user_input) == 1:
-                quit("\t\t\t\tQUITTING GODA \n\n \t\t\t\tGOODBYE!!! \n\n \t\t\t\tCOME AGAIN!!!")
+                print("\tQuitting Goda \n \tGoodbye!!!")
+                time.sleep(3)
+                os.system('color f')
+                os.system('cls')
+                quit()
             else:
                 quit_lib(user_input['ds'])
         elif user_input['command'] == "show":

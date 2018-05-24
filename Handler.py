@@ -160,12 +160,15 @@ class Handler:
         :param filename: str - path of the library directory
         :return:
         """
-        library_name = os.path.basename(filename)
-        # e = InputManager.import_library(filename, library_name)
-        e = InputManager.imp_new_library(filename)
-        OutputManager2.create_library(self.dir_path, library_name)
-        OutputManager.save_library(e)
-        return e
+        try:
+            library_name = os.path.basename(filename)
+            # e = InputManager.import_library(filename, library_name)
+            e = InputManager.imp_new_library(filename)
+            OutputManager2.create_library(self.dir_path, library_name)
+            OutputManager.save_library(e)
+            return e
+        except Exception:
+            return FileNotFoundError(filename)
 
 
     def imp_col(self, file_path, library_name):
