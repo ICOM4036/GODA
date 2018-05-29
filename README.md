@@ -6,7 +6,7 @@ Managing databases can often be tedious. GODA is a command line proposed to ease
 
 ###Features
 
-help - will display a list of all commands available to be used.
+help - will display a list of all commands available to be used.\n
 
 help [command] - will display specific description about [command].
 
