@@ -2,7 +2,9 @@
 
 GODA is a programming language that allows the user to manipulate and administer data. Users can create collections of user-defined objects and keep them in libraries. Users can create, import, and export their own libraries and collections. Users may also import their own custom made commands and apply them to selected libraries.
 
-Watch a short [video](https://www.youtube.com/watch?v=dzbKYmk1koE) to see what you can do.
+<div align="center">
+  <iframe width="560" height="315" src="https://www.youtube.com/watch?v=dzbKYmk1koE" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+</div>
 
 # Overview
 
