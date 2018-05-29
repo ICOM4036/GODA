@@ -385,8 +385,8 @@ print('\t\t------------------------------------\n')
 print("\t\t\t WE HOPE YOU ENJOY IT!!   \n")
 
 while True:
-    print("\t\t\tPlease enter desired command:\n")
-    user_input = par.parser.parse(input("\t\t\t>>>"))
+    print("Please enter desired command:\n")
+    user_input = par.parser.parse(input(">>>"))
 
     if user_input is not None and 'info' not in user_input:
 

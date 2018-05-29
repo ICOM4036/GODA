@@ -8,7 +8,8 @@ help_txt = '\t\t\t\tG.O.D.A' \
            '\n\t------------------------------------' \
            '\n\tVERSION\t\t\t\t1.0' \
            '\n\tRELEASE DATE\t\t05-15-2018' \
-           '\n\tWEBSITE\t\t\t\thttps://github.com/ICOM4036/GODA'\
+           '\n\tWEBSITE\t\t\t\thttps://icom4036.github.io/GODA' \
+           '\n\tREPOSITORY\t\t\thttps://github.com/ICOM4036/GODA'\
            '\n\t------------------------------------' \
            '\n\nFOR MORE INFORMATION ON A COMMAND TYPE "HELP [CMD]"\n' \
            '\nQUIT\t\t\tEXIT THE PROGRAM OR CLOSE AN ACTIVE LIBRARY' \
