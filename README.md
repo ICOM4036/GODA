@@ -7,14 +7,28 @@ Managing databases can often be tedious. GODA is a command line proposed to ease
 ###Features
 
 help - will display a list of all commands available to be used.
+
 help [command] - will display specific description about [command].
+
 open - will open an existing library.
+
 crt - create a new library, collection, object type, or object instance.
+
 show - display a library, a collection, or a list of all existing libraries.
+
 rm - remove a library, collection, or object instance.
+
 sort - sort a collection by a specific attribute.
+
 merge - merge two collections to create a new collection.
+
 search - search for all object instances with a specific attribute.
+
 imp - import a library, collection, or command.
+
 exp - export a library or collection to Desktop.
+
 run - run an imported command.
+
+
+
