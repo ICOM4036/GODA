@@ -35,10 +35,10 @@ Managing databases can often be tedious. GODA (Generic Objective Data Administra
 
 1. GODA uses a lexical analyzer to read user input and a parser to carry out the instructions.
 2. GODA.py is the main module which contains the lexical analyzer and the parser.
-3. The parser directly communicates with Handler.py which connectes all other modules and ADTs.
+3. The parser directly communicates with Handler.py which connects all other modules and ADTs.
 4. We used PLY: Python Lexical Yacc
 
 
-### Documentation
+## Documentation
 
-Learn more about GODA and see a reference manual [here](https://drive.google.com/file/d/1ZtkemYuCiujQxlnPhb1pGyt5FayfUukk/view)
+Learn more about GODA and see a reference manual [here](https://drive.google.com/file/d/1IAyTYBY_b4vJclxiUOwKAiu1r26u7-J0/view)
