@@ -4,9 +4,8 @@ GODA is a programming language that allows the user to manipulate and administer
 
 <html>
 <body>
-<object width="420" height="315"
-data="https://www.youtube.com/watch?v=dzbKYmk1koE">
-</object>
+<iframe width="420" height="345" src="https://www.youtube.com/embed/tgbNymZ7vqY">
+</iframe>
 </body>
 </html>
 
